@@ -8,19 +8,19 @@ namespace projektiKomponentGITHUB.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult HomePage()
         {
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult AboutPage()
         {
             ViewBag.Message = "Your application description page.";
 
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult ContactPage()
         {
             ViewBag.Message = "Your contact page.";
 
