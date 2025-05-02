@@ -1,7 +1,56 @@
-﻿
-@{
-    ViewBag.Title = "HomePage";
+﻿@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>HomePage</h2>
+<div class="container mt-5">
+    <div class="jumbotron text-center bg-light p-5 rounded">
+        <h1 class="display-4">Welcome to Our Hotel Booking Platform</h1>
+        <p class="lead">Find and book your perfect stay with ease and comfort.</p>
+        <hr class="my-4" />
+        <p>Explore top-rated hotels and enjoy your travel!</p>
+        <a class="btn btn-primary btn-lg" href="@Url.Action("HotelList", "Hotel")" role="button">Browse All Hotels</a>
+    </div>
 
+    <!-- View Our Hotels Section -->
+    <section class="mt-5">
+        <h2 class="mb-4 text-center">View Our Hotels</h2>
+
+        <div class="row">
+            <!-- Example Hotel Card -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow">
+                    <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Hotel Image">
+                    <div class="card-body">
+                        <h5 class="card-title">Grand Palace Hotel</h5>
+                        <p class="card-text">Located in the heart of the city. Luxury rooms starting from $120/night.</p>
+                        <a href="#" class="btn btn-outline-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Duplicate/Copy this block for more hotels -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow">
+                    <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Hotel Image">
+                    <div class="card-body">
+                        <h5 class="card-title">Ocean Breeze Resort</h5>
+                        <p class="card-text">A relaxing getaway near the beach. Rooms from $150/night.</p>
+                        <a href="#" class="btn btn-outline-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow">
+                    <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Hotel Image">
+                    <div class="card-body">
+                        <h5 class="card-title">Mountain Retreat</h5>
+                        <p class="card-text">Peaceful and scenic location. Starting from $100/night.</p>
+                        <a href="#" class="btn btn-outline-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
