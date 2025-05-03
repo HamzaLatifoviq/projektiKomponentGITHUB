@@ -7,10 +7,32 @@
     <h2 class="mb-4">Kërko dhe filtro hotelet</h2>
 
     <!-- Forma e kërkimit -->
+    <!-- Forma e kërkimit -->
     <form method="get" action="#" class="row g-3 mb-5">
+        <!-- Qyteti -->
         <div class="col-md-3">
-            <input type="text" class="form-control" name="qyteti" placeholder="Qyteti" />
+            <select class="form-control" name="qyteti">
+                <option value="">Zgjedh Qytetin</option>
+                <option value="Prishtinë">Prishtinë</option>
+                <option value="Durrës">Durrës</option>
+                <option value="Tetovë">Tetovë</option>
+                <option value="Tiranë">Tiranë</option>
+                <option value="Shkodër">Shkodër</option>
+            </select>
         </div>
+
+        <!-- Lloji i hotelit -->
+        <div class="col-md-2">
+            <select class="form-control" name="lloji">
+                <option value="">Lloji i Hotelit</option>
+                <option value="Resort">Resort</option>
+                <option value="Motel">Motel</option>
+                <option value="Villa">Villa</option>
+                <option value="Business">Business Hotel</option>
+            </select>
+        </div>
+
+        <!-- Yjet -->
         <div class="col-md-2">
             <select class="form-control" name="yje">
                 <option value="">Yje</option>
@@ -21,57 +43,30 @@
                 <option value="5">5 yje</option>
             </select>
         </div>
+
+        <!-- Check-in -->
         <div class="col-md-2">
-            <input type="number" class="form-control" name="minCmimi" placeholder="Min €" />
+            <input type="date" class="form-control" name="checkin" />
         </div>
+
+        <!-- Check-out -->
         <div class="col-md-2">
-            <input type="number" class="form-control" name="maxCmimi" placeholder="Max €" />
+            <input type="date" class="form-control" name="checkout" />
         </div>
-        <div class="col-md-3">
+
+        <!-- Kapaciteti -->
+        <div class="col-md-2">
+            <select class="form-control" name="kapaciteti">
+                <option value="">Personat</option>
+                <option value="1">1 person</option>
+                <option value="2">2 persona</option>
+                <option value="3">3 persona</option>
+                <option value="4">4+</option>
+            </select>
+        </div>
+
+        <!-- Kërko -->
+        <div class="col-md-2">
             <button type="submit" class="btn btn-primary w-100">Kërko</button>
         </div>
     </form>
-
-    <!-- Lista e hoteleve -->
-    <div class="row">
-        <!-- Hotel 1 -->
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm">
-                <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Hotel Image" />
-                <div class="card-body">
-                    <h5 class="card-title">Grand Palace Hotel</h5>
-                    <p class="card-text">Qyteti: Prishtinë | 5 yje</p>
-                    <p class="text-muted">Çmimi: €120/natë</p>
-                    <a href="#" class="btn btn-outline-primary">Shiko Detaje</a>
-
-                </div>
-            </div>
-        </div>
-
-        <!-- Hotel 2 -->
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm">
-                <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Hotel Image" />
-                <div class="card-body">
-                    <h5 class="card-title">Ocean Breeze Resort</h5>
-                    <p class="card-text">Qyteti: Durrës | 4 yje</p>
-                    <p class="text-muted">Çmimi: €150/natë</p>
-                    <a href="#" class="btn btn-outline-primary">Shiko Detaje</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Hotel 3 -->
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm">
-                <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Hotel Image" />
-                <div class="card-body">
-                    <h5 class="card-title">Mountain Retreat</h5>
-                    <p class="card-text">Qyteti: Tetovë | 3 yje</p>
-                    <p class="text-muted">Çmimi: €90/natë</p>
-                    <a href="#" class="btn btn-outline-primary">Shiko Detaje</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
