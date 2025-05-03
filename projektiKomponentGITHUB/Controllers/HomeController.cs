@@ -20,6 +20,7 @@ namespace projektiKomponentGITHUB.Controllers
             return View();
         }
 
+
         public ActionResult ContactPage()
         {
             ViewBag.Message = "Your contact page.";

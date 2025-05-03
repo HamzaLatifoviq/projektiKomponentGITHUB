@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "Lista e Hoteleve";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Kërko dhe filtro hotelet</h2>
+
+    <!-- Forma e kërkimit -->
+    <!-- Forma e kërkimit -->
+    <form method="get" action="#" class="row g-3 mb-5">
+        <!-- Qyteti -->
+        <div class="col-md-3">
+            <select class="form-control" name="qyteti">
+                <option value="">Zgjedh Qytetin</option>
+                <option value="Prishtinë">Prishtinë</option>
+                <option value="Durrës">Durrës</option>
+                <option value="Tetovë">Tetovë</option>
+                <option value="Tiranë">Tiranë</option>
+                <option value="Shkodër">Shkodër</option>
+            </select>
+        </div>
+
+        <!-- Lloji i hotelit -->
+        <div class="col-md-2">
+            <select class="form-control" name="lloji">
+                <option value="">Lloji i Hotelit</option>
+                <option value="Resort">Resort</option>
+                <option value="Motel">Motel</option>
+                <option value="Villa">Villa</option>
+                <option value="Business">Business Hotel</option>
+            </select>
+        </div>
+
+        <!-- Yjet -->
+        <div class="col-md-2">
+            <select class="form-control" name="yje">
+                <option value="">Yje</option>
+                <option value="1">1 yll</option>
+                <option value="2">2 yje</option>
+                <option value="3">3 yje</option>
+                <option value="4">4 yje</option>
+                <option value="5">5 yje</option>
+            </select>
+        </div>
+
+        <!-- Check-in -->
+        <div class="col-md-2">
+            <input type="date" class="form-control" name="checkin" />
+        </div>
+
+        <!-- Check-out -->
+        <div class="col-md-2">
+            <input type="date" class="form-control" name="checkout" />
+        </div>
+
+        <!-- Kapaciteti -->
+        <div class="col-md-2">
+            <select class="form-control" name="kapaciteti">
+                <option value="">Personat</option>
+                <option value="1">1 person</option>
+                <option value="2">2 persona</option>
+                <option value="3">3 persona</option>
+                <option value="4">4+</option>
+            </select>
+        </div>
+
+        <!-- Kërko -->
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">Kërko</button>
+        </div>
+    </form>

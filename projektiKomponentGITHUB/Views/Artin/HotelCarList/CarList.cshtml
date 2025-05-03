@@ -1,0 +1,106 @@
+﻿@{
+    ViewBag.Title = "Lista e Makinave";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Kërko dhe filtro makinat</h2>
+
+    <form method="get" action="#" class="row g-3 mb-5">
+        <form method="get" action="#" class="row g-3 mb-5">
+            <!-- Lokacioni -->
+            <div class="col-md-3">
+                <label for="lokacioni" class="form-label">Lokacioni</label>
+                <select class="form-control" name="lokacioni" id="lokacioni">
+                    <option value="">Zgjedh Lokacionin</option>
+                    <option value="Prishtinë">Prishtinë</option>
+                    <option value="Durrës">Durrës</option>
+                    <option value="Tetovë">Tetovë</option>
+                    <option value="Tiranë">Tiranë</option>
+                    <option value="Shkup">Shkup</option>
+                </select>
+            </div>
+
+            <!-- Pick-up Date -->
+            <div class="col-md-2">
+                <label for="pickupDate" class="form-label">Pick-up Date</label>
+                <input type="date" class="form-control" name="pickupDate" id="pickupDate" />
+            </div>
+
+            <!-- Pick-up Time -->
+            <div class="col-md-2">
+                <label for="pickupTime" class="form-label">Pick-up Time</label>
+                <input type="time" class="form-control" name="pickupTime" id="pickupTime" />
+            </div>
+
+            <!-- Drop-off Date -->
+            <div class="col-md-2">
+                <label for="dropoffDate" class="form-label">Drop-off Date</label>
+                <input type="date" class="form-control" name="dropoffDate" id="dropoffDate" />
+            </div>
+
+            <!-- Drop-off Time -->
+            <div class="col-md-2">
+                <label for="dropoffTime" class="form-label">Drop-off Time</label>
+                <input type="time" class="form-control" name="dropoffTime" id="dropoffTime" />
+            </div>
+
+            <!-- Lloji i makines -->
+            <div class="col-md-2">
+                <label for="llojiMakines" class="form-label">Lloji i Makinës</label>
+                <select class="form-control" name="llojiMakines" id="llojiMakines">
+                    <option value="">Zgjedh Llojin</option>
+                    <option value="Sedan">Sedan</option>
+                    <option value="SUV">SUV</option>
+                    <option value="Hatchback">Hatchback</option>
+                    <option value="Minivan">Minivan</option>
+                    <option value="Sport">Sport</option>
+                </select>
+            </div>
+
+            <!-- Kërko -->
+            <div class="col-md-2 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary w-100">Kërko</button>
+            </div>
+        </form>
+        <h4 class="mt-5 mb-4">Makina të rekomanduara</h4>
+        <div class="row">
+            <!-- Makina 1 -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Makina 1" />
+                    <div class="card-body">
+                        <h5 class="card-title">BMW 5 Series</h5>
+                        <p class="card-text">Lloji: Sedan</p>
+                        <p class="text-muted">Çmimi: €60/ditë</p>
+                        <a href="#" class="btn btn-outline-primary">Shiko Detaje</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Makina 2 -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Makina 2" />
+                    <div class="card-body">
+                        <h5 class="card-title">Audi Q5</h5>
+                        <p class="card-text">Lloji: SUV</p>
+                        <p class="text-muted">Çmimi: €75/ditë</p>
+                        <a href="#" class="btn btn-outline-primary">Shiko Detaje</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Makina 3 -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Makina 3" />
+                    <div class="card-body">
+                        <h5 class="card-title">Volkswagen Golf</h5>
+                        <p class="card-text">Lloji: Hatchback</p>
+                        <p class="text-muted">Çmimi: €45/ditë</p>
+                        <a href="#" class="btn btn-outline-primary">Shiko Detaje</a>
+                    </div>
+                </div>
+            </div>
+        </div>
