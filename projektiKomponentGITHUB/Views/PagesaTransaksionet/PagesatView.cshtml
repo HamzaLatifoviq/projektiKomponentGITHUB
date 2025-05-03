@@ -3,88 +3,167 @@
     ViewBag.Title = "PagesatView";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
     body {
-        font-family: 'Poppins', sans-serif;
-        background-color: #f8f9fa;
+        font-family: 'Inter', sans-serif;
+        background-color: #f7f7f7;
+        padding: 0;
+        margin: 0;
     }
 
-    .payment-form {
-        max-width: 800px;
-        margin: auto;
+    .booking-style-form {
+        max-width: 760px;
+        margin: 50px auto;
         background: #ffffff;
-        padding: 30px;
-        border-radius: 16px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
+
+        .booking-style-form h2 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 30px;
+            text-align: center;
+        }
 
     .form-label {
         font-weight: 500;
+        color: #333;
+        margin-bottom: 10px;
     }
 
     .form-control, .form-select {
-        border-radius: 10px;
+        border: 1px solid #e1e1e1;
+        border-radius: 8px;
+        padding: 14px;
+        font-size: 16px;
+        transition: border 0.3s ease-in-out;
     }
 
-    .btn-primary {
-        background-color: #4a69bd;
-        border: none;
-        padding: 12px 30px;
-        font-weight: 600;
-        border-radius: 10px;
-        transition: 0.3s ease-in-out;
-    }
-
-        .btn-primary:hover {
-            background-color: #3b56a3;
+        .form-control:focus, .form-select:focus {
+            border-color: #0071c2;
+            box-shadow: none;
         }
 
-    h2 {
+    .btn-booking {
+        background-color: #0071c2;
+        color: white;
         font-weight: 600;
-        color: #333;
+        border: none;
+        padding: 16px 32px;
+        font-size: 16px;
+        border-radius: 8px;
+        margin-top: 30px;
+        width: 100%;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
     }
+
+        .btn-booking:hover {
+            background-color: #005b9f;
+        }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    .col-md-6 {
+        margin-bottom: 30px;
+    }
+
+    .row .col-md-6 {
+        margin-bottom: 30px;
+    }
+
+    .text-end {
+        text-align: center;
+    }
+
+    .form-control, .form-select {
+        background-color: #fafafa;
+    }
+
+        .form-control:focus, .form-select:focus {
+            background-color: #ffffff;
+        }
+
+    /*Shtuar seksioni per metodat e pageses */
+    .payment-methods {
+        margin-top: 40px;
+        text-align: center;
+    }
+
+        .payment-methods h4 {
+            font-size: 18px;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .payment-methods img {
+            width: 80px;
+            height: auto;
+            margin: 0 15px;
+            max-width: 100%;
+        }
+
+        /* Sigurohuni qe imazhet te kenë permasat e duhura dhe te mos  deformohen */
+        .payment-methods img {
+            max-width: 120px; /* Rregullon madhesinee e logove*/
+            width: auto;
+            height: 40px; /* Siguron qe imazhet te shfaqen me nje lartesi te njejte */
+        }
 </style>
 
-<div class="payment-form mt-5 mb-5">
-    <h2 class="mb-4 text-center">Forma e Pagesës</h2>
+<div class="booking-style-form">
+    <h2>Detajet e Pagesës</h2>
 
     <form>
         <div class="row g-3">
-            <div class="col-md-6">
+            
+            <div class="col-md-6 form-group">
                 <label for="firstName" class="form-label">Emri</label>
                 <input type="text" class="form-control" id="firstName" placeholder="Ardit" required>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 form-group">
                 <label for="lastName" class="form-label">Mbiemri</label>
                 <input type="text" class="form-control" id="lastName" placeholder="Hoxha" required>
             </div>
-
-            <div class="col-md-6">
-                <label for="cardNumber" class="form-label">Numri i Kartës</label>
-                <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456" required>
+            <div class="col-md-6 form-group">
+                <label for="email" class="form-label">Email-i</label>
+                <input type="email" class="form-control" id="email" placeholder="shembull@email.com" required>
             </div>
-            <div class="col-md-3">
-                <label for="cvv" class="form-label">CVV</label>
-                <input type="text" class="form-control" id="cvv" placeholder="123" required>
-            </div>
-            <div class="col-md-3">
-                <label for="expiry" class="form-label">Data e Skadimit</label>
-                <input type="text" class="form-control" id="expiry" placeholder="MM/YY" required>
-            </div>
-
-            <div class="col-md-6">
+            <div class="col-md-6 form-group">
                 <label for="address" class="form-label">Adresa</label>
                 <input type="text" class="form-control" id="address" placeholder="Rruga e Dibrës, Tiranë" required>
             </div>
 
-            <div class="col-md-6">
-                <label for="email" class="form-label">Email-i</label>
-                <input type="email" class="form-control" id="email" placeholder="shembull@email.com" required>
+            
+            <div class="col-md-6 form-group">
+                <label for="phoneNumber" class="form-label">Numri i Telefonit</label>
+                <input type="text" class="form-control" id="phoneNumber" placeholder="+355 69 123 4567" required>
             </div>
 
-            <div class="col-md-6">
+           
+            <div class="col-md-6 form-group">
+                <label for="cardNumber" class="form-label">Numri i Kartës</label>
+                <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456" required>
+            </div>
+            <div class="col-md-6 form-group">
+                <label for="expiry" class="form-label">Data e Skadimit</label>
+                <input type="text" class="form-control" id="expiry" placeholder="MM/YY" required>
+            </div>
+            <div class="col-md-6 form-group">
+                <label for="cvv" class="form-label">CVV</label>
+                <input type="text" class="form-control" id="cvv" placeholder="123" required>
+            </div>
+
+            <div class="col-md-6 form-group">
                 <label for="paymentMethod" class="form-label">Mënyra e Pagesës</label>
                 <select class="form-select" id="paymentMethod" required>
                     <option selected disabled>Zgjidh metodën</option>
@@ -93,17 +172,30 @@
                     <option value="bank">Transfer Bankar</option>
                 </select>
             </div>
-
-            <div class="col-md-3">
+            <div class="col-md-6 form-group">
                 <label for="amount" class="form-label">Shuma (€)</label>
                 <input type="number" class="form-control" id="amount" placeholder="150.00" required>
             </div>
         </div>
 
-        <div class="text-end mt-4">
-            <button type="submit" class="btn btn-primary">
+        <div class="text-end">
+            <button type="submit" class="btn btn-booking">
                 Kryej Pagesën
             </button>
         </div>
     </form>
+
+    <!-- Seksioni per Metodat e Pageses -->
+    <div class="payment-methods">
+        <h4>We accept the following secure payment methods:</h4>
+
+
+        <img src="~/Content/ValmirFoto/Visa.jpg" alt="Visa" />
+        <img src="~/Content/ValmirFoto/Mastercard.jpg" alt="MasterCard" />
+        <img src="~/Content/ValmirFoto/Paypal.jpg" alt="Paypal" />
+
+
+
+
+    </div>
 </div>

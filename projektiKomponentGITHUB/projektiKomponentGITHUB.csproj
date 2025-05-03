@@ -190,6 +190,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\1foto\" />
     <Folder Include="Content\ArtinFoto\" />
+    <Folder Include="Content\ValmirFoto\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
