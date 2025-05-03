@@ -19,6 +19,14 @@ namespace projektiKomponentGITHUB.Controllers
 
             return View();
         }
+        public ActionResult CarList()
+        {
+            return View();
+        }
+        public ActionResult HotelList()
+        {
+            return View();
+        }
 
         public ActionResult ContactPage()
         {
