@@ -183,11 +183,11 @@
     <Content Include="Views\RegisterLogin\LoginView.cshtml" />
     <Content Include="Views\Home\HotelList.cshtml" />
     <Content Include="Views\Home\CarList.cshtml" />
+    <Content Include="Views\Home\PagesatTransaksionetView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\PagesaTransaksionet\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

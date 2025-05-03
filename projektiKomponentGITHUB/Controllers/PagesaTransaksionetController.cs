@@ -9,7 +9,7 @@ namespace projektiKomponentGITHUB.Controllers
     public class PagesaTransaksionetController : Controller
     {
         // GET: PagesaTransaksionet
-        public ActionResult Index()
+        public ActionResult PagesatTransaksionet()
         {
             return View();
         }
