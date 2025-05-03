@@ -13,7 +13,7 @@ namespace projektiKomponentGITHUB.Controllers
         {
             return View();
         }
-        public ActionResult Login()
+        public ActionResult LoginView()
         {
             return View();
         }
