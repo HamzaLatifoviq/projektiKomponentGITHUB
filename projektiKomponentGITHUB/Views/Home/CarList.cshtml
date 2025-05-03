@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "Lista e Makinave";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Kërko dhe filtro makinat</h2>
+
+    <!-- Forma e filtrimit -->
+    <form method="get" action="#" class="row g-3 mb-5">
+        <div class="col-md-3">
+            <input type="text" class="form-control" name="marka" placeholder="Marka (p.sh. BMW)" />
+        </div>
+        <div class="col-md-3">
+            <input type="text" class="form-control" name="lloji" placeholder="Lloji (SUV, Sedan...)" />
+        </div>
+        <div class="col-md-2">
+            <input type="number" class="form-control" name="minCmimi" placeholder="Min €" />
+        </div>
+        <div class="col-md-2">
+            <input type="number" class="form-control" name="maxCmimi" placeholder="Max €" />
+        </div>
+        <div class="col-md-2">
+            <input type="number" class="form-control" name="viti" placeholder="Viti" />
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary w-100">Kërko</button>
+        </div>
+    </form>
+
+    <!-- Lista e makinave -->
+    <div class="row">
+        <!-- Makina 1 -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Makina Image" />
+                <div class="card-body">
+                    <h5 class="card-title">BMW X5</h5>
+                    <p class="card-text">Lloji: SUV | Viti: 2020</p>
+                    <p class="text-muted">Çmimi: €100/ditë</p>
+                    <a href="#" class="btn btn-outline-primary">Shiko Detaje</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Makina 2 -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Makina Image" />
+                <div class="card-body">
+                    <h5 class="card-title">Mercedes C-Class</h5>
+                    <p class="card-text">Lloji: Sedan | Viti: 2019</p>
+                    <p class="text-muted">Çmimi: €90/ditë</p>
+                    <a href="#" class="btn btn-outline-primary">Shiko Detaje</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Makina 3 -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Makina Image" />
+                <div class="card-body">
+                    <h5 class="card-title">Audi A6</h5>
+                    <p class="card-text">Lloji: Sedan | Viti: 2021</p>
+                    <p class="text-muted">Çmimi: €110/ditë</p>
+                    <a href="#" class="btn btn-outline-primary">Shiko Detaje</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

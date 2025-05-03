@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "Lista e Hoteleve";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Kërko dhe filtro hotelet</h2>
+
+    <!-- Forma e kërkimit -->
+    <form method="get" action="#" class="row g-3 mb-5">
+        <div class="col-md-3">
+            <input type="text" class="form-control" name="qyteti" placeholder="Qyteti" />
+        </div>
+        <div class="col-md-2">
+            <select class="form-control" name="yje">
+                <option value="">Yje</option>
+                <option value="1">1 yll</option>
+                <option value="2">2 yje</option>
+                <option value="3">3 yje</option>
+                <option value="4">4 yje</option>
+                <option value="5">5 yje</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <input type="number" class="form-control" name="minCmimi" placeholder="Min €" />
+        </div>
+        <div class="col-md-2">
+            <input type="number" class="form-control" name="maxCmimi" placeholder="Max €" />
+        </div>
+        <div class="col-md-3">
+            <button type="submit" class="btn btn-primary w-100">Kërko</button>
+        </div>
+    </form>
+
+    <!-- Lista e hoteleve -->
+    <div class="row">
+        <!-- Hotel 1 -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Hotel Image" />
+                <div class="card-body">
+                    <h5 class="card-title">Grand Palace Hotel</h5>
+                    <p class="card-text">Qyteti: Prishtinë | 5 yje</p>
+                    <p class="text-muted">Çmimi: €120/natë</p>
+                    <a href="#" class="btn btn-outline-primary">Shiko Detaje</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hotel 2 -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Hotel Image" />
+                <div class="card-body">
+                    <h5 class="card-title">Ocean Breeze Resort</h5>
+                    <p class="card-text">Qyteti: Durrës | 4 yje</p>
+                    <p class="text-muted">Çmimi: €150/natë</p>
+                    <a href="#" class="btn btn-outline-primary">Shiko Detaje</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hotel 3 -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Hotel Image" />
+                <div class="card-body">
+                    <h5 class="card-title">Mountain Retreat</h5>
+                    <p class="card-text">Qyteti: Tetovë | 3 yje</p>
+                    <p class="text-muted">Çmimi: €90/natë</p>
+                    <a href="#" class="btn btn-outline-primary">Shiko Detaje</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
