@@ -1,14 +1,116 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Roli_Admin";
 }
 
 <div class="container mt-5">
     <h2>🛠️ Administrator Dashboard</h2>
-    <ul class="list-group mt-4">
-        <li class="list-group-item">👥 Manage Users</li>
-        <li class="list-group-item">🏨 Manage Hotels</li>
-        <li class="list-group-item">🚗 Manage Car Agencies</li>
-        <li class="list-group-item">📊 View Analytics</li>
+
+    <!-- Nav Tabs -->
+    <ul class="nav nav-tabs mt-4" id="adminTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="users-tab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab">👥 Manage Users</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="hotels-tab" data-bs-toggle="tab" data-bs-target="#hotels" type="button" role="tab">🏨 Manage Hotels</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="cars-tab" data-bs-toggle="tab" data-bs-target="#cars" type="button" role="tab">🚗 Manage Car Agencies</button>
+        </li>
     </ul>
+
+    <!-- Tab Content -->
+    <div class="tab-content p-4 border border-top-0 shadow-sm" id="adminTabsContent">
+        <!-- Users Tab -->
+        <div class="tab-pane fade show active" id="users" role="tabpanel">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4>👥 Manage Users</h4>
+                <button class="btn btn-sm btn-success">➕ Add User</button>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>hamza22</td>
+                        <td>hamza@example.com</td>
+                        <td>Client</td>
+                        <td>
+                            <button class="btn btn-sm btn-warning">Edit</button>
+                            <button class="btn btn-sm btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Hotels Tab -->
+        <div class="tab-pane fade" id="hotels" role="tabpanel">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4>🏨 Manage Hotels</h4>
+                <button class="btn btn-sm btn-success">➕ Add Hotel</button>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Hotel Name</th>
+                        <th>Location</th>
+                        <th>Manager</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Hotel California</td>
+                        <td>Tetove</td>
+                        <td>Elion B.</td>
+                        <td>
+                            <button class="btn btn-sm btn-warning">Edit</button>
+                            <button class="btn btn-sm btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Cars Tab -->
+        <div class="tab-pane fade" id="cars" role="tabpanel">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4>🚗 Manage Car Agencies</h4>
+                <button class="btn btn-sm btn-success">➕ Add Agency</button>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Agency Name</th>
+                        <th>City</th>
+                        <th>Contact Person</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>AutoDrive Rent</td>
+                        <td>Tetove</td>
+                        <td>Ardit K.</td>
+                        <td>
+                            <button class="btn btn-sm btn-warning">Edit</button>
+                            <button class="btn btn-sm btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

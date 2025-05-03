@@ -191,6 +191,8 @@
     <Content Include="Views\Rolet\Roli_HotelManager.cshtml" />
     <Content Include="Views\Rolet\Roli_VeturManager.cshtml" />
     <Content Include="Views\Rolet\Roli_Test.cshtml" />
+    <Content Include="Views\Rolet\ShikoBookingView.cshtml" />
+    <Content Include="Views\Rolet\EditProfileKlient.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -29,5 +29,13 @@ namespace projektiKomponentGITHUB.Controllers
         {
             return View();
         }
+        public ActionResult ShikoBookingView()
+        {
+            return View();
+        }
+        public ActionResult EditProfileKlient()
+        {
+            return View();
+        }
     }
 }

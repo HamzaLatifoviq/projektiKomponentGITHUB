@@ -1,14 +1,86 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Roli_Klient";
 }
 
-
 <div class="container mt-5">
     <h2>👤 Client Dashboard</h2>
-    <ul class="list-group mt-4">
-        <li class="list-group-item">🔍 Search Hotels</li>
-        <li class="list-group-item">📆 View My Bookings</li>
-        <li class="list-group-item">✏️ Edit Profile</li>
-    </ul>
+
+    <!-- Equal height row -->
+    <div class="row mt-4 d-flex align-items-stretch">
+        <!-- Left column -->
+        <div class="col-md-6">
+            <div class="d-flex flex-column h-100 gap-3">
+                <!-- Search Hotels -->
+                <div class="card p-3 shadow-sm flex-fill">
+                    <h4>🔍 Search Hotels</h4>
+                    <p>Quickly search and book available hotels.</p>
+                    <a href="@Url.Action("HotelList", "Home")" class="btn btn-primary">Go to Hotel List</a>
+                </div>
+
+                <!-- Search Cars -->
+                <div class="card p-3 shadow-sm flex-fill">
+                    <h4>🔍 Kerko Vetura</h4>
+                    <p>Kerko veturat për qira.</p>
+                    <a href="@Url.Action("CarList", "Home")" class="btn btn-primary">Shko te Veturat</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right column: Edit Profile -->
+        <div class="col-md-6">
+            <div class="card p-3 shadow-sm h-100">
+                <h4>✏️ Edit Profile</h4>
+                <form method="post" action="#">
+                    <div class="form-group mt-2">
+                        <label>Username</label>
+                        <input type="text" class="form-control" placeholder="Enter new username">
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <label>Konfirmo Password</label>
+                        <input type="password" class="form-control" placeholder="Shkruaj passwordin për verifikim account">
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <label>New Password</label>
+                        <input type="password" class="form-control" placeholder="Enter new password">
+                    </div>
+
+                    <button type="submit" class="btn btn-success mt-3">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Divider -->
+    <hr class="my-5" />
+
+    <!-- Section: My Bookings -->
+    <div class="mt-5">
+        <h4>📆 My Bookings</h4>
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Booking Type</th>
+                    <th>Details</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Hotel</td>
+                    <td>Hotel California, Tetove</td>
+                    <td>2025-05-10</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Car Rental</td>
+                    <td>VW Golf 7, 3 Days</td>
+                    <td>2025-05-12</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
