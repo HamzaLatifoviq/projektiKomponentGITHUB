@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "PagesatView";
+}
+
+<h2 class="mt-3">Kryej Pagesën</h2>
+
+<form class="mt-4">
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="fullName" class="form-label">Emri i Plotë</label>
+            <input type="text" class="form-control" id="fullName" placeholder="Shkruaj emrin tuaj">
+        </div>
+        <div class="col-md-6">
+            <label for="email" class="form-label">Email-i</label>
+            <input type="email" class="form-control" id="email" placeholder="shembull@email.com">
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="amount" class="form-label">Shuma për pagesë (€)</label>
+        <input type="number" class="form-control" id="amount" placeholder="P.sh. 150.00">
+    </div>
+
+    <div class="mb-3">
+        <label for="paymentMethod" class="form-label">Mënyra e Pagesës</label>
+        <select class="form-select" id="paymentMethod">
+            <option selected disabled>Zgjidh mënyrën</option>
+            <option value="card">Kartë Krediti/Debiti</option>
+            <option value="paypal">PayPal</option>
+            <option value="bank">Transfer Bankar</option>
+        </select>
+    </div>
+
+    <!-- Kartë Krediti Info -->
+    <div id="cardSection" class="mt-4 d-none">
+        <h5>Detajet e Kartës</h5>
+        <div class="mb-3">
+            <label for="cardNumber" class="form-label">Numri i Kartës</label>
+            <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456">
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="expiryDate" class="form-label">Skadimi</label>
+                <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="cvv" class="form-label">CVV</label>
+                <input type="text" class="form-control" id="cvv" placeholder="123">
+            </div>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Kryej Pagesën</button>
+</form>
+
+@section Scripts {
+    <script>
+        // Ndrysho pamjen e fushave sipas metodës së zgjedhur
+        document.getElementById("paymentMethod").addEventListener("change", function () {
+            var method = this.value;
+            var cardSection = document.getElementById("cardSection");
+
+            if (method === "card") {
+                cardSection.classList.remove("d-none");
+            } else {
+                cardSection.classList.add("d-none");
+            }
+        });
+    </script>
+}
+

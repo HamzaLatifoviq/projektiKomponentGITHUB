@@ -183,7 +183,8 @@
     <Content Include="Views\RegisterLogin\LoginView.cshtml" />
     <Content Include="Views\Home\HotelList.cshtml" />
     <Content Include="Views\Home\CarList.cshtml" />
-    <Content Include="Views\Home\PagesatTransaksionetView.cshtml" />
+    <Content Include="Views\PagesaTransaksionet\PagesatTransaksionetView.cshtml" />
+    <Content Include="Views\PagesaTransaksionet\PagesatView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
