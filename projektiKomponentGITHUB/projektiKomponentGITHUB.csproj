@@ -120,6 +120,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CarsListController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PagesaTransaksionetController.cs" />
     <Compile Include="Controllers\RegisterLoginController.cs" />
@@ -191,6 +192,7 @@
     <Content Include="Views\Rolet\Roli_HotelManager.cshtml" />
     <Content Include="Views\Rolet\Roli_VeturManager.cshtml" />
     <Content Include="Views\Rolet\Roli_Test.cshtml" />
+    <Content Include="Views\CarsList\Kerkoveturat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

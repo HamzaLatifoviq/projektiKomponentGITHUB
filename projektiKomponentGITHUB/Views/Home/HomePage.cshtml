@@ -2,7 +2,13 @@
     ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<style>
+    .card-img-top {
+        width: 100%;
+        height: 250px; /* Mund ta ndryshosh sipas nevojës */
+        object-fit: cover;
+    }
+</style>
 <div class="container mt-5">
     <div class="jumbotron text-center text-white p-5 rounded position-relative overflow-hidden" style="background: url('@Url.Content("~/Content/ArtinFoto/banner.jpg")') no-repeat center center; background-size: cover;">
         <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.5); z-index: 1;"></div>
@@ -24,7 +30,7 @@
             <!-- Example Hotel Card -->
             <div class="col-md-4 mb-4">
                 <div class="card h-100 shadow">
-                    <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Hotel Image">
+                    <img src="~/Content/ArtinFoto/grand.jpg" class="card-img-top" alt="GrandHotel">
                     <div class="card-body">
                         <h5 class="card-title">Grand Palace Hotel</h5>
                         <p class="card-text">Located in the heart of the city. Luxury rooms starting from $120/night.</p>
@@ -36,7 +42,7 @@
             <!-- Duplicate/Copy this block for more hotels -->
             <div class="col-md-4 mb-4">
                 <div class="card h-100 shadow">
-                    <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Hotel Image">
+                    <img src="~/Content/ArtinFoto/beachresort.jpg" class="card-img-top" alt="BeachResort">
                     <div class="card-body">
                         <h5 class="card-title">Ocean Breeze Resort</h5>
                         <p class="card-text">A relaxing getaway near the beach. Rooms from $150/night.</p>
@@ -47,7 +53,7 @@
 
             <div class="col-md-4 mb-4">
                 <div class="card h-100 shadow">
-                    <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Hotel Image">
+                    <img src="~/Content/ArtinFoto/mountain.jpg" class="card-img-top" alt="MountainResort">
                     <div class="card-body">
                         <h5 class="card-title">Mountain Retreat</h5>
                         <p class="card-text">Peaceful and scenic location. Starting from $100/night.</p>
@@ -103,11 +109,19 @@
         transition: color 0.2s;
     }
 
-        .star-rating .fa:hover,
-        .star-rating .fa.hovered,
-        .star-rating .fa.selected {
-            color: #ffc107;
-        }
+
+    .card-img-top {
+        width: 100%;
+        height: 250px; /* Mund ta ndryshosh sipas nevojës */
+        object-fit: cover;
+    }
+
+
+    .star-rating .fa:hover,
+    .star-rating .fa.hovered,
+    .star-rating .fa.selected {
+        color: #ffc107;
+    }
 </style>
 
 <script>
