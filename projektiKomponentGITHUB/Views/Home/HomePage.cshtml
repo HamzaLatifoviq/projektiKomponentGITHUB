@@ -73,30 +73,64 @@
 <div class="container my-5">
     <h3 class="text-center mb-4">Rate Our Platform & Service</h3>
 
-    <form>
-        <div class="text-center mb-3">
-            <div class="star-rating d-inline-block">
-                <span class="fa fa-star" data-rating="1"></span>
-                <span class="fa fa-star" data-rating="2"></span>
-                <span class="fa fa-star" data-rating="3"></span>
-                <span class="fa fa-star" data-rating="4"></span>
-                <span class="fa fa-star" data-rating="5"></span>
-                <input type="hidden" name="rating" class="rating-value" value="0">
-            </div>
+    <div class="row">
+        <!-- Left: Rating Form -->
+        <div class="col-md-6 mb-4">
+            <form class="bg-white p-4 rounded shadow-sm">
+                <div class="form-group mb-4 text-center">
+                    <label class="d-block mb-2">Your Rating</label>
+                    <div class="star-rating d-inline-block">
+                        <span class="fa fa-star" data-rating="1"></span>
+                        <span class="fa fa-star" data-rating="2"></span>
+                        <span class="fa fa-star" data-rating="3"></span>
+                        <span class="fa fa-star" data-rating="4"></span>
+                        <span class="fa fa-star" data-rating="5"></span>
+                        <input type="hidden" name="rating" class="rating-value" value="0">
+                    </div>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label for="comment">Your Feedback</label>
+                    <textarea id="comment" class="form-control" name="comment" rows="5" placeholder="Write your thoughts here..." style="resize: none;"></textarea>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary px-4 py-2">Submit Review</button>
+                </div>
+            </form>
         </div>
 
-        <div class="form-group row justify-content-center">
-            <div class="col-md-10">
-                <textarea class="form-control" name="comment" rows="5" placeholder="Leave your feedback here..." style="resize: none;"></textarea>
+        <!-- Right: User Comments -->
+        <div class="col-md-6 mb-4">
+            <div class="bg-light p-4 rounded shadow-sm h-100">
+                <h5 class="mb-3">Recent Reviews</h5>
+
+                <div class="mb-3 border-bottom pb-2">
+                    <strong>Hristijan.H</strong>
+                    <div class="text-warning mb-1">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star-half-alt"></i>
+                    </div>
+                    <p>Great location and very clean rooms. The breakfast could be better, but overall a pleasant stay. Would recommend it to friends.</p>
+                </div>
+
+                <div class="mb-3 border-bottom pb-2">
+                    <strong>Erton.A</strong>
+                    <div class="text-warning mb-1">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <p>Hoteli ishte fantastik! Dhoma shumë e pastër, stafi miqësor dhe pamja nga ballkoni ishte e mrekullueshme. Do të kthehem sërish pa dyshim!</p>
+                </div>
             </div>
         </div>
-
-        <div class="text-center">
-            <button type="submit" class="btn btn-primary">Submit Review</button>
-        </div>
-    </form>
+    </div>
 </div>
-
 
 <!-- Font Awesome for stars -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -109,18 +143,26 @@
         transition: color 0.2s;
     }
 
+        .star-rating .fa:hover,
+        .star-rating .fa.hovered,
+        .star-rating .fa.selected {
+            color: #ffc107;
+        }
 
-    .card-img-top {
-        width: 100%;
-        height: 250px; /* Mund ta ndryshosh sipas nevojës */
-        object-fit: cover;
+    .form-control {
+        border-radius: 10px;
+        padding: 15px;
+        font-size: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     }
 
+    .btn-success {
+        border-radius: 30px;
+        font-size: 1.1rem;
+    }
 
-    .star-rating .fa:hover,
-    .star-rating .fa.hovered,
-    .star-rating .fa.selected {
-        color: #ffc107;
+    .form-group label {
+        font-weight: 600;
     }
 </style>
 
