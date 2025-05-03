@@ -8,14 +8,14 @@ namespace projektiKomponentGITHUB.Controllers
 {
     public class RegisterLoginController : Controller
     {
-        // GET: RegisterLogin
         public ActionResult RegisterView()
         {
-            return View();
+            return View("~/Views/Hamza/RegisterLogin/RegisterView.cshtml");
         }
-        public ActionResult Login()
+
+        public ActionResult LoginView()
         {
-            return View();
+            return View("~/Views/Hamza/RegisterLogin/LoginView.cshtml");
         }
     }
 }
