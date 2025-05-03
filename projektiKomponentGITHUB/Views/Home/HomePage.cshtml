@@ -4,12 +4,16 @@
 }
 
 <div class="container mt-5">
-    <div class="jumbotron text-center bg-light p-5 rounded">
-        <h1 class="display-4">Welcome to Our Hotel Booking Platform</h1>
-        <p class="lead">Find and book your perfect stay with ease and comfort.</p>
-        <hr class="my-4" />
-        <p>Explore top-rated hotels and enjoy your travel!</p>
-        <a class="btn btn-primary btn-lg" href="@Url.Action("HotelList", "Home")" role="button">Browse All Hotels</a>
+    <div class="jumbotron text-center text-white p-5 rounded position-relative overflow-hidden" style="background: url('@Url.Content("~/Content/ArtinFoto/banner.jpg")') no-repeat center center; background-size: cover;">
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.5); z-index: 1;"></div>
+
+        <div style="position: relative; z-index: 2;">
+            <h1 class="display-4">Welcome to Our Hotel Booking Platform</h1>
+            <p class="lead">Find and book your perfect stay with ease and comfort.</p>
+            <hr class="my-4" />
+            <p>Explore top-rated hotels and enjoy your travel!</p>
+            <a class="btn btn-primary btn-lg" href="@Url.Action("HotelList", "Home")" role="button">Browse All Hotels</a>
+        </div>
     </div>
 
     <!-- View Our Hotels Section -->
