@@ -7,11 +7,11 @@ using System.Web.Mvc;
 namespace projektiKomponentGITHUB.Controllers
 {
     public class CarsListController : Controller
+{
+    public ActionResult Kerkoveturat(string lokacioni, DateTime? pickupDate, string pickupTime, DateTime? dropoffDate, string dropoffTime, string llojiMakines)
     {
-        // GET: CarsList
-        public ActionResult Kerkoveturat()
-        {
-            return View();
-        }
+        // Mund të shtosh logjikën e filtrimit këtu...
+        return View();
     }
+}
 }
