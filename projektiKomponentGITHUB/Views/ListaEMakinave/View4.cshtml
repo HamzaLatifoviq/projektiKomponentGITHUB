@@ -1,0 +1,85 @@
+﻿
+@{
+    ViewBag.Title = "Detajet e Veturës";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+<div class="container mt-5">
+    <!-- Informacioni për Mercedes-Benz E-Class dhe foto -->
+    <div class="row bg-white shadow rounded p-4 mb-4">
+        <div class="col-md-6 mb-3">
+            <img src="~/Content/ArtinFoto/mercedeseclass.jpg" class="img-fluid rounded shadow-sm" alt="Mercedes-Benz E-Class"
+                 style="max-height: 450px; width: 100%; object-fit: cover;">
+        </div>
+        <div class="col-md-6">
+            <h3 class="text-primary">Mercedes-Benz E-Class</h3>
+            <p class="text-muted mb-1"><i class="bi bi-geo-alt-fill me-1"></i>Durrës · 0.9 km nga qendra</p>
+            <p class="text-muted mb-1"><i class="bi bi-gear-fill me-1"></i>Automatike · <i class="bi bi-fuel-pump me-1"></i>Dizel</p>
+            <p class="mt-2">Makina perfekte për udhëtime biznesi dhe udhëtime të gjata me stil.</p>
+        </div>
+    </div>
+
+    <!-- Pajisjet shtesë për Mercedes-Benz E-Class -->
+    <div class="row bg-white shadow rounded p-4">
+        <div class="col-md-6">
+            <h5 class="mb-4 text-primary"><i class="bi bi-plus-circle-dotted me-2"></i>Pajisje shtesë</h5>
+
+            <form>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="gpsEClass">
+                    <label class="form-check-label" for="gpsEClass">
+                        <i class="bi bi-geo me-2"></i>GPS – €5.00 / ditë
+                    </label>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="babySeatEClass">
+                    <label class="form-check-label" for="babySeatEClass">
+                        <i class="bi bi-person-fill me-2"></i>Sedilje për foshnje – €3.00 / ditë
+                    </label>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="childSeatEClass">
+                    <label class="form-check-label" for="childSeatEClass">
+                        <i class="bi bi-person-standing me-2"></i>Sedilje për fëmijë – €3.00 / ditë
+                    </label>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="privateDriverEClass">
+                    <label class="form-check-label" for="privateDriverEClass">
+                        <i class="bi bi-steering-wheel me-2"></i>Shofer privat – €15.00 / ditë
+                    </label>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="extraInsuranceEClass">
+                    <label class="form-check-label" for="extraInsuranceEClass">
+                        <i class="bi bi-shield-check me-2"></i>Sigurim shtesë – €10.00
+                    </label>
+                </div>
+
+                <div class="form-check mb-4">
+                    <input class="form-check-input" type="checkbox" id="additionalDriverEClass">
+                    <label class="form-check-label" for="additionalDriverEClass">
+                        <i class="bi bi-person-plus me-2"></i>Driver shtesë – €3.00 / ditë
+                    </label>
+                </div>
+
+                <button type="button" class="btn btn-primary w-50">Rezervo</button>
+            </form>
+        </div>
+
+        <!-- Pick-up dhe Drop-off për Mercedes-Benz E-Class -->
+        <div class="col-md-6 mt-4 mt-md-0">
+            <div class="bg-light rounded p-4 h-100">
+                <h5 class="text-secondary mb-3"><i class="bi bi-calendar-event me-2"></i>Pick-up & Drop-off</h5>
+                <p class="mb-2"><strong>Pick-up:</strong> 6 Maj · 10:00 — Durrës, Stacioni Qendror</p>
+                <p><strong>Drop-off:</strong> 9 Maj · 10:00 — Durrës, Stacioni Qendror</p>
+            </div>
+        </div>
+    </div>
+</div>
+
