@@ -3,18 +3,18 @@
 }
 
 <div class="container mt-5">
-    <h2>🏨 Hotel Manager Dashboard</h2>
+    <h2>Paneli i Menaxherit te Hotelit</h2>
 
     <!-- Nav Tabs -->
     <ul class="nav nav-tabs mt-4" id="hotelManagerTabs" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="rooms-tab" data-bs-toggle="tab" data-bs-target="#rooms" type="button" role="tab">🛏️ Manage Rooms</button>
+            <button class="nav-link active" id="rooms-tab" data-bs-toggle="tab" data-bs-target="#rooms" type="button" role="tab">Menaxho Dhomat</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="availability-tab" data-bs-toggle="tab" data-bs-target="#availability" type="button" role="tab">📅 Update Availability</button>
+            <button class="nav-link" id="availability-tab" data-bs-toggle="tab" data-bs-target="#availability" type="button" role="tab">Perditeso Disponueshmerine</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="reservations-tab" data-bs-toggle="tab" data-bs-target="#reservations" type="button" role="tab">📥 View Reservations</button>
+            <button class="nav-link" id="reservations-tab" data-bs-toggle="tab" data-bs-target="#reservations" type="button" role="tab">Shiko Rezervimet</button>
         </li>
     </ul>
 
@@ -23,17 +23,17 @@
         <!-- Rooms Tab -->
         <div class="tab-pane fade show active" id="rooms" role="tabpanel">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4>🛏️ Manage Rooms</h4>
-                <button class="btn btn-sm btn-success">➕ Add Room</button>
+                <h4>Menaxho Dhomat</h4>
+                <button class="btn btn-sm btn-success">Shto Dhome</button>
             </div>
             <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Room Number</th>
-                        <th>Type</th>
-                        <th>Price/Night</th>
-                        <th>Actions</th>
+                        <th>Numri i Dhomes</th>
+                        <th>Tipi</th>
+                        <th>Cmimi/Nate</th>
+                        <th>Veprime</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,8 +43,8 @@
                         <td>Double Deluxe</td>
                         <td>$120</td>
                         <td>
-                            <button class="btn btn-sm btn-warning">Edit</button>
-                            <button class="btn btn-sm btn-danger">Delete</button>
+                            <button class="btn btn-sm btn-warning">Ndrysho</button>
+                            <button class="btn btn-sm btn-danger">Fshij</button>
                         </td>
                     </tr>
                 </tbody>
@@ -54,26 +54,26 @@
         <!-- Availability Tab -->
         <div class="tab-pane fade" id="availability" role="tabpanel">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4>📅 Update Availability</h4>
-                <button class="btn btn-sm btn-success">➕ Add Availability</button>
+                <h4>Perditeso Disponueshmerine</h4>
+                <button class="btn btn-sm btn-success">Shto Disponueshmeri</button>
             </div>
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Room #</th>
-                        <th>Date</th>
-                        <th>Is Available</th>
-                        <th>Actions</th>
+                        <th>Dhoma #</th>
+                        <th>Data</th>
+                        <th>Eshte e Lire</th>
+                        <th>Veprime</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>101</td>
                         <td>2025-05-10</td>
-                        <td>Yes</td>
+                        <td>Po</td>
                         <td>
-                            <button class="btn btn-sm btn-warning">Edit</button>
-                            <button class="btn btn-sm btn-danger">Delete</button>
+                            <button class="btn btn-sm btn-warning">Ndrysho</button>
+                            <button class="btn btn-sm btn-danger">Fshij</button>
                         </td>
                     </tr>
                 </tbody>
@@ -82,13 +82,13 @@
 
         <!-- Reservations Tab -->
         <div class="tab-pane fade" id="reservations" role="tabpanel">
-            <h4>📥 View Reservations</h4>
+            <h4>Shiko Rezervimet</h4>
             <table class="table table-bordered mt-3">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Guest Name</th>
-                        <th>Room #</th>
+                        <th>Emri i Klientit</th>
+                        <th>Dhoma #</th>
                         <th>Check-In</th>
                         <th>Check-Out</th>
                     </tr>

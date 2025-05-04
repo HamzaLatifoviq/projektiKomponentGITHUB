@@ -3,68 +3,68 @@
 }
 
 <div class="container mt-5">
-    <h2>👤 Client Dashboard</h2>
+    <h2>Paneli i Klientit</h2>
 
-    <!-- Equal height row -->
+    <!-- Rreshti me lartesi te barabarte -->
     <div class="row mt-4 d-flex align-items-stretch">
-        <!-- Left column -->
+        <!-- Kolona e majte -->
         <div class="col-md-6">
             <div class="d-flex flex-column h-100 gap-3">
-                <!-- Search Hotels -->
+                <!-- Kerko Hotele -->
                 <div class="card p-3 shadow-sm flex-fill">
-                    <h4>🔍 Search Hotels</h4>
-                    <p>Quickly search and book available hotels.</p>
-                    <a href="@Url.Action("HotelList", "Home")" class="btn btn-primary">Go to Hotel List</a>
+                    <h4>Kerko Hotele</h4>
+                    <p>Kerko dhe rezervo shpejt hotelet ne dispozicion.</p>
+                    <a href="@Url.Action("HotelList", "Home")" class="btn btn-primary">Shko te Lista e Hoteleve</a>
                 </div>
 
-                <!-- Search Cars -->
+                <!-- Kerko Vetura -->
                 <div class="card p-3 shadow-sm flex-fill">
-                    <h4>🔍 Kerko Vetura</h4>
-                    <p>Kerko veturat për qira.</p>
+                    <h4>Kerko Vetura</h4>
+                    <p>Kerko veturat per qira.</p>
                     <a href="@Url.Action("CarList", "Home")" class="btn btn-primary">Shko te Veturat</a>
                 </div>
             </div>
         </div>
 
-        <!-- Right column: Edit Profile -->
+        <!-- Kolona e djathte: Ndrysho Profilin -->
         <div class="col-md-6">
             <div class="card p-3 shadow-sm h-100">
-                <h4>✏️ Edit Profile</h4>
+                <h4>Ndrysho Profilin</h4>
                 <form method="post" action="#">
                     <div class="form-group mt-2">
-                        <label>Username</label>
-                        <input type="text" class="form-control" placeholder="Enter new username">
+                        <label>Perdoruesi</label>
+                        <input type="text" class="form-control" placeholder="Shkruaj perdoruesin e ri">
                     </div>
 
                     <div class="form-group mt-3">
-                        <label>Konfirmo Password</label>
-                        <input type="password" class="form-control" placeholder="Shkruaj passwordin për verifikim account">
+                        <label>Konfirmo Fjalekalimin</label>
+                        <input type="password" class="form-control" placeholder="Shkruaj fjalekalimin per verifikim">
                     </div>
 
                     <div class="form-group mt-3">
-                        <label>New Password</label>
-                        <input type="password" class="form-control" placeholder="Enter new password">
+                        <label>Fjalekalimi i Ri</label>
+                        <input type="password" class="form-control" placeholder="Shkruaj fjalekalimin e ri">
                     </div>
 
-                    <button type="submit" class="btn btn-success mt-3">Save Changes</button>
+                    <button type="submit" class="btn btn-success mt-3">Ruaj Ndryshimet</button>
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- Divider -->
+    <!-- Ndares -->
     <hr class="my-5" />
 
-    <!-- Section: My Bookings -->
+    <!-- Seksioni: Rezervimet e mia -->
     <div class="mt-5">
-        <h4>📆 My Bookings</h4>
+        <h4>Rezervimet e Mia</h4>
         <table class="table table-striped mt-3">
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Booking Type</th>
-                    <th>Details</th>
-                    <th>Date</th>
+                    <th>Lloji i Rezervimit</th>
+                    <th>Detaje</th>
+                    <th>Data</th>
                 </tr>
             </thead>
             <tbody>
@@ -76,8 +76,8 @@
                 </tr>
                 <tr>
                     <td>2</td>
-                    <td>Car Rental</td>
-                    <td>VW Golf 7, 3 Days</td>
+                    <td>Qira Veture</td>
+                    <td>VW Golf 7, 3 dite</td>
                     <td>2025-05-12</td>
                 </tr>
             </tbody>
