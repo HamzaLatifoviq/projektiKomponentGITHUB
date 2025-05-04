@@ -122,6 +122,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CarsListController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ModuliRezervimeveController.cs" />
     <Compile Include="Controllers\PagesaTransaksionetController.cs" />
     <Compile Include="Controllers\RegisterLoginController.cs" />
     <Compile Include="Controllers\RoletController.cs" />
@@ -193,6 +194,7 @@
     <Content Include="Views\Rolet\Roli_VeturManager.cshtml" />
     <Content Include="Views\Rolet\Roli_Test.cshtml" />
     <Content Include="Views\CarsList\Kerkoveturat.cshtml" />
+    <Content Include="Views\ModuliRezervimeve\rezervimHoteli.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
