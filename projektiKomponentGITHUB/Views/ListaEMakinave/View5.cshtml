@@ -13,7 +13,7 @@
         </div>
         <div class="col-md-6">
             <h3 class="text-primary">Toyota Yaris - Kompakt</h3>
-            <p class="text-muted mb-1"><i class="bi bi-geo-alt-fill me-1"></i>Tetovë · 1.8 km nga qendra</p>
+            <p class="text-muted mb-1"><i class="bi bi-geo-alt-fill me-1"></i>Tiranë · 1.8 km nga qendra</p>
             <p class="text-muted mb-1"><i class="bi bi-gear-fill me-1"></i>Manual · <i class="bi bi-fuel-pump me-1"></i>Benzinë</p>
             <p class="mt-2">Makina e vogël për qytet, shumë ekonomike dhe lehtë për t'u manovruar.</p>
         </div>
@@ -26,43 +26,30 @@
 
             <form>
                 <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" id="gpsYaris">
-                    <label class="form-check-label" for="gpsYaris">
+                    <input class="form-check-input" type="checkbox" id="gps">
+                    <label class="form-check-label" for="gps">
                         <i class="bi bi-geo me-2"></i>GPS – €5.00 / ditë
                     </label>
                 </div>
 
                 <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" id="babySeatYaris">
-                    <label class="form-check-label" for="babySeatYaris">
+                    <input class="form-check-input" type="checkbox" id="babySeat">
+                    <label class="form-check-label" for="babySeat">
                         <i class="bi bi-person-fill me-2"></i>Sedilje për foshnje – €10.00 / ditë
                     </label>
                 </div>
 
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" id="childSeatYaris">
-                    <label class="form-check-label" for="childSeatYaris">
-                        <i class="bi bi-person-standing me-2"></i>Sedilje për fëmijë – €10.00 / ditë
-                    </label>
-                </div>
 
                 <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" id="privateDriverYaris">
-                    <label class="form-check-label" for="privateDriverYaris">
-                        <i class="bi bi-steering-wheel me-2"></i>Shofer privat – €50.00 / ditë
-                    </label>
-                </div>
-
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" id="extraInsuranceYaris">
-                    <label class="form-check-label" for="extraInsuranceYaris">
+                    <input class="form-check-input" type="checkbox" id="extraInsurance">
+                    <label class="form-check-label" for="extraInsurance">
                         <i class="bi bi-shield-check me-2"></i>Sigurim shtesë – €20.00
                     </label>
                 </div>
 
                 <div class="form-check mb-4">
-                    <input class="form-check-input" type="checkbox" id="additionalDriverYaris">
-                    <label class="form-check-label" for="additionalDriverYaris">
+                    <input class="form-check-input" type="checkbox" id="additionalDriver">
+                    <label class="form-check-label" for="additionalDriver">
                         <i class="bi bi-person-plus me-2"></i>Driver shtesë – €50.00 / ditë
                     </label>
                 </div>
@@ -71,12 +58,23 @@
             </form>
         </div>
 
-        <!-- Pick-up dhe Drop-off për Toyota Yaris -->
+        <!-- Pick-up dhe Drop-off-->
         <div class="col-md-6 mt-4 mt-md-0">
             <div class="bg-light rounded p-4 h-100">
                 <h5 class="text-secondary mb-3"><i class="bi bi-calendar-event me-2"></i>Pick-up & Drop-off</h5>
-                <p class="mb-2"><strong>Pick-up:</strong> 6 Maj · 10:00 — Tetovë, Stacioni Qendror</p>
-                <p><strong>Drop-off:</strong> 9 Maj · 10:00 — Tetovë, Stacioni Qendror</p>
+
+                <p class="mb-2">
+                    <strong>Pick-up:</strong> 6 Maj · 10:00 — Shkup, Stacioni Qendror
+                </p>
+
+                <div class="mb-2">
+                    <label for="dropoffLocation" class="form-label"><strong>Drop-off:</strong></label>
+                    <select id="dropoffLocation" name="dropoffLocation" class="form-select">
+                        <option value="shkup">Shkup, Stacioni Qendror</option>
+                        <option value="tirane">Tiranë, Stacioni Qendror</option>
+                        <option value="prishtine">Prishtinë, Stacioni Qendror</option>
+                    </select>
+                </div>
             </div>
         </div>
     </div>
