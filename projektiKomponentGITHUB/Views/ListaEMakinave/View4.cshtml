@@ -14,56 +14,44 @@
         </div>
         <div class="col-md-6">
             <h3 class="text-primary">Mercedes-Benz E-Class</h3>
-            <p class="text-muted mb-1"><i class="bi bi-geo-alt-fill me-1"></i>Durrës · 0.9 km nga qendra</p>
+            <p class="text-muted mb-1"><i class="bi bi-geo-alt-fill me-1"></i>Tiranë · 0.9 km nga qendra</p>
             <p class="text-muted mb-1"><i class="bi bi-gear-fill me-1"></i>Automatike · <i class="bi bi-fuel-pump me-1"></i>Dizel</p>
             <p class="mt-2">Makina perfekte për udhëtime biznesi dhe udhëtime të gjata me stil.</p>
         </div>
     </div>
 
     <!-- Pajisjet shtesë për Mercedes-Benz E-Class -->
+    <!-- Pajisjet shtesë dhe Pick-up/Drop-off njëra pranë tjetrës -->
     <div class="row bg-white shadow rounded p-4">
         <div class="col-md-6">
             <h5 class="mb-4 text-primary"><i class="bi bi-plus-circle-dotted me-2"></i>Pajisje shtesë</h5>
 
             <form>
                 <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" id="gpsEClass">
-                    <label class="form-check-label" for="gpsEClass">
+                    <input class="form-check-input" type="checkbox" id="gps">
+                    <label class="form-check-label" for="gps">
                         <i class="bi bi-geo me-2"></i>GPS – €5.00 / ditë
                     </label>
                 </div>
 
                 <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" id="babySeatEClass">
-                    <label class="form-check-label" for="babySeatEClass">
+                    <input class="form-check-input" type="checkbox" id="babySeat">
+                    <label class="form-check-label" for="babySeat">
                         <i class="bi bi-person-fill me-2"></i>Sedilje për foshnje – €10.00 / ditë
                     </label>
                 </div>
 
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" id="childSeatEClass">
-                    <label class="form-check-label" for="childSeatEClass">
-                        <i class="bi bi-person-standing me-2"></i>Sedilje për fëmijë – €10.00 / ditë
-                    </label>
-                </div>
 
                 <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" id="privateDriverEClass">
-                    <label class="form-check-label" for="privateDriverEClass">
-                        <i class="bi bi-steering-wheel me-2"></i>Shofer privat – €50.00 / ditë
-                    </label>
-                </div>
-
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" id="extraInsuranceEClass">
-                    <label class="form-check-label" for="extraInsuranceEClass">
+                    <input class="form-check-input" type="checkbox" id="extraInsurance">
+                    <label class="form-check-label" for="extraInsurance">
                         <i class="bi bi-shield-check me-2"></i>Sigurim shtesë – €20.00
                     </label>
                 </div>
 
                 <div class="form-check mb-4">
-                    <input class="form-check-input" type="checkbox" id="additionalDriverEClass">
-                    <label class="form-check-label" for="additionalDriverEClass">
+                    <input class="form-check-input" type="checkbox" id="additionalDriver">
+                    <label class="form-check-label" for="additionalDriver">
                         <i class="bi bi-person-plus me-2"></i>Driver shtesë – €50.00 / ditë
                     </label>
                 </div>
@@ -76,10 +64,22 @@
         <div class="col-md-6 mt-4 mt-md-0">
             <div class="bg-light rounded p-4 h-100">
                 <h5 class="text-secondary mb-3"><i class="bi bi-calendar-event me-2"></i>Pick-up & Drop-off</h5>
-                <p class="mb-2"><strong>Pick-up:</strong> 6 Maj · 10:00 — Durrës, Stacioni Qendror</p>
-                <p><strong>Drop-off:</strong> 9 Maj · 10:00 — Durrës, Stacioni Qendror</p>
+
+                <p class="mb-2">
+                    <strong>Pick-up:</strong> 6 Maj · 10:00 — Tiranë, Stacioni Qendror
+                </p>
+
+                <div class="mb-2">
+                    <label for="dropoffLocation" class="form-label"><strong>Drop-off:</strong></label>
+                    <select id="dropoffLocation" name="dropoffLocation" class="form-select">
+                        <option value="shkup">Shkup, Stacioni Qendror</option>
+                        <option value="tirane">Tiranë, Stacioni Qendror</option>
+                        <option value="prishtine">Prishtinë, Stacioni Qendror</option>
+                    </select>
+                </div>
             </div>
         </div>
+
     </div>
 </div>
 

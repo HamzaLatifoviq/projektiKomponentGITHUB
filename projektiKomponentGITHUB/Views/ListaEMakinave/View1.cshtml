@@ -39,19 +39,6 @@
                     </label>
                 </div>
 
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" id="childSeat">
-                    <label class="form-check-label" for="childSeat">
-                        <i class="bi bi-person-standing me-2"></i>Sedilje për fëmijë – €10.00 / ditë
-                    </label>
-                </div>
-
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" id="privateDriver">
-                    <label class="form-check-label" for="privateDriver">
-                        <i class="bi bi-steering-wheel me-2"></i>Shofer privat – €50.00 / ditë
-                    </label>
-                </div>
 
                 <div class="form-check mb-3">
                     <input class="form-check-input" type="checkbox" id="extraInsurance">
@@ -75,9 +62,21 @@
         <div class="col-md-6 mt-4 mt-md-0">
             <div class="bg-light rounded p-4 h-100">
                 <h5 class="text-secondary mb-3"><i class="bi bi-calendar-event me-2"></i>Pick-up & Drop-off</h5>
-                <p class="mb-2"><strong>Pick-up:</strong> 6 Maj · 10:00 — Prishtinë, Stacioni Qendror</p>
-                <p><strong>Drop-off:</strong> 9 Maj · 10:00 — Prishtinë, Stacioni Qendror</p>
+
+                <p class="mb-2">
+                    <strong>Pick-up:</strong> 6 Maj · 10:00 — Prishtinë, Stacioni Qendror
+                </p>
+
+                <div class="mb-2">
+                    <label for="dropoffLocation" class="form-label"><strong>Drop-off:</strong></label>
+                    <select id="dropoffLocation" name="dropoffLocation" class="form-select">
+                        <option value="shkup">Shkup, Stacioni Qendror</option>
+                        <option value="tirane">Tiranë, Stacioni Qendror</option>
+                        <option value="prishtine">Prishtinë, Stacioni Qendror</option>
+                    </select>
+                </div>
             </div>
         </div>
+
     </div>
 </div>
