@@ -122,6 +122,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CarsListController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HoteletViewController.cs" />
     <Compile Include="Controllers\ListaEMakinaveController.cs" />
     <Compile Include="Controllers\ModuliRezervimeveController.cs" />
     <Compile Include="Controllers\PagesaTransaksionetController.cs" />
@@ -205,11 +206,18 @@
     <Content Include="Views\ListaEMakinave\View7.cshtml" />
     <Content Include="Views\ListaEMakinave\View8.cshtml" />
     <Content Include="Views\ListaEMakinave\View9.cshtml" />
+    <Content Include="Views\HoteletView\Hotel1.cshtml" />
+    <Content Include="Views\HoteletView\Hotel2.cshtml" />
+    <Content Include="Views\HoteletView\Hotel3.cshtml" />
+    <Content Include="Views\HoteletView\Hotel4.cshtml" />
+    <Content Include="Views\HoteletView\Hotel5.cshtml" />
+    <Content Include="Views\HoteletView\Hotel6.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\1foto\" />
     <Folder Include="Content\ArtinFoto\" />
+    <Folder Include="Content\BesnikFotoHotel\" />
     <Folder Include="Content\ValmirFoto\" />
     <Folder Include="Models\" />
   </ItemGroup>
