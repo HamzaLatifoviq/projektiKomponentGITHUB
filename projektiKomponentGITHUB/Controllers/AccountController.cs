@@ -1,52 +1,67 @@
-﻿using System.Linq;
-using System.Web.Mvc;
-using projektiKomponentGITHUB.Models;
+﻿//using System;
+//using System.Linq;
+//using System.Web.Mvc;
+//using projektiKomponentGITHUB.Models;
 
-namespace projektiKomponentGITHUB.Controllers
-{
-    public class AccountController : Controller
-    {
-        private MyDbContext db = new MyDbContext();
+//namespace projektiKomponentGITHUB.Controllers
+//{
+//    public class AccountController : Controller
+//    {
+//        private MyDbContext db = new MyDbContext();
 
-        [HttpGet]
-        public ActionResult Login()
-        {
-            return View();
-        }
+//        [HttpGet]
+//        public ActionResult Login()
+//        {
+//            return View();
+//        }
 
-        [HttpPost]
-        public ActionResult Login(string username, string password)
-        {
-            var user = db.Users.FirstOrDefault(u => u.Username == username && u.Password == password);
+//        [HttpPost]
+//        public ActionResult Login(string username, string password)
+//        {
+//            try
+//            {
+//                var user = db.Users.FirstOrDefault(u => u.Username == username && u.Password == password);
 
-            if (user != null)
-            {
-                Session["UserId"] = user.UserId;
-                Session["Username"] = user.Username;
-                Session["Role"] = user.Role;
+//                if (user != null)
+//                {
+//                    Session["UserId"] = user.UserId;
+//                    Session["Username"] = user.Username;
+//                    Session["Role"] = user.Role;
 
-                // Example redirection based on role
-                switch (user.Role)
-                {
-                    case "Admin":
-                        return RedirectToAction("Roli_test", "Rolet");
-                    case "Client":
-                        return RedirectToAction("Roli_test", "Rolet");
-                    case "HotelManager":
-                        return RedirectToAction("Roli_test", "Rolet");
-                    case "CarAgencyManager":
-                        return RedirectToAction("Roli_test", "Rolet");
-                }
-            }
+//                    user.LastLogin = DateTime.Now;
+//                    db.SaveChanges();
 
-            ViewBag.Error = "Invalid email or password.";
-            return View();
-        }
+//                    switch (user.Role)
+//                    {
+//                        case "Admin":
+//                            return RedirectToAction("Roli_Test", "Rolet");
+//                        case "Client":
+//                            return RedirectToAction("Roli_Test", "Rolet");
+//                        case "HotelManager":
+//                            return RedirectToAction("Roli_Test", "Rolet");
+//                        case "CarAgencyManager":
+//                            return RedirectToAction("Roli_Test", "Rolet");
+//                        default:
+//                            return RedirectToAction("LoginView", "RegisterLogin");
+//                    }
+//                }
 
-        public ActionResult Logout()
-        {
-            Session.Clear();
-            return RedirectToAction("Login");
-        }
-    }
-}
+//                // If no user found
+//                ViewBag.Error = "Wrong username or password.";
+//                return View();
+//            }
+//            catch (Exception ex)
+//            {
+//                // Optional: log the error, but don't show it to the user
+//                ViewBag.Error = "An error occurred. Please try again.";
+//                return View();
+//            }
+//        }
+
+//        public ActionResult Logout()
+//        {
+//            Session.Clear();
+//            return RedirectToAction("Login");
+//        }
+//    }
+//}
