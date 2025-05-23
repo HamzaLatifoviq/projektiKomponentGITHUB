@@ -141,6 +141,7 @@
     </Compile>
     <Compile Include="Models\DbContext.cs" />
     <Compile Include="Models\LoginView.cs" />
+    <Compile Include="Models\Payment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
