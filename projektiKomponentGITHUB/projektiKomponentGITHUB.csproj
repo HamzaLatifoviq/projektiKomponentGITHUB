@@ -128,6 +128,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CarsListController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HoteletViewController.cs" />
@@ -141,6 +142,9 @@
     </Compile>
     <Compile Include="Models\DbContext.cs" />
     <Compile Include="Models\LoginView.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserCreate.cs" />
+    <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -222,6 +226,9 @@
     <Content Include="Views\HoteletView\Hotel4.cshtml" />
     <Content Include="Views\HoteletView\Hotel5.cshtml" />
     <Content Include="Views\HoteletView\Hotel6.cshtml" />
+    <Content Include="Views\Rolet\EditUser.cshtml" />
+    <Content Include="Views\Rolet\CreateUser.cshtml" />
+    <Content Include="Views\Rolet\DeleteUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -230,6 +237,7 @@
     <Folder Include="Content\BesnikFotoHotel\" />
     <Folder Include="Content\ValmirFoto\" />
     <Folder Include="Views\Account\" />
+    <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

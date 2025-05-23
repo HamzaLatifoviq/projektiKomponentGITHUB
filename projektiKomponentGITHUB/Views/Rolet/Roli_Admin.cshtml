@@ -2,6 +2,8 @@
     ViewBag.Title = "Roli_Admin";
 }
 
+@model List<projektiKomponentGITHUB.Models.UserViewModel>
+
 <div class="container mt-5">
     <h2>Paneli i Administratorit</h2>
 
@@ -24,29 +26,42 @@
         <div class="tab-pane fade show active" id="users" role="tabpanel">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h4>Menaxho Perdoruesit</h4>
-                <button class="btn btn-sm btn-success">Shto Perdorues</button>
+                @Html.ActionLink("Shto Perdorues", "CreateUser", "Rolet", null, new { @class = "btn btn-sm btn-success" })
+
             </div>
             <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Perdoruesi</th>
+                        <th>Username</th>
+                        <th>Emri</th>
+                        <th>Mbiemri</th>
                         <th>Email</th>
                         <th>Roli</th>
+                        <th>Krijuar me</th>
+                        <th>Hyrja e fundit</th>
                         <th>Veprime</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>hamza22</td>
-                        <td>hamza@example.com</td>
-                        <td>Klient</td>
-                        <td>
-                            <button class="btn btn-sm btn-warning">Ndrysho</button>
-                            <button class="btn btn-sm btn-danger">Fshij</button>
-                        </td>
-                    </tr>
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <tr>
+                            <td>@(i + 1)</td>
+                            <td>@Model[i].Username</td>
+                            <td>@Model[i].Emri</td>
+                            <td>@Model[i].Mbiemri</td>
+                            <td>@Model[i].Email</td>
+                            <td>@Model[i].Role</td>
+                            <td>@Model[i].CreatedAt.ToString("dd/MM/yyyy")</td>
+                            <td>@(Model[i].LastLogin?.ToString("dd/MM/yyyy HH:mm") ?? "-")</td>
+                            <td>
+                                <a href="@Url.Action("EditUser", "Rolet", new { id = Model[i].UserId })" class="btn btn-sm btn-warning">Ndrysho</a>
+                                @Html.ActionLink("Fshij", "DeleteUser", "Rolet", new { id = Model[i].UserId }, new { @class = "btn btn-sm btn-danger" })
+
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>

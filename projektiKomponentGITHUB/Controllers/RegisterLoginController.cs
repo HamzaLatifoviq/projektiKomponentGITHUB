@@ -62,6 +62,56 @@ namespace projektiKomponentGITHUB.Controllers
             }
         }
 
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult RegisterView(UserCreate model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            if (model.Password != model.ConfirmPassword)
+            {
+                ViewBag.Error = "Passwords do not match.";
+                return View(model);
+            }
+
+            // Check if username or email already exists
+            bool usernameExists = db.Users.Any(u => u.Username == model.Username);
+            bool emailExists = db.Users.Any(u => u.Email == model.Email);
+
+            if (usernameExists)
+            {
+                ViewBag.Error = "Username already taken.";
+                return View(model);
+            }
+
+            if (emailExists)
+            {
+                ViewBag.Error = "Email already registered.";
+                return View(model);
+            }
+
+            // Create new user entity
+            var newUser = new User
+            {
+                Emri = model.Emri,
+                Mbiemri = model.Mbiemri,
+                Email = model.Email,
+                Username = model.Username,
+                Password = model.Password,  // Ideally, hash this before saving
+                Role = "Client",
+                CreatedAt = DateTime.Now
+            };
+
+            db.Users.Add(newUser);
+            db.SaveChanges();
+
+            ViewBag.Success = "Registration successful! Please login.";
+            return RedirectToAction("LoginView");
+        }
+
         public ActionResult Logout()
         {
             Session.Clear();      // removes all keys

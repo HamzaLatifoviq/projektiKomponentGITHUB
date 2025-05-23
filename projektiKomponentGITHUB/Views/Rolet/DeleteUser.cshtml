@@ -1,0 +1,16 @@
+﻿@model projektiKomponentGITHUB.Models.UserViewModel
+
+@{
+    ViewBag.Title = "Fshij Perdorues";
+}
+
+<h2>Fshij Perdorues</h2>
+
+<h4>A jeni i sigurt që dëshironi të fshini përdoruesin me username: <strong>@Model.Username</strong>?</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-danger">Po, Fshij</button>
+    @Html.ActionLink("Anulo", "Roli_Admin", null, new { @class = "btn btn-secondary ms-2" })
+}
