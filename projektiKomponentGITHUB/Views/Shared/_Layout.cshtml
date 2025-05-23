@@ -23,12 +23,26 @@
                     <li class="nav-item">
                         @Html.ActionLink("Car List", "CarList", "Home", null, new { @class = "nav-link" })
                     </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Login", "LoginView", "RegisterLogin", null, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Register", "RegisterView", "RegisterLogin", null, new { @class = "nav-link" })
-                    </li>
+
+                    @if (Session["Username"] == null)
+                    {
+                        <li class="nav-item">
+                            @Html.ActionLink("Login", "LoginView", "RegisterLogin", null, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Register", "RegisterView", "RegisterLogin", null, new { @class = "nav-link" })
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <span class="nav-link">Welcome, @Session["Username"]</span>
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Logout", "Logout", "RegisterLogin", null, new { @class = "nav-link" })
+                        </li>
+                    }
+
                     <li class="nav-item">
                         @Html.ActionLink("Shiko Profilin", "Roli_Test", "Rolet", null, new { @class = "nav-link" })
                     </li>

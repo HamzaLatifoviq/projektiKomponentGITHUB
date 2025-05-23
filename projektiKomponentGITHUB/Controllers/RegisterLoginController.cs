@@ -64,8 +64,9 @@ namespace projektiKomponentGITHUB.Controllers
 
         public ActionResult Logout()
         {
-            Session.Clear();
-            return RedirectToAction("Login");
+            Session.Clear();      // removes all keys
+            Session.Abandon();    // destroys session
+            return RedirectToAction("LoginView", "RegisterLogin");
         }
     }
 
