@@ -34,6 +34,8 @@ namespace projektiKomponentGITHUB.Models
 
         public bool AdditionalDriver { get; set; } = false;
 
+        public decimal? PriceAtBooking { get; set; }
+
         // Navigation property to the related Veturat entity (car)
         public virtual Veturat Vetura { get; set; }
     }

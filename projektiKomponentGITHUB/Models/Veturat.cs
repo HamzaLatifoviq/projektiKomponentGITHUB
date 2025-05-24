@@ -20,6 +20,7 @@ namespace projektiKomponentGITHUB.Models
         public double Vleresimi { get; set; }
         public int NrRecensioneve { get; set; }
         public string FotoPath { get; set; }
+        public decimal Price { get; set; }
     }
 
 }
