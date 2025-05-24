@@ -1,10 +1,23 @@
-﻿
+﻿@model projektiKomponentGITHUB.Models.Payment
+
 @{
     ViewBag.Title = "PagesatView";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+@if (ViewBag.Errors != null)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var error in (List<string>)ViewBag.Errors)
+            {
+                <li>@error</li>
+            }
+        </ul>
+    </div>
+}
 
 <style>
     body {
@@ -123,58 +136,59 @@
 <div class="booking-style-form">
     <h2>Detajet e Pagesës</h2>
 
-    <form>
+    @using (Html.BeginForm("PagesatView", "PagesaTransaksionet", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
         <div class="row g-3">
-            
-            <div class="col-md-6 form-group">
-                <label for="firstName" class="form-label">Emri</label>
-                <input type="text" class="form-control" id="firstName" placeholder="Ardit" required>
-            </div>
-            <div class="col-md-6 form-group">
-                <label for="lastName" class="form-label">Mbiemri</label>
-                <input type="text" class="form-control" id="lastName" placeholder="Hoxha" required>
-            </div>
-            <div class="col-md-6 form-group">
-                <label for="email" class="form-label">Email-i</label>
-                <input type="email" class="form-control" id="email" placeholder="shembull@email.com" required>
-            </div>
-            <div class="col-md-6 form-group">
-                <label for="address" class="form-label">Adresa</label>
-                <input type="text" class="form-control" id="address" placeholder="Rruga e Dibrës, Tiranë" required>
-            </div>
-
-            
-            <div class="col-md-6 form-group">
-                <label for="phoneNumber" class="form-label">Numri i Telefonit</label>
-                <input type="text" class="form-control" id="phoneNumber" placeholder="+355 69 123 4567" required>
-            </div>
-
-           
-            <div class="col-md-6 form-group">
-                <label for="cardNumber" class="form-label">Numri i Kartës</label>
-                <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456" required>
-            </div>
-            <div class="col-md-6 form-group">
-                <label for="expiry" class="form-label">Data e Skadimit</label>
-                <input type="text" class="form-control" id="expiry" placeholder="MM/YY" required>
-            </div>
-            <div class="col-md-6 form-group">
-                <label for="cvv" class="form-label">CVV</label>
-                <input type="text" class="form-control" id="cvv" placeholder="123" required>
-            </div>
 
             <div class="col-md-6 form-group">
-                <label for="paymentMethod" class="form-label">Mënyra e Pagesës</label>
-                <select class="form-select" id="paymentMethod" required>
-                    <option selected disabled>Zgjidh metodën</option>
-                    <option value="card">Kartë Krediti/Debiti</option>
-                    <option value="bank">Transfer Bankar</option>
-                </select>
+                <label class="form-label">Emri</label>
+                @Html.TextBoxFor(m => m.Emri, new { @class = "form-control", placeholder = "Ardit", required = "required" })
             </div>
             <div class="col-md-6 form-group">
-                <label for="amount" class="form-label">Shuma (€)</label>
-                <input type="number" class="form-control" id="amount" placeholder="150.00" required>
+                <label class="form-label">Mbiemri</label>
+                @Html.TextBoxFor(m => m.Mbiemri, new { @class = "form-control", placeholder = "Hoxha", required = "required" })
             </div>
+            <div class="col-md-6 form-group">
+                <label class="form-label">Email-i</label>
+                @Html.TextBoxFor(m => m.Emaili, new { @class = "form-control", placeholder = "shembull@email.com", type = "email", required = "required" })
+            </div>
+            <div class="col-md-6 form-group">
+                <label class="form-label">Adresa</label>
+                @Html.TextBoxFor(m => m.Adresa, new { @class = "form-control", placeholder = "Rruga e Dibrës, Tiranë", required = "required" })
+            </div>
+            <div class="col-md-6 form-group">
+                <label class="form-label">Numri i Telefonit</label>
+                @Html.TextBoxFor(m => m.NumriTelefonit, new { @class = "form-control", placeholder = "+355 69 123 4567", required = "required" })
+            </div>
+            <div class="col-md-6 form-group">
+                <label class="form-label">Numri i Kartës</label>
+                @Html.TextBoxFor(m => m.NumriKartes, new { @class = "form-control", placeholder = "1234 5678 9012 3456", required = "required" })
+            </div>
+            <div class="col-md-6 form-group">
+                <label class="form-label">Data e Skadimit</label>
+                @Html.TextBoxFor(m => m.DataSkadimit, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date", required = "required" })
+            </div>
+            <div class="col-md-6 form-group">
+                <label class="form-label">CVV</label>
+                @Html.TextBoxFor(m => m.CVV, new { @class = "form-control", placeholder = "123", required = "required" })
+            </div>
+            <div class="col-md-6 form-group">
+                <label class="form-label">Mënyra e Pagesës</label>
+                @Html.DropDownListFor(m => m.MenyraPageses, new SelectList(new[] {
+                    new { Value = "", Text = "Zgjidh metodën" },
+                    new { Value = "card", Text = "Kartë Krediti/Debiti" },
+                    new { Value = "bank", Text = "Transfer Bankar" }
+                }, "Value", "Text"), new { @class = "form-select", required = "required" })
+            </div>
+            <div class="col-md-6 form-group">
+                <label class="form-label">Shuma (€)</label>
+                @Html.TextBoxFor(m => m.Shuma, new { @class = "form-control", placeholder = "150.00", type = "number", step = "0.01", required = "required" })
+            </div>
+
+            <!-- Hidden or auto-set fields -->
+            @Html.HiddenFor(m => m.DataPageses, new { Value = DateTime.Now.ToString("yyyy-MM-dd") })
+            @Html.HiddenFor(m => m.PaymentStatus, new { Value = "Pending" })
         </div>
 
         <div class="text-end">
@@ -182,19 +196,11 @@
                 Kryej Pagesën
             </button>
         </div>
-    </form>
+    }
 
-    <!-- Seksioni per Metodat e Pageses -->
     <div class="payment-methods">
         <h4>We accept the following secure payment methods:</h4>
-
-
         <img src="~/Content/ValmirFoto/Visa.jpg" alt="Visa" />
         <img src="~/Content/ValmirFoto/Mastercard.jpg" alt="MasterCard" />
-     
-
-
-
-
     </div>
 </div>
