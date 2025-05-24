@@ -226,6 +226,7 @@
     <Content Include="Views\HoteletView\Hotel4.cshtml" />
     <Content Include="Views\HoteletView\Hotel5.cshtml" />
     <Content Include="Views\HoteletView\Hotel6.cshtml" />
+    <Content Include="Views\PagesaTransaksionet\SuksesPagesa.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
