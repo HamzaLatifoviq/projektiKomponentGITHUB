@@ -20,6 +20,7 @@ namespace projektiKomponentGITHUB.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult LoginView(string username, string password)
         {
@@ -29,9 +30,13 @@ namespace projektiKomponentGITHUB.Controllers
 
                 if (user != null)
                 {
+                    // Set login session values
                     Session["UserId"] = user.UserId;
                     Session["Username"] = user.Username;
                     Session["Role"] = user.Role;
+
+                    // Set FormsAuthentication cookie (this is what makes User.Identity.Name work)
+                    System.Web.Security.FormsAuthentication.SetAuthCookie(user.Username, false);
 
                     user.LastLogin = DateTime.Now;
                     db.SaveChanges();
@@ -41,26 +46,26 @@ namespace projektiKomponentGITHUB.Controllers
                         case "Admin":
                             return RedirectToAction("Roli_Test", "Rolet");
                         case "Client":
-                            return RedirectToAction("Roli_Test", "Rolet");
+                            return RedirectToAction("Roli_Klient", "Rolet"); // Better routing
                         case "HotelManager":
-                            return RedirectToAction("Roli_Test", "Rolet");
+                            return RedirectToAction("Roli_HotelManager", "Rolet");
                         case "CarAgencyManager":
-                            return RedirectToAction("Roli_Test", "Rolet");
+                            return RedirectToAction("Roli_VeturManager", "Rolet");
                         default:
                             return RedirectToAction("LoginView", "RegisterLogin");
                     }
                 }
 
-                // If no user found
                 ViewBag.Error = "Wrong username or password.";
-                return View("LoginView"); // << FIXED
+                return View("LoginView");
             }
             catch (Exception ex)
             {
                 ViewBag.Error = "An error occurred. Please try again.";
-                return View("LoginView"); // << FIXED
+                return View("LoginView");
             }
         }
+
 
         [HttpPost]
         //[ValidateAntiForgeryToken]

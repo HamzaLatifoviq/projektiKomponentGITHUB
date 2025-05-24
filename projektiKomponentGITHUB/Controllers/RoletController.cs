@@ -12,8 +12,39 @@ namespace projektiKomponentGITHUB.Controllers
         // GET: Rolet
         public ActionResult Roli_Klient()
         {
-            return View();
+            using (var db = new MyDbContext())
+            {
+                // Get the logged-in username from session
+                string currentUsername = Session["Username"] as string;
+
+                if (string.IsNullOrEmpty(currentUsername))
+                {
+                    // If no username found in session, redirect to login
+                    return RedirectToAction("LoginView", "RegisterLogin");
+                }
+
+                // Find the current user by username
+                var currentUser = db.Users.FirstOrDefault(u => u.Username == currentUsername);
+
+                if (currentUser == null)
+                {
+                    // If user not found in DB, redirect to home
+                    return RedirectToAction("HomePage", "Home");
+                }
+
+                // Get only this user's payments based on email
+                var userPayments = db.Payments
+                    .Where(p => p.Emaili == currentUser.Email)
+                    .ToList();
+
+                ViewBag.Payments = userPayments;
+
+                return View();
+            }
         }
+
+
+
         public ActionResult Roli_Admin()
         {
             using (var db = new MyDbContext())
@@ -30,9 +61,14 @@ namespace projektiKomponentGITHUB.Controllers
                     LastLogin = u.LastLogin
                 }).ToList();
 
+                // Use the correct column name here - DataPageses instead of PaymentDate
+                var payments = db.Payments.OrderByDescending(p => p.DataPageses).ToList();
+                ViewBag.Payments = payments;
+
                 return View(users);
             }
         }
+
         // GET: Admin/EditUser/5
         public ActionResult EditUser(int id)
         {
@@ -93,7 +129,6 @@ namespace projektiKomponentGITHUB.Controllers
             {
                 using (var db = new MyDbContext())
                 {
-                    // Check if username or email already exists (optional but recommended)
                     bool exists = db.Users.Any(u => u.Username == model.Username || u.Email == model.Email);
                     if (exists)
                     {
@@ -108,7 +143,7 @@ namespace projektiKomponentGITHUB.Controllers
                         Emri = model.Emri,
                         Mbiemri = model.Mbiemri,
                         Role = model.Role,
-                        Password = model.Password // **Hash this in production!**
+                        Password = model.Password // Hash this in production!
                     };
 
                     db.Users.Add(user);
@@ -119,6 +154,7 @@ namespace projektiKomponentGITHUB.Controllers
 
             return View(model);
         }
+
         // GET: Rolet/DeleteUser/5
         public ActionResult DeleteUser(int id)
         {
@@ -157,7 +193,21 @@ namespace projektiKomponentGITHUB.Controllers
             }
         }
 
+        // POST: Rolet/UpdatePaymentStatus/5
+        [HttpPost]
+        public ActionResult UpdatePaymentStatus(int id, string status)
+        {
+            using (var db = new MyDbContext())
+            {
+                var payment = db.Payments.Find(id);
+                if (payment == null)
+                    return HttpNotFound();
 
+                payment.PaymentStatus = status; // "Pranuar" or "Refuzuar"
+                db.SaveChanges();
+            }
+            return RedirectToAction("Roli_Admin");
+        }
 
         public ActionResult Roli_HotelManager()
         {

@@ -10,5 +10,6 @@ namespace projektiKomponentGITHUB.Models
 
         //public DbSet<LoginView> Users { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Payment> Payments { get; set; }
     }
 }

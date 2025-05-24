@@ -142,6 +142,7 @@
     </Compile>
     <Compile Include="Models\DbContext.cs" />
     <Compile Include="Models\LoginView.cs" />
+    <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserCreate.cs" />
     <Compile Include="Models\UserViewModel.cs" />
@@ -229,6 +230,7 @@
     <Content Include="Views\Rolet\EditUser.cshtml" />
     <Content Include="Views\Rolet\CreateUser.cshtml" />
     <Content Include="Views\Rolet\DeleteUser.cshtml" />
+    <Content Include="Views\PagesaTransaksionet\SuksesPagesa.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
