@@ -2,6 +2,12 @@
     ViewBag.Title = "Roli_Admin";
 }
 
+@model List<projektiKomponentGITHUB.Models.UserViewModel>
+
+@{
+    var payments = ViewBag.Payments as List<projektiKomponentGITHUB.Models.Payment>;
+}
+
 <div class="container mt-5">
     <h2>Paneli i Administratorit</h2>
 
@@ -9,6 +15,9 @@
     <ul class="nav nav-tabs mt-4" id="adminTabs" role="tablist">
         <li class="nav-item" role="presentation">
             <button class="nav-link active" id="users-tab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab">Menaxho Perdoruesit</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="payments-tab" data-bs-toggle="tab" data-bs-target="#payments" type="button" role="tab">Menaxho Pagesat</button>
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="hotels-tab" data-bs-toggle="tab" data-bs-target="#hotels" type="button" role="tab">Menaxho Hotelet</button>
@@ -24,29 +33,104 @@
         <div class="tab-pane fade show active" id="users" role="tabpanel">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h4>Menaxho Perdoruesit</h4>
-                <button class="btn btn-sm btn-success">Shto Perdorues</button>
+                @Html.ActionLink("Shto Perdorues", "CreateUser", "Rolet", null, new { @class = "btn btn-sm btn-success" })
             </div>
             <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Perdoruesi</th>
+                        <th>Username</th>
+                        <th>Emri</th>
+                        <th>Mbiemri</th>
                         <th>Email</th>
                         <th>Roli</th>
+                        <th>Krijuar me</th>
+                        <th>Hyrja e fundit</th>
                         <th>Veprime</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <tr>
+                            <td>@(i + 1)</td>
+                            <td>@Model[i].Username</td>
+                            <td>@Model[i].Emri</td>
+                            <td>@Model[i].Mbiemri</td>
+                            <td>@Model[i].Email</td>
+                            <td>@Model[i].Role</td>
+                            <td>@Model[i].CreatedAt.ToString("dd/MM/yyyy")</td>
+                            <td>@(Model[i].LastLogin?.ToString("dd/MM/yyyy HH:mm") ?? "-")</td>
+                            <td>
+                                <a href="@Url.Action("EditUser", "Rolet", new { id = Model[i].UserId })" class="btn btn-sm btn-warning">Ndrysho</a>
+                                @Html.ActionLink("Fshij", "DeleteUser", "Rolet", new { id = Model[i].UserId }, new { @class = "btn btn-sm btn-danger" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Payments Tab -->
+        <div class="tab-pane fade" id="payments" role="tabpanel">
+            <h4>Menaxho Pagesat</h4>
+            <table class="table table-bordered table-hover">
+                <thead class="table-light">
                     <tr>
-                        <td>1</td>
-                        <td>hamza22</td>
-                        <td>hamza@example.com</td>
-                        <td>Klient</td>
-                        <td>
-                            <button class="btn btn-sm btn-warning">Ndrysho</button>
-                            <button class="btn btn-sm btn-danger">Fshij</button>
-                        </td>
+                        <th>#</th>
+                        <th>Emri</th>
+                        <th>Mbiemri</th>
+                        <th>Emaili</th>
+                        <th>Adresa</th>
+                        <th>Numri Telefonit</th>
+                        <th>Numri Kartes</th>
+                        <th>Data Skadimit</th>
+                        <th>Menyra Pageses</th>
+                        <th>Shuma</th>
+                        <th>Statusi</th>
+                        <th>Veprime</th>
                     </tr>
+                </thead>
+                <tbody>
+                    @if (payments != null && payments.Count > 0)
+                    {
+                        int index = 1;
+                        foreach (var payment in payments)
+                        {
+                            <tr>
+                                <td>@index</td>
+                                <td>@payment.Emri</td>
+                                <td>@payment.Mbiemri</td>
+                                <td>@payment.Emaili</td>
+                                <td>@payment.Adresa</td>
+                                <td>@payment.NumriTelefonit</td>
+                                <td>@payment.NumriKartes</td>
+                                <td>@payment.DataSkadimit.ToString("MM/yyyy")</td>
+                                <td>@payment.MenyraPageses</td>
+                                <td>@payment.Shuma.ToString("C")</td>
+                                <td>@payment.PaymentStatus</td>
+                                <td>
+                                    @using (Html.BeginForm("UpdatePaymentStatus", "Rolet", FormMethod.Post, new { @class = "d-inline" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.Hidden("id", payment.Id)
+                                        <div class="d-flex justify-content-center gap-2">
+                                            <button type="submit" name="status" value="Pranuar" class="btn btn-sm btn-success flex-fill" @(payment.PaymentStatus == "Pranuar" ? "disabled" : "")>Prano</button>
+                                            <button type="submit" name="status" value="Refuzuar" class="btn btn-sm btn-danger flex-fill" @(payment.PaymentStatus == "Refuzuar" ? "disabled" : "")>Refuzo</button>
+                                        </div>
+                                    }
+
+                                </td>
+                            </tr>
+                            index++;
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="12" class="text-center">Nuk ka pagesa per tu menaxhuar.</td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>
