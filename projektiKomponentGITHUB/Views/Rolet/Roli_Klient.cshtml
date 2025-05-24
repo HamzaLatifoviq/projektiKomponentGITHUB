@@ -56,31 +56,44 @@
     <hr class="my-5" />
 
     <!-- Seksioni: Rezervimet e mia -->
-    <div class="mt-5">
-        <h4>Rezervimet e Mia</h4>
-        <table class="table table-striped mt-3">
-            <thead>
+    <h4>Rezervimet e mia</h4>
+
+    <table class="table table-bordered table-striped mt-3">
+        <thead class="table-primary text-center">
+            <tr>
+                <th>Emri</th>
+                <th>Mbiemri</th>
+                <th>Emaili</th>
+                <th>Shuma (€)</th>
+                <th>Metoda e Pagesës</th>
+                <th>Statusi i Pagesës</th>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+            @{
+                var myPayments = ViewBag.Payments as List<projektiKomponentGITHUB.Models.Payment>;
+            }
+
+            @if (myPayments != null && myPayments.Any())
+            {
+                foreach (var payment in myPayments)
+                {
+                    <tr>
+                        <td>@payment.Emri</td>
+                        <td>@payment.Mbiemri</td>
+                        <td>@payment.Emaili</td>
+                        <td>@payment.Shuma.ToString("F2")</td>
+                        <td>@payment.MenyraPageses</td>
+                        <td>@payment.PaymentStatus</td> <!-- Replace with actual property if named differently -->
+                    </tr>
+                }
+            }
+            else
+            {
                 <tr>
-                    <th>#</th>
-                    <th>Lloji i Rezervimit</th>
-                    <th>Detaje</th>
-                    <th>Data</th>
+                    <td colspan="6" class="text-center">Nuk ka pagesa për t'u shfaqur.</td>
                 </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Hotel</td>
-                    <td>Hotel California, Tetove</td>
-                    <td>2025-05-10</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Qira Veture</td>
-                    <td>VW Golf 7, 3 dite</td>
-                    <td>2025-05-12</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+            }
+        </tbody>
+    </table>
 </div>
