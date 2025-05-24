@@ -97,6 +97,47 @@
                 minDate: "today", // Data minimale është data e sotme
             });
 
+            // Konstanta e çmimeve
+            const pricePerAdultPerNight = 50;
+            const pricePerChildPerNight = 20; // Example price for a child
+            const pricePerRoomPerNight = 50; // Additional cost per room
+            const messageDiv = document.getElementById("message");
+
+            // Funksioni për llogaritjen e çmimit total
+            function calculatePrice() {
+                const adultsCount = parseInt(document.getElementById("adultsCount").value, 10) || 0;
+                const childrenCount = parseInt(document.getElementById("childrenCount").value, 10) || 0;
+                const roomsCount = parseInt(document.getElementById("roomsCount").value, 10) || 1;
+                const reservationRange = document.getElementById("reservationRange").value;
+
+                // Kalkulimi i numrit të netëve
+                let nightsCount = 1;
+                if (reservationRange) {
+                    const [startDate, endDate] = reservationRange.split(" to ");
+                    const start = new Date(startDate);
+                    const end = new Date(endDate);
+                    nightsCount = Math.max((end - start) / (1000 * 60 * 60 * 24), 1);
+                }
+
+                // Llogaritja e çmimit total
+                const totalPrice =
+                    nightsCount *
+                    (adultsCount * pricePerAdultPerNight +
+                        childrenCount * pricePerChildPerNight +
+                        roomsCount * pricePerRoomPerNight);
+
+                messageDiv.innerHTML = `<div class='alert alert-info'>Çmimi total: $${totalPrice.toFixed(2)}</div>`;
+            }
+
+            // Eventet për fushat e formës për të rifreskuar çmimin
+            document.getElementById("adultsCount").addEventListener("input", calculatePrice);
+            document.getElementById("childrenCount").addEventListener("input", calculatePrice);
+            document.getElementById("roomsCount").addEventListener("input", calculatePrice);
+            document.getElementById("reservationRange").addEventListener("change", calculatePrice);
+
+            // Inicializimi i çmimit fillestar
+            calculatePrice();
+
             // Event Listener për formën e rezervimit
             document.getElementById("reservationForm").addEventListener("submit", function (e) {
                 e.preventDefault();
@@ -106,13 +147,12 @@
                 const adultsCount = document.getElementById("adultsCount").value;
                 const childrenCount = document.getElementById("childrenCount").value;
                 const roomsCount = document.getElementById("roomsCount").value;
-                document.getElementById("message").innerHTML = "<div class='alert alert-success'>Rezervimi u krye me sukses .</div>";
+
                 if (!reservationRange || !adultsCount || !roomsCount) {
                     alert("Ju lutem plotësoni të gjitha fushat e detyrueshme.");
                     return;
                 }
 
-                // Shembull i thirrjes për kontrollin e disponueshmërisë
                 fetch('/Reservation/CheckAvailability', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -120,9 +160,7 @@
                 })
                     .then(response => response.json())
                     .then(data => {
-                        const messageDiv = document.getElementById("message");
                         if (data.available) {
-                            // Nëse ka dhoma të lira, bëhet rezervimi
                             fetch('/Reservation/MakeReservation', {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
@@ -131,15 +169,29 @@
                                 .then(response => response.json())
                                 .then(reservationData => {
                                     if (reservationData.success) {
-
-                                        messageDiv.innerHTML = `<div class="alert alert-success">${reservationData.message}</div>`;
+                                        // Show success message
+                                        document.getElementById("message").innerHTML =
+                                            `<div class="alert alert-success">Rezervimi u krye me sukses. Për detaje, kontrolloni email-in tuaj!</div>`;
                                     } else {
-                                        messageDiv.innerHTML = `<div class="alert alert-danger">${reservationData.message}</div>`;
+                                        // Show error message if reservation fails
+                                        document.getElementById("message").innerHTML =
+                                            `<div class="alert alert-danger">${reservationData.message}</div>`;
                                     }
+                                })
+                                .catch(error => {
+                                    console.error("Gabim gjatë procesimit të rezervimit:", error);
+                                    document.getElementById("message").innerHTML =
+                                        `<div class="alert alert-danger">Ndodhi një gabim. Ju lutem provoni përsëri më vonë.</div>`;
                                 });
                         } else {
-                            messageDiv.innerHTML = `<div class="alert alert-danger">Nuk ka dhoma të lira për këtë periudhë.</div>`;
+                            document.getElementById("message").innerHTML =
+                                `<div class="alert alert-danger">Nuk ka dhoma të lira për këtë periudhë.</div>`;
                         }
+                    })
+                    .catch(error => {
+                        console.error("Gabim gjatë kontrollit të disponueshmërisë:", error);
+                        document.getElementById("message").innerHTML =
+                            `<div class="alert alert-danger">Ndodhi një gabim gjatë kontrollit të disponueshmërisë. Ju lutem provoni përsëri më vonë.</div>`;
                     });
             });
         });
