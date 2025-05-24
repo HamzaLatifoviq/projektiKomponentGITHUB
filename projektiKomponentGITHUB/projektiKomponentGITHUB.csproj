@@ -235,6 +235,7 @@
     <Content Include="Views\PagesaTransaksionet\SuksesPagesa.cshtml" />
     <Content Include="Views\CarsList\Details.cshtml" />
     <Content Include="Views\ListaEMakinave\Details.cshtml" />
+    <Content Include="Views\ListaEMakinave\CreateBooking.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

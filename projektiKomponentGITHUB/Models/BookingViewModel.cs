@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace projektiKomponentGITHUB.Models
 {
@@ -19,6 +20,7 @@ namespace projektiKomponentGITHUB.Models
         public int VeturaId { get; set; }
         public string DropOffLocation { get; set; }
 
+        [Required(ErrorMessage = "Ju lutem zgjidhni datën e marrjes së veturës.")]
         public DateTime? PickupDate { get; set; }
         public DateTime? DropoffDate { get; set; }
 
