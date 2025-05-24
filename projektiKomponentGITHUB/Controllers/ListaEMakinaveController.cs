@@ -71,7 +71,6 @@ namespace projektiKomponentGITHUB.Controllers
                     return View("Details", model);
                 }
 
-                // Get the vehicle base price
                 var vehicle = db.Veturat.Find(model.VeturaId);
                 if (vehicle == null)
                 {
@@ -79,7 +78,6 @@ namespace projektiKomponentGITHUB.Controllers
                     return View("Details", model);
                 }
 
-                // Calculate rental days
                 int rentalDays = 1;
                 if (model.PickupDate.HasValue && model.DropoffDate.HasValue)
                 {
@@ -87,36 +85,29 @@ namespace projektiKomponentGITHUB.Controllers
                     if (rentalDays <= 0) rentalDays = 1;
                 }
 
-                // Base rental price
                 decimal vehicleTotalPrice = vehicle.Price * rentalDays;
 
-                // Add-ons (some per day, some fixed)
                 decimal addonsTotalPrice = 0m;
-                if (model.GPS) addonsTotalPrice += 5m * rentalDays;
-                if (model.BabySeat) addonsTotalPrice += 10m * rentalDays;
+                if (model.GPS) addonsTotalPrice += 5m;
+                if (model.BabySeat) addonsTotalPrice += 10m;
                 if (model.ExtraInsurance) addonsTotalPrice += 20m;
-                if (model.AdditionalDriver) addonsTotalPrice += 50m * rentalDays;
+                if (model.AdditionalDriver) addonsTotalPrice += 50m;
 
-                // Final total
                 decimal totalPriceAtBooking = vehicleTotalPrice + addonsTotalPrice;
 
-                // Compose add-on string
-                string addOns = string.Join(",", new[]
-                {
+                string addOns = string.Join(",", new[] {
                     model.GPS ? "GPS" : null,
                     model.BabySeat ? "BabySeat" : null,
                     model.ExtraInsurance ? "ExtraInsurance" : null,
                     model.AdditionalDriver ? "AdditionalDriver" : null
                 }.Where(x => x != null));
 
-                // Get user ID from session
                 int? currentUserId = null;
                 if (Session["UserId"] != null)
                 {
                     currentUserId = (int)Session["UserId"];
                 }
 
-                // Save booking
                 var booking = new VeturBooking
                 {
                     VeturaID = model.VeturaId,
@@ -135,10 +126,12 @@ namespace projektiKomponentGITHUB.Controllers
 
                 db.Bookings.Add(booking);
                 db.SaveChanges();
-            }
 
-            TempData["SuccessMessage"] = "Rezervimi u krye me sukses!";
-            return RedirectToAction("Details", new { id = model.VeturaId });
+                TempData["SuccessMessage"] = "Rezervimi u krye me sukses!";
+
+                // Redirect to the payment page with the total price
+                return RedirectToAction("PagesatView", "PagesaTransaksionet", new { shuma = totalPriceAtBooking });
+            }
         }
 
         protected override void Dispose(bool disposing)
