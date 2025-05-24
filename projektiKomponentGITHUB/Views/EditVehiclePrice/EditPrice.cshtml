@@ -11,7 +11,7 @@
     <div class="alert alert-success">@TempData["SuccessMessage"]</div>
 }
 
-@using (Html.BeginForm("EditPrice", "ListaEMakinave", FormMethod.Post))
+@using (Html.BeginForm("EditPrice", "EditVehiclePrice", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.Id)

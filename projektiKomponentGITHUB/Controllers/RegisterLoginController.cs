@@ -27,16 +27,27 @@ namespace projektiKomponentGITHUB.Controllers
             try
             {
                 var user = db.Users.FirstOrDefault(u => u.Username == username && u.Password == password);
-
                 if (user != null)
                 {
-                    // Set login session values
+                    // Set login session values (optional)
                     Session["UserId"] = user.UserId;
                     Session["Username"] = user.Username;
                     Session["Role"] = user.Role;
 
-                    // Set FormsAuthentication cookie (this is what makes User.Identity.Name work)
-                    System.Web.Security.FormsAuthentication.SetAuthCookie(user.Username, false);
+                    // Create FormsAuthenticationTicket with roles in UserData
+                    string roles = user.Role; // e.g., "Admin" or "Client"
+                    var ticket = new System.Web.Security.FormsAuthenticationTicket(
+                        1, // version
+                        user.Username,
+                        DateTime.Now,
+                        DateTime.Now.AddMinutes(30),
+                        false,
+                        roles
+                    );
+
+                    string encryptedTicket = System.Web.Security.FormsAuthentication.Encrypt(ticket);
+                    var authCookie = new HttpCookie(System.Web.Security.FormsAuthentication.FormsCookieName, encryptedTicket);
+                    Response.Cookies.Add(authCookie);
 
                     user.LastLogin = DateTime.Now;
                     db.SaveChanges();
@@ -46,7 +57,7 @@ namespace projektiKomponentGITHUB.Controllers
                         case "Admin":
                             return RedirectToAction("Roli_Test", "Rolet");
                         case "Client":
-                            return RedirectToAction("Roli_Klient", "Rolet"); // Better routing
+                            return RedirectToAction("Roli_Klient", "Rolet");
                         case "HotelManager":
                             return RedirectToAction("Roli_HotelManager", "Rolet");
                         case "CarAgencyManager":

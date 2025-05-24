@@ -2,6 +2,9 @@
 
 @{
     ViewBag.Title = "Detajet e Veturës";
+
+    var role = Session["Role"] as string;
+    bool canEditPrice = role == "Admin" || role == "CarAgencyManager";
 }
 
 @{
@@ -14,6 +17,7 @@
         @successMessage
     </div>
 }
+
 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
@@ -30,6 +34,18 @@
             <p class="text-muted mb-1"><i class="bi bi-geo-alt-fill me-1"></i>@Model.Qyteti · @Model.Distanca km nga qendra</p>
             <p class="text-muted mb-1"><i class="bi bi-gear-fill me-1"></i>@Model.Transmetimi · <i class="bi bi-fuel-pump me-1"></i>@Model.LlojiKarburantit</p>
             <p class="mt-2">@Model.Pershkrimi</p>
+
+            <p class="h4 text-success mt-3">
+                Çmimi total: €<span id="totalPrice">@Model.Price.ToString("F2")</span>
+            </p>
+
+            @* Show Edit Price button only for Admin or CarAgencyManager *@
+            @if (canEditPrice)
+            {
+                <a href="@Url.Action("EditPrice", "EditVehiclePrice", new { id = Model.VeturaId })" class="btn btn-warning mt-3">
+                    <i class="bi bi-pencil-square"></i> Ndrysho Çmimin
+                </a>
+            }
         </div>
     </div>
 
@@ -38,6 +54,9 @@
     {
         @Html.AntiForgeryToken()
         @Html.HiddenFor(m => m.VeturaId)
+
+        <!-- Hidden base price for JS -->
+        <input type="hidden" id="basePrice" value="@Model.Price" />
 
         <div class="row bg-white shadow rounded p-4">
             <div class="col-md-6">
@@ -86,12 +105,12 @@
                     <div class="mb-3">
                         @Html.ValidationMessageFor(m => m.PickupDate, "", new { @class = "text-danger" })
                         @Html.LabelFor(m => m.PickupDate, "Pick-up Date & Time", new { @class = "form-label" })
-                        @Html.TextBoxFor(m => m.PickupDate, new { @class = "form-control", type = "datetime-local" })
+                        @Html.TextBoxFor(m => m.PickupDate, new { @class = "form-control", type = "datetime-local", id = "pickupDate" })
                     </div>
 
                     <div class="mb-3">
                         @Html.LabelFor(m => m.DropoffDate, "Drop-off Date & Time", new { @class = "form-label" })
-                        @Html.TextBoxFor(m => m.DropoffDate, new { @class = "form-control", type = "datetime-local" })
+                        @Html.TextBoxFor(m => m.DropoffDate, new { @class = "form-control", type = "datetime-local", id = "dropoffDate" })
                     </div>
 
                     <div class="mb-2">
@@ -107,3 +126,63 @@
         </div>
     }
 </div>
+
+<script>
+    function calculatePrice() {
+        const basePrice = parseFloat(document.getElementById('basePrice').value);
+
+        // Get pickup and dropoff dates
+        const pickupInput = document.getElementById('pickupDate').value;
+        const dropoffInput = document.getElementById('dropoffDate').value;
+
+        if (!pickupInput || !dropoffInput) {
+            // Not enough info, show base price only
+            document.getElementById('totalPrice').textContent = basePrice.toFixed(2);
+            return;
+        }
+
+        const pickupDate = new Date(pickupInput);
+        const dropoffDate = new Date(dropoffInput);
+
+        // Calculate days difference (at least 1)
+        let diffTime = dropoffDate - pickupDate;
+        let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        if (diffDays < 1) diffDays = 1;
+
+        // Add-ons per day or fixed prices:
+        // According to your markup:
+        // GPS (€5/day), BabySeat (€10/day), ExtraInsurance (€20 fixed), AdditionalDriver (€50/day)
+        let addonsPrice = 0;
+        if (document.getElementById('gps').checked) addonsPrice += 5 
+        if (document.getElementById('babySeat').checked) addonsPrice += 10 
+        if (document.getElementById('extraInsurance').checked) addonsPrice += 20; // fixed price
+        if (document.getElementById('additionalDriver').checked) addonsPrice += 50 
+
+        // Calculate total price
+        const total = (basePrice * diffDays) + addonsPrice;
+
+        // Update price on page
+        document.getElementById('totalPrice').textContent = total.toFixed(2);
+    }
+
+    // Attach event listeners to inputs to recalc price when changed
+    document.addEventListener('DOMContentLoaded', () => {
+        ['pickupDate', 'dropoffDate'].forEach(id => {
+            const elem = document.getElementById(id);
+            if (elem) {
+                elem.addEventListener('input', calculatePrice); // Trigger on typing or picker
+                elem.addEventListener('change', calculatePrice); // Backup trigger
+            }
+        });
+
+        ['gps', 'babySeat', 'extraInsurance', 'additionalDriver'].forEach(id => {
+            const elem = document.getElementById(id);
+            if (elem) {
+                elem.addEventListener('change', calculatePrice);
+            }
+        });
+
+        // Initialize price on page load
+        calculatePrice();
+    });
+</script>

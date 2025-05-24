@@ -28,6 +28,8 @@ namespace projektiKomponentGITHUB.Models
         public bool BabySeat { get; set; }
         public bool ExtraInsurance { get; set; }
         public bool AdditionalDriver { get; set; }
+        public decimal Price { get; set; } // Vehicle base price
+        public decimal PriceAtBooking { get; set; } // Final calculated price
 
         public DateTime BookingDate { get; set; }
 
