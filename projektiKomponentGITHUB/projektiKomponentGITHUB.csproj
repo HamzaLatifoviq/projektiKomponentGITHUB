@@ -139,12 +139,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BookingViewModel.cs" />
     <Compile Include="Models\DbContext.cs" />
     <Compile Include="Models\LoginView.cs" />
     <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserCreate.cs" />
     <Compile Include="Models\UserViewModel.cs" />
+    <Compile Include="Models\Veturat.cs" />
+    <Compile Include="Models\VeturBooking.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -230,6 +233,8 @@
     <Content Include="Views\Rolet\CreateUser.cshtml" />
     <Content Include="Views\Rolet\DeleteUser.cshtml" />
     <Content Include="Views\PagesaTransaksionet\SuksesPagesa.cshtml" />
+    <Content Include="Views\CarsList\Details.cshtml" />
+    <Content Include="Views\ListaEMakinave\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

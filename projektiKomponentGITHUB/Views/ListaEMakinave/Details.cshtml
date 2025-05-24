@@ -1,0 +1,96 @@
+﻿@model projektiKomponentGITHUB.Models.BookingViewModel
+
+@{
+    ViewBag.Title = "Detajet e Veturës";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+<div class="container mt-5">
+    <!-- Informacioni për veturën dhe foto -->
+    <div class="row bg-white shadow rounded p-4 mb-4">
+        <div class="col-md-6 mb-3">
+            <img src="~/Content/ArtinFoto/@Model.FotoPath" class="img-fluid rounded shadow-sm" alt="@Model.Emri"
+                 style="max-height: 450px; width: 100%; object-fit: cover;" />
+        </div>
+        <div class="col-md-6">
+            <h3 class="text-primary">@Model.Emri - @Model.Kategoria</h3>
+            <p class="text-muted mb-1"><i class="bi bi-geo-alt-fill me-1"></i>@Model.Qyteti · @Model.Distanca km nga qendra</p>
+            <p class="text-muted mb-1"><i class="bi bi-gear-fill me-1"></i>@Model.Transmetimi · <i class="bi bi-fuel-pump me-1"></i>@Model.LlojiKarburantit</p>
+            <p class="mt-2">@Model.Pershkrimi</p>
+        </div>
+    </div>
+
+    <!-- Pajisjet shtesë dhe Pick-up/Drop-off njëra pranë tjetrës -->
+    @using (Html.BeginForm("CreateBooking", "ListaEMakinave", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.VeturaId)
+
+        <div class="row bg-white shadow rounded p-4">
+            <div class="col-md-6">
+                <h5 class="mb-4 text-primary"><i class="bi bi-plus-circle-dotted me-2"></i>Pajisje shtesë</h5>
+
+                <div class="form-check mb-3">
+                    @Html.CheckBoxFor(m => m.GPS, new { @class = "form-check-input", id = "gps" })
+                    <label class="form-check-label" for="gps">
+                        <i class="bi bi-geo me-2"></i>GPS – €5.00 / ditë
+                    </label>
+                </div>
+
+                <div class="form-check mb-3">
+                    @Html.CheckBoxFor(m => m.BabySeat, new { @class = "form-check-input", id = "babySeat" })
+                    <label class="form-check-label" for="babySeat">
+                        <i class="bi bi-person-fill me-2"></i>Sedilje për foshnje – €10.00 / ditë
+                    </label>
+                </div>
+
+                <div class="form-check mb-3">
+                    @Html.CheckBoxFor(m => m.ExtraInsurance, new { @class = "form-check-input", id = "extraInsurance" })
+                    <label class="form-check-label" for="extraInsurance">
+                        <i class="bi bi-shield-check me-2"></i>Sigurim shtesë – €20.00
+                    </label>
+                </div>
+
+                <div class="form-check mb-4">
+                    @Html.CheckBoxFor(m => m.AdditionalDriver, new { @class = "form-check-input", id = "additionalDriver" })
+                    <label class="form-check-label" for="additionalDriver">
+                        <i class="bi bi-person-plus me-2"></i>Driver shtesë – €50.00 / ditë
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-50">Rezervo</button>
+            </div>
+
+            <!-- Pick-up dhe Drop-off në të djathtë -->
+            <div class="col-md-6 mt-4 mt-md-0">
+                <div class="bg-light rounded p-4 h-100">
+                    <h5 class="text-secondary mb-3"><i class="bi bi-calendar-event me-2"></i>Pick-up & Drop-off</h5>
+
+                    <p class="mb-2">
+                        <strong>Pick-up:</strong> 6 Maj · 10:00 — @Model.Qyteti, Stacioni Qendror
+                    </p>
+
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.PickupDate, "Pick-up Date & Time", new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.PickupDate, new { @class = "form-control", type = "datetime-local" })
+                    </div>
+
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.DropoffDate, "Drop-off Date & Time", new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.DropoffDate, new { @class = "form-control", type = "datetime-local" })
+                    </div>
+
+                    <div class="mb-2">
+                        @Html.LabelFor(m => m.DropOffLocation, "Drop-off:", new { @class = "form-label" })
+                        @Html.DropDownListFor(m => m.DropOffLocation, new SelectList(new[] {
+                            new { Value = "shkup", Text = "Shkup, Stacioni Qendror" },
+                            new { Value = "tirane", Text = "Tiranë, Stacioni Qendror" },
+                            new { Value = "prishtine", Text = "Prishtinë, Stacioni Qendror" }
+                        }, "Value", "Text"), "Zgjedhni një vend", new { @class = "form-select" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
