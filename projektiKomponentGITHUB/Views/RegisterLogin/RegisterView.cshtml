@@ -1,26 +1,52 @@
-﻿
+﻿@model projektiKomponentGITHUB.Models.UserCreate
+
 @{
     ViewBag.Title = "RegisterView";
 }
 
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger text-center">@ViewBag.Error</div>
+}
+@if (ViewBag.Success != null)
+{
+    <div class="alert alert-success text-center">@ViewBag.Success</div>
+}
+
 <div class="container mt-5" style="max-width: 400px;">
     <h2 class="text-center mb-4">Register</h2>
-    <form>
+
+    @using (Html.BeginForm("RegisterView", "RegisterLogin", FormMethod.Post))
+    {
         <div class="mb-3">
-            <label for="fullname" class="form-label">Full Name</label>
-            <input type="text" class="form-control" id="fullname" placeholder="Your name" required>
+            @Html.LabelFor(m => m.Emri)
+            @Html.TextBoxFor(m => m.Emri, new { @class = "form-control", placeholder = "Emri", required = "required" })
         </div>
         <div class="mb-3">
-            <label for="emailReg" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="emailReg" placeholder="Enter email" required>
+            @Html.LabelFor(m => m.Mbiemri)
+            @Html.TextBoxFor(m => m.Mbiemri, new { @class = "form-control", placeholder = "Mbiemri", required = "required" })
         </div>
+
         <div class="mb-3">
-            <label for="passwordReg" class="form-label">Password</label>
-            <input type="password" class="form-control" id="passwordReg" placeholder="Create password" required>
+            @Html.LabelFor(m => m.Email)
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Enter email", type = "email", required = "required" })
         </div>
+
+        <div class="mb-3">
+            @Html.LabelFor(m => m.Username)
+            @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "Choose username", required = "required" })
+        </div>
+
+        <div class="mb-3">
+            @Html.LabelFor(m => m.Password)
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Create password", required = "required" })
+        </div>
+
+        <div class="mb-3">
+            @Html.LabelFor(m => m.ConfirmPassword)
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirm password", required = "required" })
+        </div>
+
         <button type="submit" class="btn btn-success w-100">Register</button>
-        <div class="text-center mt-2">
-            <a href="#">Already have an account? Login</a>
-        </div>
-    </form>
+    }
 </div>
