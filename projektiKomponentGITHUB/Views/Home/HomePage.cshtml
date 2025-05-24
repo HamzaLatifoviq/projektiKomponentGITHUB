@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<projektiKomponentGITHUB.Models.Review>
+@{
     ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -65,18 +66,14 @@
     </section>
 </div>
 
-
-
-
-
-<!-- Sistemi i Rating dhe komenter ) -->
+<!-- Sistemi i Rating dhe komenter -->
 <div class="container my-5">
     <h3 class="text-center mb-4">Rate Our Platform & Service</h3>
 
     <div class="row">
         <!-- Left: Rating Form -->
         <div class="col-md-6 mb-4">
-            <form class="bg-white p-4 rounded shadow-sm">
+            <form method="post" action="@Url.Action("SubmitReview", "Home")" class="bg-white p-4 rounded shadow-sm">
                 <div class="form-group mb-4 text-center">
                     <label class="d-block mb-2">Your Rating</label>
                     <div class="star-rating d-inline-block">
@@ -85,13 +82,18 @@
                         <span class="fa fa-star" data-rating="3"></span>
                         <span class="fa fa-star" data-rating="4"></span>
                         <span class="fa fa-star" data-rating="5"></span>
-                        <input type="hidden" name="rating" class="rating-value" value="0">
+                        <input type="hidden" name="rating" class="rating-value" value="0" />
                     </div>
                 </div>
 
                 <div class="form-group mb-4">
-                    <label for="comment">Your Feedback</label>
-                    <textarea id="comment" class="form-control" name="comment" rows="5" placeholder="Write your thoughts here..." style="resize: none;"></textarea>
+                    <label for="Comment">Your Feedback</label>
+                    <textarea id="Comment" class="form-control" name="comment" rows="5" placeholder="Write your thoughts here..." style="resize: none;" required></textarea>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label for="UserName">Your Name (optional)</label>
+                    <input id="UserName" type="text" class="form-control" name="userName" maxlength="100" />
                 </div>
 
                 <div class="text-center">
@@ -100,39 +102,41 @@
             </form>
         </div>
 
-        <!-- Right: User Comments -->
+        <!-- Right: User Comments (nga DB) -->
         <div class="col-md-6 mb-4">
-            <div class="bg-light p-4 rounded shadow-sm h-100">
+            <div class="bg-light p-4 rounded shadow-sm h-100" style="max-height: 400px; overflow-y: auto;">
                 <h5 class="mb-3">Recent Reviews</h5>
-
-                <div class="mb-3 border-bottom pb-2">
-                    <strong>Hristijan.H</strong>
-                    <div class="text-warning mb-1">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-half-alt"></i>
-                    </div>
-                    <p>Great location and very clean rooms. The breakfast could be better, but overall a pleasant stay. Would recommend it to friends.</p>
-                </div>
-
-                <div class="mb-3 border-bottom pb-2">
-                    <strong>Erton.A</strong>
-                    <div class="text-warning mb-1">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p>Hoteli ishte fantastik! Dhoma shumë e pastër, stafi miqësor dhe pamja nga ballkoni ishte e mrekullueshme. Do të kthehem sërish pa dyshim!</p>
-                </div>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var review in Model)
+                    {
+                        <div class="mb-3 border-bottom pb-2">
+                            <strong>@(string.IsNullOrEmpty(review.UserName) ? "Anonymous" : review.UserName)</strong>
+                            <span class="text-warning">
+                                @for (int i = 0; i < review.Rating; i++)
+                                {
+                                    <i class="fa fa-star"></i>
+                                }
+                                @for (int i = review.Rating; i < 5; i++)
+                                {
+                                    <i class="fa fa-star text-muted"></i>
+                                }
+                            </span>
+                            <p>@review.Comment</p>
+                            <small class="text-muted">@review.CreatedAt.ToString("g")</small>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>No reviews yet.</p>
+                }
             </div>
         </div>
     </div>
 </div>
 
-<!-- Font Awesome for stars -->
+<!-- Font Awesome për yjet -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
 <style>
@@ -156,7 +160,7 @@
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     }
 
-    .btn-success {
+    .btn-primary {
         border-radius: 30px;
         font-size: 1.1rem;
     }
