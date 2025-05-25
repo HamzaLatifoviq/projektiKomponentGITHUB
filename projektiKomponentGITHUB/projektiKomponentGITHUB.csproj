@@ -136,6 +136,7 @@
     <Compile Include="Controllers\ModuliRezervimeveController.cs" />
     <Compile Include="Controllers\PagesaTransaksionetController.cs" />
     <Compile Include="Controllers\RegisterLoginController.cs" />
+    <Compile Include="Controllers\ReservationsController.cs" />
     <Compile Include="Controllers\RoletController.cs" />
     <Compile Include="Controllers\VeturatController.cs" />
     <Compile Include="Global.asax.cs">
@@ -145,6 +146,7 @@
     <Compile Include="Models\DbContext.cs" />
     <Compile Include="Models\LoginView.cs" />
     <Compile Include="Models\Payment.cs" />
+    <Compile Include="Models\Reservation.cs" />
     <Compile Include="Models\Review.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserCreate.cs" />
@@ -244,6 +246,8 @@
     <Content Include="Views\Veturat\Edito.cshtml" />
     <Content Include="Views\Veturat\Fshij.cshtml" />
     <Content Include="Views\Rolet\ChangePassword.cshtml" />
+    <Content Include="Views\Reservations\Index.cshtml" />
+    <Content Include="Views\Reservations\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

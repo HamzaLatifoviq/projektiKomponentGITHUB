@@ -6,6 +6,7 @@ namespace projektiKomponentGITHUB.Models
     {
         public MyDbContext() : base("name=DefaultConnection")
         {
+
         }
 
         public DbSet<User> Users { get; set; }
@@ -14,5 +15,6 @@ namespace projektiKomponentGITHUB.Models
 
         public DbSet<Veturat> Veturat { get; set; }
         public DbSet<VeturBooking> Bookings { get; set; }
+        public DbSet<Reservations> Reservations { get; set; }
     }
 }
