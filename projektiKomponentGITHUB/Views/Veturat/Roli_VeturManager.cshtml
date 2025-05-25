@@ -107,7 +107,7 @@
                         foreach (var booking in bookings)
                         {
                             // Find payment for current booking, if any
-                            var payment = payments?.FirstOrDefault(p => p.Id == booking.BookingID);
+                            var payment = payments?.FirstOrDefault(p => p.BookingID == booking.BookingID);
 
                             <tr>
                                 <td>@booking.BookingID</td>

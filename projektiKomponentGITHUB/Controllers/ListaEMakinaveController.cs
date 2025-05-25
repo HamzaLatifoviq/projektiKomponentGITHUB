@@ -81,19 +81,22 @@ namespace projektiKomponentGITHUB.Controllers
                     return View("Details", model);
                 }
 
+                // Calculate rental days (minimum 1)
                 int rentalDays = 1;
                 if (model.PickupDate.HasValue && model.DropoffDate.HasValue)
                 {
-                    rentalDays = (model.DropoffDate.Value - model.PickupDate.Value).Days;
+                    rentalDays = (model.DropoffDate.Value.Date - model.PickupDate.Value.Date).Days;
                     if (rentalDays <= 0) rentalDays = 1;
                 }
 
+                // Calculate total price for vehicle
                 decimal vehicleTotalPrice = vehicle.Price * rentalDays;
 
+                // Calculate addons price PER DAY
                 decimal addonsTotalPrice = 0m;
                 if (model.GPS) addonsTotalPrice += 5m;
                 if (model.BabySeat) addonsTotalPrice += 10m;
-                if (model.ExtraInsurance) addonsTotalPrice += 20m;
+                if (model.ExtraInsurance) addonsTotalPrice += 20;
                 if (model.AdditionalDriver) addonsTotalPrice += 50m;
 
                 decimal totalPriceAtBooking = vehicleTotalPrice + addonsTotalPrice;
@@ -127,7 +130,9 @@ namespace projektiKomponentGITHUB.Controllers
                 db.SaveChanges();
 
                 TempData["SuccessMessage"] = "Rezervimi u krye me sukses!";
-                return RedirectToAction("PagesatView", "PagesaTransaksionet", new { shuma = totalPriceAtBooking });
+
+                // Pass bookingId and total price to payment page
+                return RedirectToAction("PagesatView", "PagesaTransaksionet", new { bookingId = booking.BookingID, shuma = totalPriceAtBooking });
             }
         }
 

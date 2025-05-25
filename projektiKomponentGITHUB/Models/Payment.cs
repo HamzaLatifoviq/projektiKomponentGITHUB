@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 namespace projektiKomponentGITHUB.Models
 {
     public class Payment
@@ -46,5 +47,11 @@ namespace projektiKomponentGITHUB.Models
         public DateTime DataPageses { get; set; }
 
         public string PaymentStatus { get; set; }
+
+        // Add this property to link payment to booking
+        public int? BookingID { get; set; }
+
+        [ForeignKey("BookingID")]
+        public virtual VeturBooking Booking { get; set; }
     }
 }

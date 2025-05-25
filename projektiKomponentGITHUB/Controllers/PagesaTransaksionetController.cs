@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using projektiKomponentGITHUB.Models;
 
@@ -9,25 +8,24 @@ namespace projektiKomponentGITHUB.Controllers
 {
     public class PagesaTransaksionetController : Controller
     {
-        // GET: PagesaTransaksionet
-        public ActionResult PagesatTransaksionetView()
-        {
-            return View();
-        }
-
-        public ActionResult SuksesPagesa()
-        {
-            return View();
-        }
-
         private MyDbContext db = new MyDbContext();
 
         // GET: Pagesa/PagesaView
-        public ActionResult PagesatView(decimal shuma)
+        // bookingId is nullable because it might not be passed
+        public ActionResult PagesatView(decimal shuma, int? bookingId)
         {
+            if (!bookingId.HasValue)
+            {
+                // You could redirect or show an error here if bookingId is required
+                return new HttpStatusCodeResult(400, "Booking ID is required.");
+            }
+
+            ViewBag.BookingID = bookingId;
+
             var payment = new Payment
             {
-                Shuma = shuma
+                Shuma = shuma,
+                BookingID = bookingId
             };
 
             return View(payment);
@@ -43,15 +41,31 @@ namespace projektiKomponentGITHUB.Controllers
             if (payment == null)
             {
                 Console.WriteLine("Payment model is null!");
+                return View(payment);
             }
-            else
+
+            Console.WriteLine($"Payment received: Emri={payment.Emri}, Mbiemri={payment.Mbiemri}, Emaili={payment.Emaili}, BookingID={payment.BookingID}");
+
+            // In case BookingID is null here, try to get from form or ViewBag (optional fallback)
+            if (!payment.BookingID.HasValue || payment.BookingID == 0)
             {
-                Console.WriteLine($"Payment received: Emri={payment.Emri}, Mbiemri={payment.Mbiemri}, Emaili={payment.Emaili}");
+                var bookingIdFromForm = Request.Form["BookingID"];
+                if (int.TryParse(bookingIdFromForm, out int bookingIdParsed))
+                {
+                    payment.BookingID = bookingIdParsed;
+                    Console.WriteLine($"BookingID was null, assigned from form: {bookingIdParsed}");
+                }
+                else
+                {
+                    Console.WriteLine("BookingID is missing or invalid.");
+                    ModelState.AddModelError("", "Booking ID is required.");
+                }
             }
 
             if (ModelState.IsValid)
             {
                 Console.WriteLine("ModelState is valid.");
+
                 payment.DataPageses = DateTime.Now;
                 payment.PaymentStatus = "Pending";
 
@@ -64,7 +78,6 @@ namespace projektiKomponentGITHUB.Controllers
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Exception on SaveChanges: {ex.Message}");
-                    // Optionally add more details:
                     Console.WriteLine(ex.StackTrace);
                     ViewBag.Errors = new List<string> { "Database error: " + ex.Message };
                     return View(payment);
@@ -89,8 +102,7 @@ namespace projektiKomponentGITHUB.Controllers
             }
         }
 
-        // Optional: Success Page
-        public ActionResult PagesaSukses()
+        public ActionResult SuksesPagesa()
         {
             return View();
         }

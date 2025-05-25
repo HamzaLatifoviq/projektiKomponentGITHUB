@@ -189,6 +189,7 @@
             <!-- Hidden or auto-set fields -->
             @Html.HiddenFor(m => m.DataPageses, new { Value = DateTime.Now.ToString("yyyy-MM-dd") })
             @Html.HiddenFor(m => m.PaymentStatus, new { Value = "Pending" })
+            @Html.HiddenFor(m=> m.BookingID)
         </div>
 
         <div class="text-end">
