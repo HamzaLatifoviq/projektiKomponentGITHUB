@@ -132,30 +132,27 @@
                     childrenCount * pricePerChildPerNight +
                     roomsCount * pricePerRoomPerNight);
 
-            messageDiv.innerHTML = `<div class='alert alert-info'>Çmimi total: $${totalPrice.toFixed(2)}</div>`;
+            messageDiv.innerHTML = "<div class='alert alert-info'>Çmimi total: $" + totalPrice.toFixed(2) + "</div>";
         }
 
-        // Eventet për fushat e formës për të rifreskuar çmimin
+        // Lidh eventet input dhe change për të kalkuluar çmimin
         document.getElementById("adultsCount").addEventListener("input", calculatePrice);
         document.getElementById("childrenCount").addEventListener("input", calculatePrice);
         document.getElementById("roomsCount").addEventListener("input", calculatePrice);
         document.getElementById("reservationRange").addEventListener("change", calculatePrice);
 
-        // Inicializimi i çmimit fillestar
-        calculatePrice();
-
-        // Event Listener për formën e rezervimit
-        document.getElementById("reservationForm").addEventListener("submit", function (e) {
-            e.preventDefault();
+        // Submit i formës për rezervim
+        document.getElementById("reservationForm").addEventListener("submit", function (event) {
+            event.preventDefault();
 
             const hotelId = document.getElementById("hotelId").value;
             const reservationRange = document.getElementById("reservationRange").value;
-            const adultsCount = document.getElementById("adultsCount").value;
-            const childrenCount = document.getElementById("childrenCount").value;
-            const roomsCount = document.getElementById("roomsCount").value;
+            const adultsCount = parseInt(document.getElementById("adultsCount").value, 10);
+            const childrenCount = parseInt(document.getElementById("childrenCount").value, 10);
+            const roomsCount = parseInt(document.getElementById("roomsCount").value, 10);
 
             if (!reservationRange || !adultsCount || !roomsCount) {
-                alert("Ju lutem plotësoni të gjitha fushat e detyrueshme.");
+                messageDiv.innerHTML = '<div class="alert alert-danger">Ju lutem plotësoni të gjitha fushat e detyrueshme.</div>';
                 return;
             }
 
@@ -164,44 +161,44 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ hotelId, reservationRange, adultsCount, childrenCount, roomsCount })
             })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Gabim gjatë kontrollit të disponueshmërisë: ${response.statusText}`);
+                    }
+                    return response.json();
+                })
                 .then(data => {
                     if (data.available) {
-                        fetch('/Reservation/MakeReservation', {
+                        return fetch('/Reservation/MakeReservation', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ hotelId, reservationRange, adultsCount, childrenCount, roomsCount })
-                        })
-                            .then(response => response.json())
-                            .then(reservationData => {
-                                if (reservationData.success) {
-                                    // Show success message
-                                    document.getElementById("message").innerHTML =
-                                        `<div class="alert alert-success">Rezervimi u krye me sukses. Për detaje, kontrolloni email-in tuaj!</div>`;
-                                } else {
-                                    // Show error message if reservation fails
-                                    document.getElementById("message").innerHTML =
-                                        `<div class="alert alert-danger">${reservationData.message}</div>`;
-                                }
-                            })
-                            .catch(error => {
-                                console.error("Gabim gjatë procesimit të rezervimit:", error);
-                                document.getElementById("message").innerHTML =
-                                    `<div class="alert alert-danger">Ndodhi një gabim. Ju lutem provoni përsëri më vonë.</div>`;
-                            });
+                        });
                     } else {
-                        document.getElementById("message").innerHTML =
-                            `<div class="alert alert-danger">Nuk ka dhoma të lira për këtë periudhë.</div>`;
+                        throw new Error('Nuk ka dhoma të lira për këtë periudhë.');
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Gabim gjatë procesit të rezervimit: ${response.statusText}`);
+                    }
+                    return response.json();
+                })
+                .then(reservationData => {
+                    if (reservationData.success) {
+                        messageDiv.innerHTML = '<div class="alert alert-success">Rezervimi u krye me sukses. Për detaje, kontrolloni email-in tuaj!</div>';
+                    } else {
+                        throw new Error(reservationData.message || 'Rezervimi dështoi. Provoni përsëri.');
                     }
                 })
                 .catch(error => {
-                    console.error("Gabim gjatë kontrollit të disponueshmërisë:", error);
-                    document.getElementById("message").innerHTML =
-                        `<div class="alert alert-danger">Ndodhi një gabim gjatë kontrollit të disponueshmërisë. Ju lutem provoni përsëri më vonë.</div>`;
+                    console.error("Gabim:", error.message);
+                    messageDiv.innerHTML = `<div class="alert alert-danger">${error.message || 'Ndodhi një gabim. Ju lutem provoni përsëri më vonë.'}</div>`;
                 });
         });
     });
 </script>
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
