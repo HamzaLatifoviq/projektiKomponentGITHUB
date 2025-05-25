@@ -81,5 +81,37 @@
 
     </div>
 </div>
+<script>
+    document.getElementById("rezervoBtn").addEventListener("click", function () {
+        showReservationMessages();
+    });
+
+    function showReservationMessages() {
+        const chatBox = document.getElementById("chat-box");
+        const chatToggle = document.getElementById("chat-toggle");
+
+        if (chatBox && chatBox.style.display === "none") {
+            chatBox.style.display = "flex";
+            if (chatToggle) chatToggle.style.display = "none";
+        }
+
+        setTimeout(() => {
+            addMessage("ChatBot", "Ju sapo keni rezervuar.");
+        }, 500);
+
+        setTimeout(() => {
+            addMessage("ChatBot", "24 orë para pickup time do të merrni një kujtesë rreth rezervimit.");
+        }, 1500);
+    }
+
+    function addMessage(sender, message) {
+        const chatMessages = document.getElementById("chat-messages");
+        const newMessage = document.createElement("div");
+        newMessage.className = sender === "ChatBot" ? "chat-message bot" : "chat-message user";
+        newMessage.innerHTML = `<strong>${sender}:</strong> ${message}`;
+        chatMessages.appendChild(newMessage);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+</script>
 
 

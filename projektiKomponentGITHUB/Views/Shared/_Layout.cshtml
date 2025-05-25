@@ -6,6 +6,91 @@
     <title>@ViewBag.Title - BookingApp</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <style>
+        #chat-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: white;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10000;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #chat-box {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 300px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            font-family: sans-serif;
+            z-index: 9999;
+            overflow: hidden;
+            display: none;
+            flex-direction: column;
+        }
+
+        #chat-header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #minimize-chat {
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        #chat-messages {
+            height: 200px;
+            overflow-y: auto;
+            padding: 10px;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        #chat-input-area {
+            display: flex;
+            gap: 5px;
+            padding: 10px;
+        }
+
+            #chat-input-area input[type="text"] {
+                flex: 1;
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+
+            #chat-input-area button {
+                padding: 8px 10px;
+                background: #007bff;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                font-size: 13px;
+                cursor: pointer;
+            }
+
+                #chat-input-area button:hover {
+                    background: #0056b3;
+                }
+    </style>
 </head>
 <body>
     <!-- NAVBAR -->
@@ -17,41 +102,42 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        @Html.ActionLink("Hotel List", "HotelList", "Home", null, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Car List", "CarList", "Home", null, new { @class = "nav-link" })
-                    </li>
+                    <li class="nav-item">@Html.ActionLink("Hotel List", "HotelList", "Home", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Car List", "CarList", "Home", null, new { @class = "nav-link" })</li>
 
                     @if (Session["Username"] == null)
                     {
-                        <li class="nav-item">
-                            @Html.ActionLink("Login", "LoginView", "RegisterLogin", null, new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item">
-                            @Html.ActionLink("Register", "RegisterView", "RegisterLogin", null, new { @class = "nav-link" })
-                        </li>
+                        <li class="nav-item">@Html.ActionLink("Login", "LoginView", "RegisterLogin", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Register", "RegisterView", "RegisterLogin", null, new { @class = "nav-link" })</li>
                     }
                     else
                     {
-                        <li class="nav-item">
-                            <span class="nav-link">Welcome, @Session["Username"]</span>
-                        </li>
-                        <li class="nav-item">
-                            @Html.ActionLink("Logout", "Logout", "RegisterLogin", null, new { @class = "nav-link" })
-                        </li>
+                        <li class="nav-item"><span class="nav-link">Welcome, @Session["Username"]</span></li>
+                        <li class="nav-item">@Html.ActionLink("Logout", "Logout", "RegisterLogin", null, new { @class = "nav-link" })</li>
                     }
 
-                    <li class="nav-item">
-                        @Html.ActionLink("Shiko Profilin", "Roli_Test", "Rolet", null, new { @class = "nav-link" })
-                    </li>
+                    <li class="nav-item">@Html.ActionLink("Shiko Profilin", "Roli_Test", "Rolet", null, new { @class = "nav-link" })</li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- MAIN CONTENT -->
+    <!-- CHAT ICON + BOX -->
+    <div id="chat-toggle" onclick="toggleChat()">💬</div>
+
+    <div id="chat-box">
+        <div id="chat-header">
+            Live Chat
+            <span id="minimize-chat" onclick="toggleChat()">−</span>
+        </div>
+        <div id="chat-messages"></div>
+        <div id="chat-input-area">
+            <input type="text" id="user-input" placeholder="Shkruaj mesazhin këtu..." />
+            <button onclick="sendMessage()">Dërgo</button>
+            <button onclick="showReservationMessages()">Rezervo</button>
+        </div>
+    </div>
+
     <div class="container body-content mt-4">
         @RenderBody()
         <hr />
@@ -63,5 +149,68 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+    <!-- Chat Script -->
+    <script>
+        function toggleChat() {
+            const box = document.getElementById("chat-box");
+            const toggle = document.getElementById("chat-toggle");
+            const isHidden = box.style.display === "none" || box.style.display === "";
+
+            box.style.display = isHidden ? "flex" : "none";
+            toggle.style.display = isHidden ? "none" : "flex";
+        }
+
+        function addMessage(sender, message) {
+            const container = document.getElementById("chat-messages");
+            const msg = document.createElement("div");
+            msg.innerHTML = `<strong>${sender}:</strong> ${message}`;
+            container.appendChild(msg);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function sendMessage() {
+            const input = document.getElementById("user-input");
+            const text = input.value.trim();
+            if (!text) return;
+
+            addMessage("Ju", text);
+            input.value = "";
+
+            const lowerText = text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            const keyword = "pershendetje";
+
+            if (lowerText.includes(keyword)) {
+                setTimeout(() => {
+                    addMessage("ChatBot", "Përshëndetje! Si mund të ju ndihmoj?");
+                }, 500);
+            }
+        }
+
+        // ENTER shtyp automatikisht dërgimin
+        document.getElementById("user-input").addEventListener("keypress", function (e) {
+            if (e.key === "Enter") {
+                sendMessage();
+            }
+        });
+
+        function showReservationMessages() {
+            const chatBox = document.getElementById("chat-box");
+            const chatToggle = document.getElementById("chat-toggle");
+
+            if (chatBox.style.display === "none") {
+                chatBox.style.display = "flex";
+                chatToggle.style.display = "none";
+            }
+
+            setTimeout(() => {
+                addMessage("ChatBot", "Ju sapo keni rezervuar.");
+            }, 500);
+
+            setTimeout(() => {
+                addMessage("ChatBot", "24 orë para pickup time do të merrni një kujtesë rreth rezervimit.");
+            }, 1500);
+        }
+    </script>
 </body>
 </html>
