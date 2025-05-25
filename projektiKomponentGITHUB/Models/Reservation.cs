@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace projektiKomponentGITHUB.Models
 {
     [Table("Reservations")]
-    public class Reservation
+    public class Reservations
     {
         [Key]
         public int Id { get; set; }

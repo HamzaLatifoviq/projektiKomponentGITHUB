@@ -1,98 +1,78 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Data.SqlClient;
 
 namespace projektiKomponentGITHUB.Controllers
 {
     public class HoteletViewController : Controller
     {
-        // GET: HoteletView
+        // Veprimet për shfaqjen e faqeve për hotele
         public ActionResult Hotel1()
         {
             return View();
         }
+
         public ActionResult Hotel2()
         {
             return View();
         }
+
         public ActionResult Hotel3()
         {
             return View();
         }
+
         public ActionResult Hotel4()
         {
             return View();
         }
+
         public ActionResult Hotel5()
         {
             return View();
         }
-        static void Main()
+
+        // Metodë për testimin e lidhjes me bazën e të dhënave
+        public ActionResult TestDatabaseConnection()
         {
             string connectionString = "Data Source=NIKI\\SQLEXPRESS;Initial Catalog=komponentDatabase;Integrated Security=True;Encrypt=False";
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            try
             {
-                try
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    Console.WriteLine("Lidhja me bazën e të dhënave u realizua me sukses!");
-
-                    // Ekzekuto një pyetje të thjeshtë
-                    string query = "SELECT COUNT(*) FROM Reservations";
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        int count = (int)command.ExecuteScalar();
-                        Console.WriteLine($"Numri i rezervimeve: {count}");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Gabim: {ex.Message}");
+                    ViewBag.Message = "Lidhja me bazën e të dhënave u realizua me sukses!";
                 }
             }
+            catch (Exception ex)
+            {
+                ViewBag.Message = $"Gabim gjatë lidhjes: {ex.Message}";
+            }
 
+            return View();
         }
-
     }
 }
-namespace YourNamespace.Controllers
+
+namespace projektiKomponentGITHUB.Controllers
 {
     public class ReservationController : Controller
     {
         [HttpPost]
         public JsonResult CheckAvailability(int hotelId, string reservationRange, int adultsCount, int childrenCount, int roomsCount)
         {
-            // Logjika për të kontrolluar nëse dhomat janë të lira
-            bool isAvailable = true; // Zëvendësoje me query në bazën e të dhënave
+            // Logjika për kontrollin e disponueshmërisë (duhet të zëvendësohet me query në bazën e të dhënave)
+            bool isAvailable = true;
 
             return Json(new { available = isAvailable });
         }
-        public void TestConnection()
-        {
-            string connectionString = "Data Source=NIKI\\SQLEXPRESS;Initial Catalog=HotelBooking;Integrated Security=True;Trust Server Certificate=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    Console.WriteLine("Lidhja me bazën e të dhënave funksionon.");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Gabim në lidhje: " + ex.Message);
-                }
-            }
-        }
+
         public bool InsertReservation(int hotelId, string reservationRange, int adultsCount, int childrenCount, int roomsCount)
         {
-            string query = "INSERT INTO Reservations (HotelId, ReservationRange, AdultsCount, ChildrenCount, RoomsCount) VALUES (@HotelId, @ReservationRange, @AdultsCount, @ChildrenCount, @RoomsCount)";
-            string connectionString = "Data Source=NIKI\\SQLEXPRESS;Initial Catalog=HotelBooking;Integrated Security=True;Trust Server Certificate=True;";
+            string query = "INSERT INTO Reservations (HotelId, ReservationRange, AdultsCount, ChildrenCount, RoomsCount, CreatedAt) " +
+                           "VALUES (@HotelId, @ReservationRange, @AdultsCount, @ChildrenCount, @RoomsCount, @CreatedAt)";
+            string connectionString = "Data Source=NIKI\\SQLEXPRESS;Initial Catalog=komponentDatabase;Integrated Security=True;Encrypt=False";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -103,6 +83,7 @@ namespace YourNamespace.Controllers
                     command.Parameters.AddWithValue("@AdultsCount", adultsCount);
                     command.Parameters.AddWithValue("@ChildrenCount", childrenCount);
                     command.Parameters.AddWithValue("@RoomsCount", roomsCount);
+                    command.Parameters.AddWithValue("@CreatedAt", DateTime.Now);
 
                     try
                     {
@@ -112,21 +93,19 @@ namespace YourNamespace.Controllers
                     }
                     catch (Exception ex)
                     {
-                        // Logoni gabimin për debug
                         Console.WriteLine("Gabim gjatë ruajtjes: " + ex.Message);
                         return false;
                     }
                 }
             }
         }
+
         [HttpPost]
         public JsonResult MakeReservation(int hotelId, string reservationRange, int adultsCount, int childrenCount, int roomsCount)
         {
-            // Logjika për të bërë rezervimin në bazën e të dhënave
             try
             {
-                // Shembull i thjeshtë për të ruajtur rezervimin
-                bool success = true; // Zëvendësoje me query për ruajtjen në bazën e të dhënave
+                bool success = InsertReservation(hotelId, reservationRange, adultsCount, childrenCount, roomsCount);
 
                 return Json(new { success = success });
             }
@@ -138,3 +117,32 @@ namespace YourNamespace.Controllers
     }
 }
 
+namespace projektiKomponentGITHUB.Models
+{
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    [Table("Reservations")]
+    public class Reservation
+    {
+        [Key]
+        public int Id { get; set; }
+
+        [Required]
+        public int HotelId { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string ReservationRange { get; set; }
+
+        [Required]
+        public int AdultsCount { get; set; }
+
+        public int? ChildrenCount { get; set; }
+
+        [Required]
+        public int RoomsCount { get; set; }
+
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+    }
+}
