@@ -215,7 +215,11 @@ namespace projektiKomponentGITHUB.Controllers
         }
         public ActionResult Roli_VeturManager()
         {
-            return View();
+            using (var db = new MyDbContext())
+            {
+                var veturat = db.Veturat.ToList(); // assuming you have a DbSet<Vetura> Veturat
+                return View(veturat);
+            }
         }
         public ActionResult Roli_Test()
         {

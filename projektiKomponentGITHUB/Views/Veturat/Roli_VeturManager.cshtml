@@ -1,0 +1,113 @@
+﻿@model List<projektiKomponentGITHUB.Models.Veturat>
+
+@{
+    ViewBag.Title = "Roli_VeturManager";
+}
+
+<div class="container mt-5">
+    <h2>Paneli i Agjencise se Qirase se Veturave</h2>
+
+    <!-- Skedat -->
+    <ul class="nav nav-tabs mt-4" id="veturTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="vehicles-tab" data-bs-toggle="tab" data-bs-target="#vehicles" type="button" role="tab">Menaxho Veturat</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="availability-tab" data-bs-toggle="tab" data-bs-target="#availability" type="button" role="tab">Cakto Disponueshmerine</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="reservations-tab" data-bs-toggle="tab" data-bs-target="#reservations" type="button" role="tab">Shiko Rezervimet</button>
+        </li>
+    </ul>
+
+    <!-- Permbajtja e Skedave -->
+    <div class="tab-content p-4 border border-top-0 shadow-sm" id="veturTabsContent">
+        <!-- Skeda e Veturave -->
+        <div class="tab-pane fade show active" id="vehicles" role="tabpanel">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4>Menaxho Veturat</h4>
+                @Html.ActionLink("Shto Vetur", "Shto", "Veturat", null, new { @class = "btn btn-sm btn-success" })
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Modeli</th>
+                        <th>Lloji</th>
+                        <th>Cmimi/Dite</th>
+                        <th>Veprime</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Select((vetura, index) => new { vetura, index }))
+                    {
+                        <tr>
+                            <td>@(item.index + 1)</td>
+                            <td>@item.vetura.Emri</td>
+                            <td>@item.vetura.Kategoria</td>
+                            <td>@item.vetura.Price €</td>
+                            <td>
+                                @Html.ActionLink("Edito", "Edito", "Veturat", new { id = item.vetura.Id }, new { @class = "btn btn-sm btn-warning" })
+                                @Html.ActionLink("Fshij", "Fshij", "Veturat", new { id = item.vetura.Id }, new { @class = "btn btn-sm btn-danger" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Skeda e Disponueshmerise -->
+        <div class="tab-pane fade" id="availability" role="tabpanel">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4>Cakto Disponueshmerine e Qirase</h4>
+                <button class="btn btn-sm btn-success">Shto Disponueshmeri</button>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Vetur</th>
+                        <th>Data</th>
+                        <th>Disponueshme</th>
+                        <th>Veprime</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>VW Golf 7</td>
+                        <td>2025-05-12</td>
+                        <td>Po</td>
+                        <td>
+                            <button class="btn btn-sm btn-warning">Edito</button>
+                            <button class="btn btn-sm btn-danger">Fshij</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Skeda e Rezervimeve -->
+        <div class="tab-pane fade" id="reservations" role="tabpanel">
+            <h4>Shiko Rezervimet</h4>
+            <table class="table table-bordered mt-3">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Klienti</th>
+                        <th>Vetur</th>
+                        <th>Prej</th>
+                        <th>Deri</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Hamza B.</td>
+                        <td>VW Golf 7</td>
+                        <td>2025-05-12</td>
+                        <td>2025-05-15</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

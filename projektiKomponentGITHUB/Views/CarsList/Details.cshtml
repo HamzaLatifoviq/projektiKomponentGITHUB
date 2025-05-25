@@ -1,0 +1,15 @@
+﻿@model projektiKomponentGITHUB.Models.Veturat
+
+@{
+    ViewBag.Title = "Detajet e Veturës";
+}
+
+<div class="container mt-4">
+    <h2>@Model.Emri</h2>
+    <img src="~/Content/ArtinFoto/@Model.FotoPath" class="img-fluid mb-3" alt="@Model.Emri" />
+    <p><strong>Kategoria:</strong> @Model.Kategoria</p>
+    <p><strong>Qyteti:</strong> @Model.Qyteti</p>
+    <p><strong>Distanca:</strong> @Model.Distanca</p>
+    <p><strong>Detaje tjera:</strong> @Model.Pershkrimi</p>
+    <a href="@Url.Action("Kerkoveturat", "CarsList")" class="btn btn-secondary mt-3">Kthehu prapa</a>
+</div>

@@ -23,9 +23,14 @@ namespace projektiKomponentGITHUB.Controllers
         private MyDbContext db = new MyDbContext();
 
         // GET: Pagesa/PagesaView
-        public ActionResult PagesatView()
+        public ActionResult PagesatView(decimal shuma)
         {
-            return View();
+            var payment = new Payment
+            {
+                Shuma = shuma
+            };
+
+            return View(payment);
         }
 
         // POST: Pagesa/PagesaView

@@ -7,4 +7,14 @@
 
     <p>Use this area to provide additional information.</p>
     <p>BRANCHI ABOUT TEST</p>
+
+
+    <p>User: @User.Identity.Name</p>
+    <p>Roles:</p>
+    <ul>
+        <li>Admin: @User.IsInRole("Admin")</li>
+        <li>CarAgencyManager: @User.IsInRole("CarAgencyManager")</li>
+        <li>User: @User.IsInRole("User")</li>
+    </ul>
+
 </main>

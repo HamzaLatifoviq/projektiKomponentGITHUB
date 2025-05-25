@@ -1,0 +1,44 @@
+﻿@model projektiKomponentGITHUB.Models.Veturat
+@{
+    ViewBag.Title = "Edito Veture";
+}
+
+<div class="container mt-5">
+    <h2>Edito Veture</h2>
+
+    @using (Html.BeginForm("Edito", "Veturat", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.HiddenFor(m => m.Id)
+
+        <div class="mb-3">
+            @Html.LabelFor(m => m.Emri)
+            @Html.TextBoxFor(m => m.Emri, new { @class = "form-control" })
+        </div>
+
+        <div class="mb-3">
+            @Html.LabelFor(m => m.Kategoria)
+            @Html.TextBoxFor(m => m.Kategoria, new { @class = "form-control" })
+        </div>
+
+        <div class="mb-3">
+            @Html.LabelFor(m => m.Price, "Çmimi për Ditë (€)")
+            @Html.TextBoxFor(m => m.Price, new { @class = "form-control", type = "number", step = "0.01" })
+        </div>
+
+        if (Model != null && !string.IsNullOrEmpty(Model.FotoPath))
+        {
+            <div class="mb-3">
+                <label>Foto aktuale:</label><br />
+                <img src="@Url.Content(Model.FotoPath)" alt="Foto e vetures" width="200" />
+            </div>
+        }
+
+        <div class="mb-3">
+            <label>Ndrysho Foto:</label>
+            <input type="file" name="imageFile" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Ruaj Ndryshimet</button>
+        <a href="@Url.Action("Roli_VeturManager", "Veturat")" class="btn btn-secondary">Anulo</a>
+    }
+</div>
