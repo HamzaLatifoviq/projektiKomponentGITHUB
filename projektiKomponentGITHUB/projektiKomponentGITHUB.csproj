@@ -236,6 +236,8 @@
     <Content Include="Views\Rolet\EditUser.cshtml" />
     <Content Include="Views\Rolet\CreateUser.cshtml" />
     <Content Include="Views\Rolet\DeleteUser.cshtml" />
+    <Content Include="Views\ListaEMakinave\Details.cshtml" />
+    <Content Include="Views\ListaEMakinave\CreateBooking.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
