@@ -1,0 +1,34 @@
+﻿@model projektiKomponentGITHUB.Models.Veturat
+@{
+    ViewBag.Title = "Shto Veture";
+}
+
+<div class="container mt-5">
+    <h2>Shto Veture</h2>
+
+    @using (Html.BeginForm("Shto", "Veturat", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="mb-3">
+            @Html.LabelFor(m => m.Emri)
+            @Html.TextBoxFor(m => m.Emri, new { @class = "form-control" })
+        </div>
+
+        <div class="mb-3">
+            @Html.LabelFor(m => m.Kategoria)
+            @Html.TextBoxFor(m => m.Kategoria, new { @class = "form-control" })
+        </div>
+
+        <div class="mb-3">
+            @Html.LabelFor(m => m.Price, "Çmimi për Ditë (€)")
+            @Html.TextBoxFor(m => m.Price, new { @class = "form-control", type = "number", step = "0.01" })
+        </div>
+
+        <div class="mb-3">
+            <label>Ngarko Foto:</label>
+            <input type="file" name="imageFile" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-success">Shto</button>
+        <a href="@Url.Action("Roli_VeturManager", "Veturat")" class="btn btn-secondary">Anulo</a>
+    }
+</div>

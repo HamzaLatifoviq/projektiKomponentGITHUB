@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<projektiKomponentGITHUB.Models.Veturat>
+
+@{
     ViewBag.Title = "Roli_VeturManager";
 }
 
@@ -24,7 +26,7 @@
         <div class="tab-pane fade show active" id="vehicles" role="tabpanel">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h4>Menaxho Veturat</h4>
-                <button class="btn btn-sm btn-success">Shto Vetur</button>
+                @Html.ActionLink("Shto Vetur", "Shto", "Veturat", null, new { @class = "btn btn-sm btn-success" })
             </div>
             <table class="table table-bordered">
                 <thead>
@@ -37,16 +39,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>VW Golf 7</td>
-                        <td>Hatchback</td>
-                        <td>$35</td>
-                        <td>
-                            <button class="btn btn-sm btn-warning">Edito</button>
-                            <button class="btn btn-sm btn-danger">Fshij</button>
-                        </td>
-                    </tr>
+                    @foreach (var item in Model.Select((vetura, index) => new { vetura, index }))
+                    {
+                        <tr>
+                            <td>@(item.index + 1)</td>
+                            <td>@item.vetura.Emri</td>
+                            <td>@item.vetura.Kategoria</td>
+                            <td>@item.vetura.Price €</td>
+                            <td>
+                                @Html.ActionLink("Edito", "Edito", "Veturat", new { id = item.vetura.Id }, new { @class = "btn btn-sm btn-warning" })
+                                @Html.ActionLink("Fshij", "Fshij", "Veturat", new { id = item.vetura.Id }, new { @class = "btn btn-sm btn-danger" })
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>
