@@ -129,6 +129,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CarsListController.cs" />
+    <Compile Include="Controllers\EditVehiclePriceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HoteletViewController.cs" />
     <Compile Include="Controllers\ListaEMakinaveController.cs" />
@@ -136,9 +137,11 @@
     <Compile Include="Controllers\PagesaTransaksionetController.cs" />
     <Compile Include="Controllers\RegisterLoginController.cs" />
     <Compile Include="Controllers\RoletController.cs" />
+    <Compile Include="Controllers\VeturatController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BookingViewModel.cs" />
     <Compile Include="Models\DbContext.cs" />
     <Compile Include="Models\LoginView.cs" />
     <Compile Include="Models\Payment.cs" />
@@ -146,6 +149,8 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserCreate.cs" />
     <Compile Include="Models\UserViewModel.cs" />
+    <Compile Include="Models\Veturat.cs" />
+    <Compile Include="Models\VeturBooking.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -239,6 +244,8 @@
     <Folder Include="Content\BesnikFotoHotel\" />
     <Folder Include="Content\ValmirFoto\" />
     <Folder Include="Views\Account\" />
+    <Folder Include="Views\EditVehiclePrice\" />
+    <Folder Include="Views\Veturat\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
