@@ -5,49 +5,58 @@
 <div class="container mt-5">
     <h2>Paneli i Klientit</h2>
 
-    <!-- Rreshti me lartesi te barabarte -->
+    <!-- Rreshti me kartat dhe ndryshimin e fjalëkalimit -->
     <div class="row mt-4 d-flex align-items-stretch">
         <!-- Kolona e majte -->
         <div class="col-md-6">
             <div class="d-flex flex-column h-100 gap-3">
                 <!-- Kerko Hotele -->
                 <div class="card p-3 shadow-sm flex-fill">
-                    <h4>Kerko Hotele</h4>
-                    <p>Kerko dhe rezervo shpejt hotelet ne dispozicionnnn.</p>
+                    <h4>Kërko Hotele</h4>
+                    <p>Kërko dhe rezervo shpejt hotelet në dispozicion.</p>
                     <a href="@Url.Action("HotelList", "Home")" class="btn btn-primary">Shko te Lista e Hoteleve</a>
                 </div>
 
                 <!-- Kerko Vetura -->
                 <div class="card p-3 shadow-sm flex-fill">
-                    <h4>Kerko Vetura</h4>
-                    <p>Kerko veturat per qira.</p>
+                    <h4>Kërko Vetura</h4>
+                    <p>Kërko veturat për qira.</p>
                     <a href="@Url.Action("CarList", "Home")" class="btn btn-primary">Shko te Veturat</a>
                 </div>
             </div>
         </div>
 
-        <!-- Kolona e djathte: Ndrysho Profilin -->
+        <!-- Kolona e djathte: Ndrysho Fjalëkalimin -->
         <div class="col-md-6">
-            <div class="card p-3 shadow-sm h-100">
-                <h4>Ndrysho Profilin</h4>
-                <form method="post" action="#">
+            <div class="card p-4 shadow-sm h-100">
+                <h4>Ndrysho Fjalëkalimin</h4>
+                <form method="post" action="@Url.Action("ChangePassword", "Rolet")">
                     <div class="form-group mt-2">
-                        <label>Perdoruesi</label>
-                        <input type="text" class="form-control" placeholder="Shkruaj perdoruesin e ri">
+                        <label>Përdoruesi</label>
+                        <input type="text" name="Username" class="form-control" placeholder="Shkruaj përdoruesin">
                     </div>
 
                     <div class="form-group mt-3">
-                        <label>Konfirmo Fjalekalimin</label>
-                        <input type="password" class="form-control" placeholder="Shkruaj fjalekalimin per verifikim">
+                        <label>Fjalëkalimi Aktual</label>
+                        <input type="password" name="CurrentPassword" class="form-control" placeholder="Shkruaj fjalëkalimin aktual">
                     </div>
 
                     <div class="form-group mt-3">
-                        <label>Fjalekalimi i Ri</label>
-                        <input type="password" class="form-control" placeholder="Shkruaj fjalekalimin e ri">
+                        <label>Fjalëkalimi i Ri</label>
+                        <input type="password" name="NewPassword" class="form-control" placeholder="Shkruaj fjalëkalimin e ri">
                     </div>
 
-                    <button type="submit" class="btn btn-success mt-3">Ruaj Ndryshimet</button>
+                    <button type="submit" class="btn btn-success mt-4">Ndrysho Fjalëkalimin</button>
                 </form>
+
+                @if (ViewBag.PasswordChangeError != null)
+                {
+                    <div class="alert alert-danger mt-3">@ViewBag.PasswordChangeError</div>
+                }
+                @if (ViewBag.PasswordChangeSuccess != null)
+                {
+                    <div class="alert alert-success mt-3">@ViewBag.PasswordChangeSuccess</div>
+                }
             </div>
         </div>
     </div>
@@ -84,7 +93,7 @@
                         <td>@payment.Emaili</td>
                         <td>@payment.Shuma.ToString("F2")</td>
                         <td>@payment.MenyraPageses</td>
-                        <td>@payment.PaymentStatus</td> <!-- Replace with actual property if named differently -->
+                        <td>@payment.PaymentStatus</td>
                     </tr>
                 }
             }

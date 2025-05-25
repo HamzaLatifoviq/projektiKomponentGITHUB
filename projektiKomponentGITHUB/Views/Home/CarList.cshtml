@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<projektiKomponentGITHUB.Models.Veturat>
+
+@{
     ViewBag.Title = "Lista e Makinave";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -61,43 +63,28 @@
     <!-- Rezultatet / Makina të rekomanduara -->
     <h4 class="mt-5 mb-4">Makina të rekomanduara</h4>
     <div class="row">
-        <!-- Makina 1 -->
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm">
-                <img src="~/Content/ArtinFoto/bmw1.Jpg" class="card-img-top" alt="BMW">
-                <div class="card-body">
-                    <h5 class="card-title">BMW 5 Series</h5>
-                    <p class="card-text">Lloji: Sedan</p>
-                    <p class="text-muted">Çmimi: €60/ditë</p>
-                    <a href="@Url.Action("View6","ListaEMakinave")" class="btn btn-outline-primary mt-2">Shiko Detajet</a>
+        @if (Model != null && Model.Count > 0)
+        {
+            foreach (var vetura in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <img src="@Url.Content(vetura.FotoPath)" class="card-img-top" alt="@vetura.Emri" />
+                        <div class="card-body">
+                            <h5 class="card-title">@vetura.Emri</h5>
+                            <p class="card-text">Lloji: @vetura.Kategoria</p>
+                            <p class="text-muted">Çmimi: €@vetura.Price/ditë</p>
+                            <a href="@Url.Action("Details", "ListaEMakinave", new { id = vetura.Id })"
+                               class="btn btn-outline-primary mt-2">Shiko Detajet</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Makina 2 -->
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm">
-                <img src="~/Content/ArtinFoto/audiq5.jpg" class="card-img-top" alt="AudiQ5">
-                <div class="card-body">
-                    <h5 class="card-title">Audi Q5</h5>
-                    <p class="card-text">Lloji: SUV</p>
-                    <p class="text-muted">Çmimi: €75/ditë</p>
-                    <a href="@Url.Action("View7","ListaEMakinave")" class="btn btn-outline-primary mt-2">Shiko Detajet</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Makina 3 -->
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm">
-                <img src="~/Content/ArtinFoto/golf7.jpg" class="card-img-top" alt="Golf7">
-                <div class="card-body">
-                    <h5 class="card-title">Volkswagen Golf</h5>
-                    <p class="card-text">Lloji: Hatchback</p>
-                    <p class="text-muted">Çmimi: €45/ditë</p>
-                    <a href="@Url.Action("View8","ListaEMakinave")" class="btn btn-outline-primary mt-2">Shiko Detajet</a>
-                </div>
-            </div>
-        </div>
+            }
+        }
+        else
+        {
+            <p>Nuk ka makina të rekomanduara për momentin.</p>
+        }
     </div>
+
 </div>

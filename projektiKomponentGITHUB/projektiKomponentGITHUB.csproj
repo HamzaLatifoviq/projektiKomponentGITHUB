@@ -243,6 +243,7 @@
     <Content Include="Views\Veturat\Shto.cshtml" />
     <Content Include="Views\Veturat\Edito.cshtml" />
     <Content Include="Views\Veturat\Fshij.cshtml" />
+    <Content Include="Views\Rolet\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

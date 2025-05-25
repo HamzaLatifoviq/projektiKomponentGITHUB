@@ -1,8 +1,7 @@
-﻿
-using System.IO;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
+using System.Web;
+
 using projektiKomponentGITHUB.Models;
 
 public class VeturatController : Controller
@@ -13,6 +12,16 @@ public class VeturatController : Controller
         using (var db = new MyDbContext())
         {
             var veturat = db.Veturat.ToList();
+
+            // Get bookings and related payments separately
+            var bookings = db.Bookings.ToList();
+
+            // Get all payments (you may filter or join later in view)
+            var payments = db.Payments.ToList();
+
+            ViewBag.Bookings = bookings;
+            ViewBag.Payments = payments;
+
             return View(veturat);
         }
     }
@@ -31,8 +40,8 @@ public class VeturatController : Controller
         {
             if (imageFile != null && imageFile.ContentLength > 0)
             {
-                string fileName = Path.GetFileName(imageFile.FileName);
-                string path = Path.Combine(Server.MapPath("~/Content/Images/Veturat"), fileName);
+                string fileName = System.IO.Path.GetFileName(imageFile.FileName);
+                string path = System.IO.Path.Combine(Server.MapPath("~/Content/Images/Veturat"), fileName);
                 imageFile.SaveAs(path);
                 vetura.FotoPath = "~/Content/Images/Veturat/" + fileName;
             }
@@ -71,8 +80,8 @@ public class VeturatController : Controller
 
             if (imageFile != null && imageFile.ContentLength > 0)
             {
-                string fileName = Path.GetFileName(imageFile.FileName);
-                string path = Path.Combine(Server.MapPath("~/Content/Images/Veturat"), fileName);
+                string fileName = System.IO.Path.GetFileName(imageFile.FileName);
+                string path = System.IO.Path.Combine(Server.MapPath("~/Content/Images/Veturat"), fileName);
                 imageFile.SaveAs(path);
                 existing.FotoPath = "~/Content/Images/Veturat/" + fileName;
             }

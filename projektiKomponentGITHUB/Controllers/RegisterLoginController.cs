@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using projektiKomponentGITHUB.Models;
 
+
 namespace projektiKomponentGITHUB.Controllers
 {
     public class RegisterLoginController : Controller
@@ -130,6 +131,8 @@ namespace projektiKomponentGITHUB.Controllers
 
         public ActionResult Logout()
         {
+            System.Web.Security.FormsAuthentication.SignOut();
+
             Session.Clear();      // removes all keys
             Session.Abandon();    // destroys session
             return RedirectToAction("LoginView", "RegisterLogin");

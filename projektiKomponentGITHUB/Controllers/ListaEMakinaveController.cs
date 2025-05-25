@@ -9,7 +9,6 @@ namespace projektiKomponentGITHUB.Controllers
 {
     public class ListaEMakinaveController : Controller
     {
-        // GET: ListaEMakinave
         public ActionResult View1() => View();
         public ActionResult View2() => View();
         public ActionResult View3() => View();
@@ -25,15 +24,11 @@ namespace projektiKomponentGITHUB.Controllers
             using (var db = new MyDbContext())
             {
                 if (id == null)
-                {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
 
                 var vetura = db.Veturat.Find(id);
                 if (vetura == null)
-                {
                     return HttpNotFound();
-                }
 
                 var model = new BookingViewModel
                 {
@@ -56,8 +51,16 @@ namespace projektiKomponentGITHUB.Controllers
         // POST: CreateBooking
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult CreateBooking(BookingViewModel model)
         {
+            // If the user is not logged in, redirect to login page
+            if (Session["UserId"] == null)
+            {
+                TempData["ErrorMessage"] = "Duhet të jeni i kyçur për të rezervuar një makinë.";
+                return RedirectToAction("LoginView", "RegisterLogin"); // Adjust controller/action as needed
+            }
+
             using (var db = new MyDbContext())
             {
                 if (!ModelState.IsValid)
@@ -102,11 +105,7 @@ namespace projektiKomponentGITHUB.Controllers
                     model.AdditionalDriver ? "AdditionalDriver" : null
                 }.Where(x => x != null));
 
-                int? currentUserId = null;
-                if (Session["UserId"] != null)
-                {
-                    currentUserId = (int)Session["UserId"];
-                }
+                int currentUserId = (int)Session["UserId"]; // Safe now since we checked above
 
                 var booking = new VeturBooking
                 {
@@ -128,8 +127,6 @@ namespace projektiKomponentGITHUB.Controllers
                 db.SaveChanges();
 
                 TempData["SuccessMessage"] = "Rezervimi u krye me sukses!";
-
-                // Redirect to the payment page with the total price
                 return RedirectToAction("PagesatView", "PagesaTransaksionet", new { shuma = totalPriceAtBooking });
             }
         }

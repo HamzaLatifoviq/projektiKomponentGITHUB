@@ -1,14 +1,13 @@
 ﻿@model projektiKomponentGITHUB.Models.BookingViewModel
 
+
 @{
     ViewBag.Title = "Detajet e Veturës";
 
     var role = Session["Role"] as string;
     bool canEditPrice = role == "Admin" || role == "CarAgencyManager";
-}
-
-@{
     var successMessage = TempData["SuccessMessage"] as string;
+    bool isLoggedIn = User.Identity.IsAuthenticated;
 }
 
 @if (!string.IsNullOrEmpty(successMessage))
@@ -21,12 +20,13 @@
 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <div class="container mt-5">
-    <!-- Informacioni për veturën dhe foto -->
     <div class="row bg-white shadow rounded p-4 mb-4">
         <div class="col-md-6 mb-3">
-            <img src="~/Content/ArtinFoto/@Model.FotoPath" class="img-fluid rounded shadow-sm" alt="@Model.Emri"
+            <img src="@Url.Content(Model.FotoPath)" class="img-fluid rounded shadow-sm" alt="@Model.Emri" 
                  style="max-height: 450px; width: 100%; object-fit: cover;" />
         </div>
         <div class="col-md-6">
@@ -39,7 +39,6 @@
                 Çmimi total: €<span id="totalPrice">@Model.Price.ToString("F2")</span>
             </p>
 
-            @* Show Edit Price button only for Admin or CarAgencyManager *@
             @if (canEditPrice)
             {
                 <a href="@Url.Action("EditPrice", "EditVehiclePrice", new { id = Model.VeturaId })" class="btn btn-warning mt-3">
@@ -49,94 +48,117 @@
         </div>
     </div>
 
-    <!-- Pajisjet shtesë dhe Pick-up/Drop-off njëra pranë tjetrës -->
-    @using (Html.BeginForm("CreateBooking", "ListaEMakinave", FormMethod.Post))
+    <!-- Booking Form -->
+    @if (isLoggedIn)
     {
-        @Html.AntiForgeryToken()
-        @Html.HiddenFor(m => m.VeturaId)
+        using (Html.BeginForm("CreateBooking", "ListaEMakinave", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.VeturaId)
 
-        <!-- Hidden base price for JS -->
-        <input type="hidden" id="basePrice" value="@Model.Price" />
+            <input type="hidden" id="basePrice" value="@Model.Price" />
 
+            <div class="row bg-white shadow rounded p-4">
+                <div class="col-md-6">
+                    <h5 class="mb-4 text-primary"><i class="bi bi-plus-circle-dotted me-2"></i>Pajisje shtesë</h5>
+
+                    <div class="form-check mb-3">
+                        @Html.CheckBoxFor(m => m.GPS, new { @class = "form-check-input", id = "gps" })
+                        <label class="form-check-label" for="gps"><i class="bi bi-geo me-2"></i>GPS – €5.00 / ditë</label>
+                    </div>
+
+                    <div class="form-check mb-3">
+                        @Html.CheckBoxFor(m => m.BabySeat, new { @class = "form-check-input", id = "babySeat" })
+                        <label class="form-check-label" for="babySeat"><i class="bi bi-person-fill me-2"></i>Sedilje për foshnje – €10.00 / ditë</label>
+                    </div>
+
+                    <div class="form-check mb-3">
+                        @Html.CheckBoxFor(m => m.ExtraInsurance, new { @class = "form-check-input", id = "extraInsurance" })
+                        <label class="form-check-label" for="extraInsurance"><i class="bi bi-shield-check me-2"></i>Sigurim shtesë – €20.00</label>
+                    </div>
+
+                    <div class="form-check mb-4">
+                        @Html.CheckBoxFor(m => m.AdditionalDriver, new { @class = "form-check-input", id = "additionalDriver" })
+                        <label class="form-check-label" for="additionalDriver"><i class="bi bi-person-plus me-2"></i>Driver shtesë – €50.00 / ditë</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-50">Rezervo</button>
+                </div>
+
+                <div class="col-md-6 mt-4 mt-md-0">
+                    <div class="bg-light rounded p-4 h-100">
+                        <h5 class="text-secondary mb-3"><i class="bi bi-calendar-event me-2"></i>Pick-up & Drop-off</h5>
+
+                        <p class="mb-2"><strong>Pick-up:</strong> 6 Maj · 10:00 — @Model.Qyteti, Stacioni Qendror</p>
+
+                        <div class="mb-3">
+                            @Html.ValidationMessageFor(m => m.PickupDate, "", new { @class = "text-danger" })
+                            @Html.LabelFor(m => m.PickupDate, "Pick-up Date & Time", new { @class = "form-label" })
+                            @Html.TextBoxFor(m => m.PickupDate, new { @class = "form-control", type = "datetime-local", id = "pickupDate" })
+                        </div>
+
+                        <div class="mb-3">
+                            @Html.LabelFor(m => m.DropoffDate, "Drop-off Date & Time", new { @class = "form-label" })
+                            @Html.TextBoxFor(m => m.DropoffDate, new { @class = "form-control", type = "datetime-local", id = "dropoffDate" })
+                        </div>
+
+                        <div class="mb-2">
+                            @Html.LabelFor(m => m.DropOffLocation, "Drop-off:", new { @class = "form-label" })
+                            @Html.DropDownListFor(m => m.DropOffLocation, new SelectList(new[] {
+                                new { Value = "shkup", Text = "Shkup, Stacioni Qendror" },
+                                new { Value = "tirane", Text = "Tiranë, Stacioni Qendror" },
+                                new { Value = "prishtine", Text = "Prishtinë, Stacioni Qendror" }
+                            }, "Value", "Text"), "Zgjedhni një vend", new { @class = "form-select" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
         <div class="row bg-white shadow rounded p-4">
             <div class="col-md-6">
                 <h5 class="mb-4 text-primary"><i class="bi bi-plus-circle-dotted me-2"></i>Pajisje shtesë</h5>
-
-                <div class="form-check mb-3">
-                    @Html.CheckBoxFor(m => m.GPS, new { @class = "form-check-input", id = "gps" })
-                    <label class="form-check-label" for="gps">
-                        <i class="bi bi-geo me-2"></i>GPS – €5.00 / ditë
-                    </label>
-                </div>
-
-                <div class="form-check mb-3">
-                    @Html.CheckBoxFor(m => m.BabySeat, new { @class = "form-check-input", id = "babySeat" })
-                    <label class="form-check-label" for="babySeat">
-                        <i class="bi bi-person-fill me-2"></i>Sedilje për foshnje – €10.00 / ditë
-                    </label>
-                </div>
-
-                <div class="form-check mb-3">
-                    @Html.CheckBoxFor(m => m.ExtraInsurance, new { @class = "form-check-input", id = "extraInsurance" })
-                    <label class="form-check-label" for="extraInsurance">
-                        <i class="bi bi-shield-check me-2"></i>Sigurim shtesë – €20.00
-                    </label>
-                </div>
-
-                <div class="form-check mb-4">
-                    @Html.CheckBoxFor(m => m.AdditionalDriver, new { @class = "form-check-input", id = "additionalDriver" })
-                    <label class="form-check-label" for="additionalDriver">
-                        <i class="bi bi-person-plus me-2"></i>Driver shtesë – €50.00 / ditë
-                    </label>
-                </div>
-
-                <button type="submit" class="btn btn-primary w-50">Rezervo</button>
-            </div>
-
-            <!-- Pick-up dhe Drop-off në të djathtë -->
-            <div class="col-md-6 mt-4 mt-md-0">
-                <div class="bg-light rounded p-4 h-100">
-                    <h5 class="text-secondary mb-3"><i class="bi bi-calendar-event me-2"></i>Pick-up & Drop-off</h5>
-
-                    <p class="mb-2">
-                        <strong>Pick-up:</strong> 6 Maj · 10:00 — @Model.Qyteti, Stacioni Qendror
-                    </p>
-
-                    <div class="mb-3">
-                        @Html.ValidationMessageFor(m => m.PickupDate, "", new { @class = "text-danger" })
-                        @Html.LabelFor(m => m.PickupDate, "Pick-up Date & Time", new { @class = "form-label" })
-                        @Html.TextBoxFor(m => m.PickupDate, new { @class = "form-control", type = "datetime-local", id = "pickupDate" })
-                    </div>
-
-                    <div class="mb-3">
-                        @Html.LabelFor(m => m.DropoffDate, "Drop-off Date & Time", new { @class = "form-label" })
-                        @Html.TextBoxFor(m => m.DropoffDate, new { @class = "form-control", type = "datetime-local", id = "dropoffDate" })
-                    </div>
-
-                    <div class="mb-2">
-                        @Html.LabelFor(m => m.DropOffLocation, "Drop-off:", new { @class = "form-label" })
-                        @Html.DropDownListFor(m => m.DropOffLocation, new SelectList(new[] {
-                            new { Value = "shkup", Text = "Shkup, Stacioni Qendror" },
-                            new { Value = "tirane", Text = "Tiranë, Stacioni Qendror" },
-                            new { Value = "prishtine", Text = "Prishtinë, Stacioni Qendror" }
-                        }, "Value", "Text"), "Zgjedhni një vend", new { @class = "form-select" })
-                    </div>
-                </div>
+                <!-- Same UI as above, but disabled -->
+                <p class="text-muted">Ju lutem <a href="#" onclick="showLoginPopup()">kyçuni</a> për të bërë një rezervim.</p>
+                <button type="button" onclick="showLoginPopup()" class="btn btn-primary w-50">Rezervo</button>
             </div>
         </div>
     }
 </div>
 
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content text-center">
+            <div class="modal-header">
+                <h5 class="modal-title w-100" id="loginModalLabel">Kërkohet Hyrje</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Mbyll"></button>
+            </div>
+            <div class="modal-body">
+                Ju duhet të jeni të kyçur për të bërë një rezervim.
+            </div>
+            <div class="modal-footer justify-content-center">
+                <a href="@Url.Action("Login", "Account")" class="btn btn-primary">Kyçu</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anulo</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
+    function showLoginPopup() {
+        var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+        loginModal.show();
+    }
+
     function calculatePrice() {
         const basePrice = parseFloat(document.getElementById('basePrice').value);
-
-        // Get pickup and dropoff dates
         const pickupInput = document.getElementById('pickupDate').value;
         const dropoffInput = document.getElementById('dropoffDate').value;
 
         if (!pickupInput || !dropoffInput) {
-            // Not enough info, show base price only
             document.getElementById('totalPrice').textContent = basePrice.toFixed(2);
             return;
         }
@@ -144,45 +166,27 @@
         const pickupDate = new Date(pickupInput);
         const dropoffDate = new Date(dropoffInput);
 
-        // Calculate days difference (at least 1)
         let diffTime = dropoffDate - pickupDate;
         let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
         if (diffDays < 1) diffDays = 1;
 
-        // Add-ons per day or fixed prices:
-        // According to your markup:
-        // GPS (€5/day), BabySeat (€10/day), ExtraInsurance (€20 fixed), AdditionalDriver (€50/day)
         let addonsPrice = 0;
-        if (document.getElementById('gps').checked) addonsPrice += 5
-        if (document.getElementById('babySeat').checked) addonsPrice += 10
-        if (document.getElementById('extraInsurance').checked) addonsPrice += 20; // fixed price
-        if (document.getElementById('additionalDriver').checked) addonsPrice += 50
+        if (document.getElementById('gps')?.checked) addonsPrice += 5;
+        if (document.getElementById('babySeat')?.checked) addonsPrice += 10;
+        if (document.getElementById('extraInsurance')?.checked) addonsPrice += 20;
+        if (document.getElementById('additionalDriver')?.checked) addonsPrice += 50;
 
-        // Calculate total price
         const total = (basePrice * diffDays) + addonsPrice;
-
-        // Update price on page
         document.getElementById('totalPrice').textContent = total.toFixed(2);
     }
 
-    // Attach event listeners to inputs to recalc price when changed
     document.addEventListener('DOMContentLoaded', () => {
         ['pickupDate', 'dropoffDate'].forEach(id => {
-            const elem = document.getElementById(id);
-            if (elem) {
-                elem.addEventListener('input', calculatePrice); // Trigger on typing or picker
-                elem.addEventListener('change', calculatePrice); // Backup trigger
-            }
+            document.getElementById(id)?.addEventListener('input', calculatePrice);
         });
-
         ['gps', 'babySeat', 'extraInsurance', 'additionalDriver'].forEach(id => {
-            const elem = document.getElementById(id);
-            if (elem) {
-                elem.addEventListener('change', calculatePrice);
-            }
+            document.getElementById(id)?.addEventListener('change', calculatePrice);
         });
-
-        // Initialize price on page load
         calculatePrice();
     });
 </script>

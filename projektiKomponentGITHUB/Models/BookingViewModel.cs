@@ -1,9 +1,11 @@
 ﻿
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace projektiKomponentGITHUB.Models
 {
+   
     public class BookingViewModel
     {
         public int Id { get; set; }

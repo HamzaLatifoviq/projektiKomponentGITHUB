@@ -42,6 +42,33 @@ namespace projektiKomponentGITHUB.Controllers
                 return View();
             }
         }
+        [HttpPost]
+        
+        public ActionResult ChangePassword(string Username, string CurrentPassword, string NewPassword)
+        {
+            using (var db = new MyDbContext())
+            {
+                var user = db.Users.FirstOrDefault(u => u.Username == Username);
+
+                if (user == null || user.Password != CurrentPassword)
+                {
+                    ViewBag.PasswordChangeError = "Perdoruesi ose fjalëkalimi i tanishëm është i gabuar.";
+                    return Roli_Klient(); // Show error and stay on page
+                }
+
+                // Update the password
+                user.Password = NewPassword;
+                db.SaveChanges();
+
+                // Clear session to force re-login
+                Session.Clear();
+
+                // Show popup and redirect
+                return View("ChangePassword");
+            }
+        }
+
+
 
 
 

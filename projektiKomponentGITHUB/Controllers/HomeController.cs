@@ -52,7 +52,13 @@ namespace projektiKomponentGITHUB.Controllers
 
         public ActionResult CarList()
         {
-            return View();
+            using (var db = new MyDbContext())
+            {
+                // Fetch 3 recommended cars, e.g. the first 3 vehicles (or customize your logic)
+                var recommendedCars = db.Veturat.Take(3).ToList();
+
+                return View(recommendedCars);
+            }
         }
 
         public ActionResult HotelList()
