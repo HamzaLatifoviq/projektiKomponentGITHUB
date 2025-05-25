@@ -1,163 +1,37 @@
-﻿
+﻿@model List<projektiKomponentGITHUB.Models.Veturat>
+
 @{
-    ViewBag.Title = "Kerkoveturat";
+    ViewBag.Title = "Rezultatet e Kërkimit";
 }
 
-<h2>   Shikoj Veturat   </h2>
-<div class="container my-5">
-    <!-- Makina 1 -->
-    <div class="row mb-4 shadow-sm p-3 bg-white rounded align-items-center">
-        <div class="col-md-3">
-            <img src="~/Content/ArtinFoto/bmwx5.jpg" class="img-fluid rounded" style="height: 220px; width: 150%; object-fit: cover;" alt="BMW X5">
-        </div>
-        <div class="col-md-6">
-            <h5 class="mb-1">BMW X5 - SUV</h5>
-            <p class="text-muted mb-1">Prishtinë · 2.5 km nga qendra · Automatike · Dizel</p>
-            <p class="mb-2">SUV luksoz dhe i fuqishëm, perfekt për udhëtime të gjata dhe familjare.</p>
-        </div>
-        <div class="col-md-3 text-end">
-            <span class="badge bg-primary fs-6 p-2">Superb 9.2</span><br />
-            <small class="text-muted">123 recensione</small><br />
-            <a href="@Url.Action("View1","ListaEMakinave")" class="btn btn-outline-primary mt-2">Shiko</a>
-        </div>
-    </div>
+<div class="container mt-4">
+    <h3 class="mb-4">Rezultatet për makinat</h3>
 
-    <!-- Makina 2 -->
-    <div class="row mb-4 shadow-sm p-3 bg-white rounded align-items-center">
-        <div class="col-md-3">
-            <img src="~/Content/ArtinFoto/audia4.jpg" class="img-fluid rounded" style="height: 220px; width: 150%; object-fit: cover;" alt="Audi A4">
-        </div>
-        <div class="col-md-6">
-            <h5 class="mb-1">Audi A4 - Sedan</h5>
-            <p class="text-muted mb-1">Tiranë · 1.2 km nga qendra · Automatike · Benzinë</p>
-            <p class="mb-2">Sedan elegant dhe ekonomik me rehati maksimale për udhëtime urbane.</p>
-        </div>
-        <div class="col-md-3 text-end">
-            <span class="badge bg-primary fs-6 p-2">Superb 9.0</span><br />
-            <small class="text-muted">89 recensione</small><br />
-            <a href="@Url.Action("View2","ListaEMakinave")" class="btn btn-outline-primary mt-2">Shiko</a>
-        </div>
-    </div>
-
-    <!-- Makina 3 -->
-    <div class="row mb-4 shadow-sm p-3 bg-white rounded align-items-center">
-        <div class="col-md-3">
-            <img src="~/Content/ArtinFoto/golff.jpg" class="img-fluid rounded" style="height: 220px; width: 150%; object-fit: cover;" alt="Golf8">
-        </div>
-        <div class="col-md-6">
-            <h5 class="mb-1">Volkswagen Golf 8 - Sport</h5>
-            <p class="text-muted mb-1">Shkup · 3.4 km nga qendra · Manual · Dizel</p>
-            <p class="mb-2">Sport kompakt dhe shumë ekonomik për qarkullim të përditshëm.</p>
-        </div>
-        <div class="col-md-3 text-end">
-            <span class="badge bg-primary fs-6 p-2">Shumë mirë 8.8</span><br />
-            <small class="text-muted">211 recensione</small><br />
-            <a href="@Url.Action("View3","ListaEMakinave")" class="btn btn-outline-primary mt-2">Shiko</a>
-        </div>
-    </div>
-
-    <!-- Makina 4 -->
-    <div class="row mb-4 shadow-sm p-3 bg-white rounded align-items-center">
-        <div class="col-md-3">
-            <img src="~/Content/ArtinFoto/e-class.jpg" class="img-fluid rounded" style="height: 220px; width: 150%; object-fit: cover;" alt="Mercedes E-Class">
-        </div>
-        <div class="col-md-6">
-            <h5 class="mb-1">Mercedes-Benz E-Class</h5>
-            <p class="text-muted mb-1">Durrës · 0.9 km nga qendra · Automatike · Dizel</p>
-            <p class="mb-2">Makina perfekte për udhëtime biznesi dhe udhëtime të gjata me stil.</p>
-        </div>
-        <div class="col-md-3 text-end">
-            <span class="badge bg-primary fs-6 p-2">Fantastike 9.4</span><br />
-            <small class="text-muted">342 recensione</small><br />
-            <a href="@Url.Action("View4","ListaEMakinave")" class="btn btn-outline-primary mt-2">Shiko</a>
-        </div>
-    </div>
-
-    <!-- Makina 5 -->
-    <div class="row mb-4 shadow-sm p-3 bg-white rounded align-items-center">
-        <div class="col-md-3">
-            <img src="~/Content/ArtinFoto/toyota.jpg" class="img-fluid rounded" style="height: 220px; width: 150%; object-fit: cover;" alt="Toyota Yaris">
-        </div>
-        <div class="col-md-6">
-            <h5 class="mb-1">Toyota Yaris - Kompakt</h5>
-            <p class="text-muted mb-1">Tiranë · 1.8 km nga qendra · Manual · Benzinë</p>
-            <p class="mb-2">Makina e vogël për qytet, shumë ekonomike dhe lehtë për t'u manovruar.</p>
-        </div>
-        <div class="col-md-3 text-end">
-            <span class="badge bg-primary fs-6 p-2">Shumë mirë 8.6</span><br />
-            <small class="text-muted">147 recensione</small><br />
-            <a href="@Url.Action("View5","ListaEMakinave")" class="btn btn-outline-primary mt-2">Shiko</a>
-        </div>
-    </div>
+    @if (Model != null && Model.Count > 0)
+    {
+        foreach (var vetura in Model)
+        {
+            <div class="row mb-4 shadow-sm p-3 bg-white rounded align-items-center">
+                <div class="col-md-3">
+                    <img src="@Url.Content(vetura.FotoPath)" class="img-fluid rounded"
+                         style="height: 220px; width: 150%; object-fit: cover;" alt="@vetura.Emri" />
+                </div>
+                <div class="col-md-6">
+                    <h5 class="mb-1">@vetura.Emri - @vetura.Kategoria</h5>
+                    <p class="text-muted mb-1">@vetura.Qyteti · @vetura.Distanca km nga qendra · @vetura.Transmetimi · @vetura.LlojiKarburantit</p>
+                    <p class="mb-2">@vetura.Pershkrimi</p>
+                </div>
+                <div class="col-md-3 text-end">
+                    <span class="badge bg-primary fs-6 p-2">Shumë mirë 8.6</span><br />
+                    <small class="text-muted">147 recensione</small><br />
+                    <a href="@Url.Action("Details", "ListaEMakinave", new { id = vetura.Id })"
+                       class="btn btn-outline-primary mt-2">Shiko</a>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="alert alert-info">Nuk u gjet asnjë veturë për filtrat e zgjedhur.</div>
+    }
 </div>
-<!-- Makina 6 -->
-<div class="row mb-4 shadow-sm p-3 bg-white rounded align-items-center">
-    <div class="col-md-3">
-        <img src="~/Content/ArtinFoto/bmw1.jpg" class="img-fluid rounded" style="height: 220px; width: 150%; object-fit: cover;" alt="BMW 5 Series">
-    </div>
-    <div class="col-md-6">
-        <h5 class="mb-1">BMW 5 Series - Sedan</h5>
-        <p class="text-muted mb-1">Prishtinë · 1.5 km nga qendra · Automatike · Dizel</p>
-        <p class="mb-2">Një sedan luksoz me performancë të lartë dhe rehati të jashtëzakonshme.</p>
-    </div>
-    <div class="col-md-3 text-end">
-        <span class="badge bg-primary fs-6 p-2">Superb 9.1</span><br />
-        <small class="text-muted">174 recensione</small><br />
-        <a href="@Url.Action("View6","ListaEMakinave")" class="btn btn-outline-primary mt-2">Shiko</a>
-    </div>
-</div>
-
-<!-- Makina 7 -->
-<div class="row mb-4 shadow-sm p-3 bg-white rounded align-items-center">
-    <div class="col-md-3">
-        <img src="~/Content/ArtinFoto/audiq5.jpg" class="img-fluid rounded" style="height: 220px; width: 150%; object-fit: cover;" alt="Audi Q5">
-    </div>
-    <div class="col-md-6">
-        <h5 class="mb-1">Audi Q5 - SUV</h5>
-        <p class="text-muted mb-1">Tiranë · 2.0 km nga qendra · Automatike · Benzinë</p>
-        <p class="mb-2">SUV i gjithanshëm për udhëtime urbane dhe në natyrë me teknologji moderne.</p>
-    </div>
-    <div class="col-md-3 text-end">
-        <span class="badge bg-primary fs-6 p-2">Shumë mirë 8.9</span><br />
-        <small class="text-muted">132 recensione</small><br />
-        <a href="@Url.Action("View7","ListaEMakinave")" class="btn btn-outline-primary mt-2">Shiko</a>
-    </div>
-</div>
-
-<!-- Makina 8 -->
-<div class="row mb-4 shadow-sm p-3 bg-white rounded align-items-center">
-    <div class="col-md-3">
-        <img src="~/Content/ArtinFoto/golf7.jpg" class="img-fluid rounded" style="height: 220px; width: 150%; object-fit: cover;" alt="Golf 7">
-    </div>
-    <div class="col-md-6">
-        <h5 class="mb-1">Volkswagen Golf 7 - Hatchback</h5>
-        <p class="text-muted mb-1">Shkup · 2.3 km nga qendra · Manual · Dizel</p>
-        <p class="mb-2">Kompakt dhe ekonomik, perfekt për qarkullim të përditshëm dhe parkim të lehtë.</p>
-    </div>
-    <div class="col-md-3 text-end">
-        <span class="badge bg-primary fs-6 p-2">Shumë mirë 8.7</span><br />
-
-        <small class="text-muted">194 recensione</small><br />
-        <a href="@Url.Action("View8","ListaEMakinave")" class="btn btn-outline-primary mt-2">Shiko</a>
-    </div>
-</div>
-
-<!-- Makina 9 -->
-<div class="row mb-4 shadow-sm p-3 bg-white rounded align-items-center">
-    <div class="col-md-3">
-        <img src="~/Content/ArtinFoto/m4.jpg" class="img-fluid rounded" style="height: 220px; width: 150%; object-fit: cover;" alt="BMW M4">
-    </div>
-    <div class="col-md-6">
-        <h5 class="mb-1">BMW M4 Drop Top - Sport</h5>
-        <p class="text-muted mb-1">Shkup · 2.3 km nga qendra · Manual · Benzin</p>
-        <p class="mb-2">Sport dhe argetues, perfekt për qarkullim të përditshëm dhe parkim të lehtë.</p>
-    </div>
-    <div class="col-md-3 text-end">
-        <span class="badge bg-primary fs-6 p-2">Shumë mirë 8.7</span><br />
-        <small class="text-muted">194 recensione</small><br />
-        <a href="@Url.Action("View9","ListaEMakinave")" class="btn btn-outline-primary mt-2">Shiko</a>
-    </div>
-</div>
-
-
-
