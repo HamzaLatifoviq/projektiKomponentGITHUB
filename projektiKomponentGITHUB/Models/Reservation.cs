@@ -1,30 +1,40 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 
 namespace projektiKomponentGITHUB.Models
 {
-    [Table("Reservations")]
-    public class Reservations
-    {
-        [Key]
-        public int Id { get; set; }
+    
+        public class Reservations
+        {
+            [Key]
+            public int Id { get; set; }
 
-        [Required]
-        public int HotelId { get; set; }
+            public int HotelId { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string ReservationRange { get; set; }
+            [Required]
+            [StringLength(50)]
+            public string ReservationRange { get; set; }
 
-        [Required]
-        public int AdultsCount { get; set; }
+            [Required]
+            [Range(1, int.MaxValue)]
+            public int AdultsCount { get; set; }
 
-        public int? ChildrenCount { get; set; }
+            [Range(0, int.MaxValue)]
+            public int? ChildrenCount { get; set; }
 
-        [Required]
-        public int RoomsCount { get; set; }
+            [Required]
+            [Range(1, int.MaxValue)]
+            public int RoomsCount { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+            [Required]
+            [Column(TypeName = "decimal(18,2)")] // përshtat formatin decimal sipas db
+            public decimal Price { get; set; }
+
+        
+        }
     }
-}
+
+
+

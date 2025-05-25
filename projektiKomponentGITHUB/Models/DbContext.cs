@@ -8,7 +8,7 @@ namespace projektiKomponentGITHUB.Models
         {
         }
         public DbSet<LoginView> Users { get; set; }
-        public DbSet<Reservation> Reservations { get; set; }
+        public DbSet<Reservations> Reservations { get; set; }
         
     }
 }

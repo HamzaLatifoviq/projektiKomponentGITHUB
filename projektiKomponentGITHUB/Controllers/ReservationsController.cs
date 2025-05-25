@@ -25,11 +25,11 @@ namespace projektiKomponentGITHUB.Controllers
         // POST: Reservations/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Reservation reservation)
+        public ActionResult Create(Reservations reservation)
         {
             if (ModelState.IsValid)
             {
-                reservation.CreatedAt = DateTime.Now;  // Siguro që të vendoset data aktuale
+                  // Siguro që të vendoset data aktuale
                 db.Reservations.Add(reservation);
                 db.SaveChanges();
                 return RedirectToAction("Index");

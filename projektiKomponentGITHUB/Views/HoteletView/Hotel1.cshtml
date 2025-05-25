@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Hotel1";
 }
 
@@ -45,7 +44,6 @@
                 <li>Vendndodhje e Përsosur: I pozicionuar në qendër të qytetit, pranë monumenteve kryesore si Ura e Gurit dhe Kalaja e Shkupit, duke e bërë të lehtë eksplorimin e atraksioneve kulturore dhe historike të qytetit.</li>
                 <li>Akomodim Komod: Dhomat janë të dizajnuara me kujdes, duke ofruar një ambient të rehatshëm dhe të pastër për pushim pas një dite të ngarkuar.</li>
                 <li>Shërbime Shtesë: Hoteli ofron një gamë të gjerë shërbimesh për të përmbushur nevojat e mysafirëve, duke përfshirë një pishinë të brendshme dhe një qendër fitnesi.</li>
-               
             </ul>
         </div>
     </div>
@@ -89,7 +87,6 @@
         <div id="message" class="mt-3"></div>
     </div>
 
-
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             // Inicializimi i Flatpickr për zgjedhjen e intervalit të datave
@@ -101,8 +98,8 @@
 
             // Konstanta e çmimeve
             const pricePerAdultPerNight = 40;
-            const pricePerChildPerNight = 10; // Example price for a child
-            const pricePerRoomPerNight = 40; // Additional cost per room
+            const pricePerChildPerNight = 10;
+            const pricePerRoomPerNight = 40;
             const messageDiv = document.getElementById("message");
 
             // Funksioni për llogaritjen e çmimit total
@@ -126,7 +123,6 @@
                             return;
                         }
                     } else {
-                        // Nëse nuk është zgjedhur interval i plotë, mos e kalkulo çmimin
                         messageDiv.innerHTML = "";
                         return;
                     }
@@ -169,7 +165,7 @@
                 fetch('/Reservation/CheckAvailability', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ hotelId, reservationRange, adultsCount, childrenCount, roomsCount })
+                    body: JSON.stringify({ hotelId: parseInt(hotelId), reservationRange, adultsCount, childrenCount, roomsCount })
                 })
                     .then(response => {
                         if (!response.ok) {
@@ -195,12 +191,14 @@
                         return response.json();
                     })
                     .then(reservationData => {
+                        console.log("Përgjigja nga serveri:", reservationData); // Debugging për të parë përgjigjen
                         if (reservationData.success) {
                             messageDiv.innerHTML = '<div class="alert alert-success">Rezervimi u krye me sukses. Për detaje, kontrolloni email-in tuaj!</div>';
                         } else {
                             throw new Error(reservationData.message || 'Rezervimi dështoi. Provoni përsëri.');
                         }
                     })
+
                     .catch(error => {
                         console.error("Gabim:", error.message);
                         messageDiv.innerHTML = `<div class="alert alert-danger">${error.message || 'Ndodhi një gabim. Ju lutem provoni përsëri më vonë.'}</div>`;
@@ -208,8 +206,6 @@
             });
         });
     </script>
-
-
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>

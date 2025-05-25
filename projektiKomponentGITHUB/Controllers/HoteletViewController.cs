@@ -1,4 +1,5 @@
-﻿using System;
+﻿using projektiKomponentGITHUB.Models;
+using System;
 using System.Data.SqlClient;
 using System.Web.Mvc;
 
@@ -6,7 +7,6 @@ namespace projektiKomponentGITHUB.Controllers
 {
     public class HoteletViewController : Controller
     {
-        // Veprimet për shfaqjen e faqeve për hotele
         public ActionResult Hotel1()
         {
             return View();
@@ -31,118 +31,124 @@ namespace projektiKomponentGITHUB.Controllers
         {
             return View();
         }
-
-        // Metodë për testimin e lidhjes me bazën e të dhënave
-        public ActionResult TestDatabaseConnection()
-        {
-            string connectionString = "Data Source=NIKI\\SQLEXPRESS;Initial Catalog=komponentDatabase;Integrated Security=True;Encrypt=False";
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    ViewBag.Message = "Lidhja me bazën e të dhënave u realizua me sukses!";
-                }
-            }
-            catch (Exception ex)
-            {
-                ViewBag.Message = $"Gabim gjatë lidhjes: {ex.Message}";
-            }
-
-            return View();
-        }
     }
-}
+
+
 
 namespace projektiKomponentGITHUB.Controllers
-{
-    public class ReservationController : Controller
     {
-        [HttpPost]
-        public JsonResult CheckAvailability(int hotelId, string reservationRange, int adultsCount, int childrenCount, int roomsCount)
+        public class ReservationController : Controller
         {
-            // Logjika për kontrollin e disponueshmërisë (duhet të zëvendësohet me query në bazën e të dhënave)
-            bool isAvailable = true;
+            private readonly string connectionString = "Data Source=NIKI\\SQLEXPRESS;Initial Catalog=komponentDatabase;Integrated Security=True;Encrypt=False";
 
-            return Json(new { available = isAvailable });
-        }
-
-        public bool InsertReservation(int hotelId, string reservationRange, int adultsCount, int childrenCount, int roomsCount)
-        {
-            string query = "INSERT INTO Reservations (HotelId, ReservationRange, AdultsCount, ChildrenCount, RoomsCount, CreatedAt) " +
-                           "VALUES (@HotelId, @ReservationRange, @AdultsCount, @ChildrenCount, @RoomsCount, @CreatedAt)";
-            string connectionString = "Data Source=NIKI\\SQLEXPRESS;Initial Catalog=komponentDatabase;Integrated Security=True;Encrypt=False";
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            // Merr çmimin për natë nga tabela Rooms për hotelin përkatës
+            private decimal GetPricePerNight(int hotelId)
             {
+                decimal pricePerNight = 0m;
+                string query = "SELECT TOP 1 price_per_night FROM Rooms WHERE hotel_id = @HotelId";
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@HotelId", hotelId);
+                    connection.Open();
+                    var result = cmd.ExecuteScalar();
+                    if (result != null)
+                        pricePerNight = Convert.ToDecimal(result);
+                }
+                return pricePerNight;
+            }
+
+            [HttpPost]
+            public JsonResult CheckAvailability(int hotelId, string reservationRange, int adultsCount, int childrenCount, int roomsCount)
+            {
+                // Këtu mund ta implementosh kontrollin e disponueshmërisë, për momentin e kthen gjithmonë true
+                return Json(new { available = true });
+            }
+
+            private int CalculateNights(string reservationRange)
+            {
+                int nightsCount = 1;
+
+                if (!string.IsNullOrEmpty(reservationRange))
+                {
+                    var dates = reservationRange.Split(new string[] { " to " }, StringSplitOptions.None);
+                    if (dates.Length == 2 &&
+                        DateTime.TryParse(dates[0], out DateTime start) &&
+                        DateTime.TryParse(dates[1], out DateTime end))
+                    {
+                        nightsCount = (end - start).Days;
+                        if (nightsCount <= 0) nightsCount = 1;
+                    }
+                }
+
+                return nightsCount;
+            }
+
+            public bool InsertReservation(int hotelId, string reservationRange, int adultsCount, int childrenCount, int roomsCount)
+            {
+                decimal pricePerNight = GetPricePerNight(hotelId);
+                if (pricePerNight == 0m)
+                {
+                    Console.WriteLine("Çmimi për natë nuk është i vlefshëm.");
+                    return false;
+                }
+
+                int nightsCount = CalculateNights(reservationRange);
+
+                decimal totalPrice = pricePerNight * roomsCount * nightsCount;
+
+                string query = @"INSERT INTO Reservations 
+                            (HotelId, ReservationRange, AdultsCount, ChildrenCount, RoomsCount, Price) 
+                            VALUES (@HotelId, @ReservationRange, @AdultsCount, @ChildrenCount, @RoomsCount, @Price)";
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@HotelId", hotelId);
                     command.Parameters.AddWithValue("@ReservationRange", reservationRange);
                     command.Parameters.AddWithValue("@AdultsCount", adultsCount);
-                    command.Parameters.AddWithValue("@ChildrenCount", childrenCount);
+                    command.Parameters.AddWithValue("@ChildrenCount", (object)childrenCount ?? DBNull.Value);
                     command.Parameters.AddWithValue("@RoomsCount", roomsCount);
-                    command.Parameters.AddWithValue("@CreatedAt", DateTime.Now);
+                    command.Parameters.AddWithValue("@Price", totalPrice);
+                  //  command.Parameters.AddWithValue("@CreatedAt", DateTime.Now);
 
                     try
                     {
                         connection.Open();
                         int result = command.ExecuteNonQuery();
-                        return result > 0;
+                        if (result > 0)
+                        {
+                            Console.WriteLine("Rezervimi u shtua me sukses.");
+                            return true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Nuk u shtua asnjë rresht.");
+                            return false;
+                        }
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine("Gabim gjatë ruajtjes: " + ex.Message);
+                        Console.WriteLine("Gabim gjatë futjes së rezervimit: " + ex.Message);
                         return false;
                     }
                 }
             }
-        }
 
-        [HttpPost]
-        public JsonResult MakeReservation(int hotelId, string reservationRange, int adultsCount, int childrenCount, int roomsCount)
-        {
-            try
+            [HttpPost]
+            public JsonResult MakeReservation(int hotelId, string reservationRange, int adultsCount, int childrenCount, int roomsCount)
             {
-                bool success = InsertReservation(hotelId, reservationRange, adultsCount, childrenCount, roomsCount);
-
-                return Json(new { success = success });
-            }
-            catch (Exception ex)
-            {
-                return Json(new { success = false, message = ex.Message });
+                try
+                {
+                    bool success = InsertReservation(hotelId, reservationRange, adultsCount, childrenCount, roomsCount);
+                    return Json(new { success = success });
+                }
+                catch (Exception ex)
+                {
+                    return Json(new { success = false, message = ex.Message });
+                }
             }
         }
-    }
-}
-
-namespace projektiKomponentGITHUB.Models
-{
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
-    [Table("Reservations")]
-    public class Reservation
-    {
-        [Key]
-        public int Id { get; set; }
-
-        [Required]
-        public int HotelId { get; set; }
-
-        [Required]
-        [StringLength(50)]
-        public string ReservationRange { get; set; }
-
-        [Required]
-        public int AdultsCount { get; set; }
-
-        public int? ChildrenCount { get; set; }
-
-        [Required]
-        public int RoomsCount { get; set; }
-
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 }
