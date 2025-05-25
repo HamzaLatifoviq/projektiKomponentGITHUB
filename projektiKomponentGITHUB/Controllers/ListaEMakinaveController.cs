@@ -19,6 +19,7 @@ namespace projektiKomponentGITHUB.Controllers
         public ActionResult View8() => View();
         public ActionResult View9() => View();
 
+        [Authorize]
         public ActionResult Details(int? id)
         {
             using (var db = new MyDbContext())
