@@ -135,12 +135,14 @@
     <Compile Include="Controllers\ModuliRezervimeveController.cs" />
     <Compile Include="Controllers\PagesaTransaksionetController.cs" />
     <Compile Include="Controllers\RegisterLoginController.cs" />
+    <Compile Include="Controllers\ReservationsController.cs" />
     <Compile Include="Controllers\RoletController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DbContext.cs" />
     <Compile Include="Models\LoginView.cs" />
+    <Compile Include="Models\Reservation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -221,6 +223,8 @@
     <Content Include="Views\HoteletView\Hotel3.cshtml" />
     <Content Include="Views\HoteletView\Hotel4.cshtml" />
     <Content Include="Views\HoteletView\Hotel5.cshtml" />
+    <Content Include="Views\Reservations\Index.cshtml" />
+    <Content Include="Views\Reservations\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

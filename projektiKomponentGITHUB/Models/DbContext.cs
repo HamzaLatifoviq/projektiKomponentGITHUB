@@ -7,7 +7,8 @@ namespace projektiKomponentGITHUB.Models
         public MyDbContext() : base("name=DefaultConnection")
         {
         }
-
         public DbSet<LoginView> Users { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
+        
     }
 }
