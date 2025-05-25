@@ -2,30 +2,34 @@
     ViewBag.Title = "Login";
 }
 
-<div class="container mt-5" style="max-width: 400px;">
-    <h2 class="text-center mb-4">Login</h2>
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="card p-4 shadow-sm" style="width: 100%; max-width: 400px;">
+        <h2 class="text-center mb-4">Login</h2>
 
-    @if (ViewBag.Error != null)
-    {
-        <div class="alert alert-danger text-center">@ViewBag.Error</div>
-    }
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger text-center">@ViewBag.Error</div>
+        }
 
-    @using (Html.BeginForm("LoginView", "RegisterLogin", FormMethod.Post))
-    {
-        <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
-            <input type="text" name="username" class="form-control" id="username" placeholder="Enter username" required />
-        </div>
+        @using (Html.BeginForm("LoginView", "RegisterLogin", FormMethod.Post))
+        {
+            <div class="mb-3 text-center">
+                <label for="username" class="form-label">Username</label><br />
+                <input type="text" name="username" class="form-control mx-auto text-center" id="username"
+                       placeholder="Enter username" style="max-width: 300px;" required />
+            </div>
 
-        <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" name="password" class="form-control" id="password" placeholder="Enter password" required />
-        </div>
+            <div class="mb-3 text-center">
+                <label for="password" class="form-label">Password</label><br />
+                <input type="password" name="password" class="form-control mx-auto text-center" id="password"
+                       placeholder="Enter password" style="max-width: 300px;" required />
+            </div>
 
-        <button type="submit" class="btn btn-primary w-100">Login</button>
+            <button type="submit" class="btn btn-primary btn-sm d-block mx-auto px-4">Login</button>
 
-        <div class="text-center mt-2">
-            @Html.ActionLink("Don't have an account? Register", "RegisterView", "RegisterLogin", new { area = "" }, new { @class = "text-primary" })
-        </div>
-    }
+            <div class="text-center mt-3">
+                @Html.ActionLink("Don't have an account? Register", "RegisterView", "RegisterLogin", null, new { @class = "text-primary" })
+            </div>
+        }
+    </div>
 </div>
