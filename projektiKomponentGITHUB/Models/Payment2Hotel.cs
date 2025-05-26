@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -20,6 +21,7 @@ namespace projektiKomponentGITHUB.Models
         public decimal Shuma { get; set; }
         public DateTime DataPageses { get; set; }
         public string PaymentStatus { get; set; }
+        [ForeignKey("Reservation")]
         public int? ReservationID { get; set; }
 
         // Optional navigation property if you want to access Reservation data

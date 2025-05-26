@@ -1,4 +1,4 @@
-﻿@model projektiKomponentGITHUB.Models.Payment
+﻿@model projektiKomponentGITHUB.Models.Payments2Hotel
 
 @{
     ViewBag.Title = "PagesatView";
@@ -189,7 +189,7 @@
             <!-- Hidden or auto-set fields -->
             @Html.HiddenFor(m => m.DataPageses, new { Value = DateTime.Now.ToString("yyyy-MM-dd") })
             @Html.HiddenFor(m => m.PaymentStatus, new { Value = "Pending" })
-            @Html.HiddenFor(m => m.BookingID)
+            @Html.HiddenFor(m => m.ReservationID)
         </div>
 
         <div class="text-end">

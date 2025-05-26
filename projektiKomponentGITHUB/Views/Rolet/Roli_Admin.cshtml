@@ -139,32 +139,67 @@
         <div class="tab-pane fade" id="hotels" role="tabpanel">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h4>Menaxho Hotelet</h4>
-                <button class="btn btn-sm btn-success">Shto Hotel</button>
-            </div>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Emri i Hotelit</th>
-                        <th>Lokacioni</th>
-                        <th>Menaxheri</th>
-                        <th>Veprime</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Hotel California</td>
-                        <td>Tetove</td>
-                        <td>Elion B.</td>
-                        <td>
-                            <button class="btn btn-sm btn-warning">Ndrysho</button>
-                            <button class="btn btn-sm btn-danger">Fshij</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+                <div class="tab-pane fade show active" id="paymentsHotel" role="tabpanel">
+                    <h4>Menaxho Pagesat Per Hotele</h4>
+                    <table class="table table-bordered table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>#</th>
+                                <th>Emri</th>
+                                <th>Mbiemri</th>
+                                <th>Emaili</th>
+                                <th>Adresa</th>
+                                <th>Numri Telefonit</th>
+                                <th>Numri Kartes</th>
+                                <th>Data Skadimit</th>
+                                <th>Menyra Pageses</th>
+                                <th>Shuma</th>
+                                <th>Statusi</th>
+                                <th>Veprime</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (ViewBag.HotelPayments != null && ((List<projektiKomponentGITHUB.Models.Payments2Hotel>)ViewBag.HotelPayments).Count > 0)
+                            {
+                                int index = 1;
+                                foreach (var payment in (List<projektiKomponentGITHUB.Models.Payments2Hotel>)ViewBag.HotelPayments)
+                                {
+                                    <tr>
+                                        <td>@index</td>
+                                        <td>@payment.Emri</td>
+                                        <td>@payment.Mbiemri</td>
+                                        <td>@payment.Emaili</td>
+                                        <td>@payment.Adresa</td>
+                                        <td>@payment.NumriTelefonit</td>
+                                        <td>@payment.NumriKartes</td>
+                                        <td>@payment.DataSkadimit.ToString("MM/yyyy")</td>
+                                        <td>@payment.MenyraPageses</td>
+                                        <td>@payment.Shuma.ToString("C")</td>
+                                        <td>@payment.PaymentStatus</td>
+                                        <td>
+                                            @using (Html.BeginForm("UpdateHotelPaymentStatus", "Rolet", FormMethod.Post, new { @class = "d-inline" }))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                @Html.Hidden("id", payment.Id)
+                                                <div class="d-flex justify-content-center gap-2">
+                                                    <button type="submit" name="status" value="Pranuar" class="btn btn-sm btn-success flex-fill" @(payment.PaymentStatus == "Pranuar" ? "disabled" : "")>Prano</button>
+                                                    <button type="submit" name="status" value="Refuzuar" class="btn btn-sm btn-danger flex-fill" @(payment.PaymentStatus == "Refuzuar" ? "disabled" : "")>Refuzo</button>
+                                                </div>
+                                            }
+                                        </td>
+                                    </tr>
+                                    index++;
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="12" class="text-center">Nuk ka pagesa per t'u menaxhuar.</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
 
         <!-- Cars Tab -->
         <div class="tab-pane fade" id="cars" role="tabpanel">

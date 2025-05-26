@@ -91,7 +91,7 @@ public class ReservationsController : Controller
             return RedirectToAction("PagesatView2", "PagesaTransaksionet", new
             {
                 shuma = reservation.CmimiTotal,
-                bookingId = reservation.ReservationID
+                reservationId = reservation.ReservationID
             });
         }
 

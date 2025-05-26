@@ -105,4 +105,56 @@
             }
         </tbody>
     </table>
+    <h4>Rezervimi i hotelit:</h4>
+
+    <table class="table table-bordered table-striped mt-3">
+        <thead class="table-primary text-center">
+            <tr>
+                <th>Emri</th>
+                <th>Mbiemri</th>
+                <th>Emaili</th>
+                <th>Data Fillimit</th> <!-- From -->
+                <th>Data Mbarimit</th> <!-- Till -->
+                <th>Shuma (€)</th>
+                <th>Metoda e Pagesës</th>
+                <th>Statusi i Pagesës</th>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+            @{
+                var hotelPayments = ViewBag.HotelPayments as List<projektiKomponentGITHUB.Models.Payments2Hotel>;
+            }
+
+            @if (hotelPayments != null && hotelPayments.Any())
+            {
+                foreach (var payment in hotelPayments)
+                {
+                    <tr>
+                        <td>@payment.Emri</td>
+                        <td>@payment.Mbiemri</td>
+                        <td>@payment.Emaili</td>
+                        <td>
+                            @(payment.Reservation != null
+                            ? payment.Reservation.DataCheckIn.ToString("yyyy-MM-dd")
+                            : "N/A")
+                        </td>
+                        <td>
+                            @(payment.Reservation != null
+                            ? payment.Reservation.DataCheckOut.ToString("yyyy-MM-dd")
+                            : "N/A")
+                        </td>
+                        <td>@payment.Shuma.ToString("F2")</td>
+                        <td>@payment.MenyraPageses</td>
+                        <td>@payment.PaymentStatus</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="8" class="text-center">Nuk ka pagesa për t'u shfaqur.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>

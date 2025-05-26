@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity;
 using System.Web;
 using System.Web.Mvc;
 using projektiKomponentGITHUB.Models;
@@ -14,30 +15,37 @@ namespace projektiKomponentGITHUB.Controllers
         {
             using (var db = new MyDbContext())
             {
-                // Get the logged-in username from session
                 string currentUsername = Session["Username"] as string;
 
                 if (string.IsNullOrEmpty(currentUsername))
                 {
-                    // If no username found in session, redirect to login
                     return RedirectToAction("LoginView", "RegisterLogin");
                 }
 
-                // Find the current user by username
                 var currentUser = db.Users.FirstOrDefault(u => u.Username == currentUsername);
-
                 if (currentUser == null)
                 {
-                    // If user not found in DB, redirect to home
                     return RedirectToAction("HomePage", "Home");
                 }
 
-                // Get only this user's payments based on email
+                var userHotelPayments = db.Payments2Hotel
+    .Include(p => p.Reservation)  // need "using System.Data.Entity;" or EF Core equivalent
+    .Where(p => p.Emaili == currentUser.Email)
+    .ToList();
+
+                // Vehicle payments
                 var userPayments = db.Payments
                     .Where(p => p.Emaili == currentUser.Email)
                     .ToList();
 
+                // Hotel payments (new)
+                var userHotelPayments2 = db.Payments2Hotel
+                    .Where(p => p.Emaili == currentUser.Email)
+                    .ToList();
+
                 ViewBag.Payments = userPayments;
+                ViewBag.HotelPayments = userHotelPayments;
+                ViewBag.HotelPayments = userHotelPayments2;
 
                 return View();
             }
@@ -88,13 +96,31 @@ namespace projektiKomponentGITHUB.Controllers
                     LastLogin = u.LastLogin
                 }).ToList();
 
-                // Use the correct column name here - DataPageses instead of PaymentDate
                 var payments = db.Payments.OrderByDescending(p => p.DataPageses).ToList();
                 ViewBag.Payments = payments;
+
+                var hotelPayments = db.Payments2Hotel.OrderByDescending(p => p.DataPageses).ToList();
+                ViewBag.HotelPayments = hotelPayments;
 
                 return View(users);
             }
         }
+
+        [HttpPost]
+        public ActionResult UpdateHotelPaymentStatus(int id, string status)
+        {
+            using (var db = new MyDbContext())
+            {
+                var hotelPayment = db.Payments2Hotel.Find(id);
+                if (hotelPayment == null)
+                    return HttpNotFound();
+
+                hotelPayment.PaymentStatus = status; // "Pranuar" or "Refuzuar"
+                db.SaveChanges();
+            }
+            return RedirectToAction("Roli_Admin");
+        }
+
 
         // GET: Admin/EditUser/5
         public ActionResult EditUser(int id)
@@ -238,7 +264,18 @@ namespace projektiKomponentGITHUB.Controllers
 
         public ActionResult Roli_HotelManager()
         {
-            return View();
+            using (var db = new MyDbContext())
+            {
+                var hotels = db.Hotels.ToList();   // Load hotels if needed
+
+                var reservations = db.Reservations.ToList();  // your reservations
+                var payments = db.Payments.ToList();          // payments
+
+                ViewBag.Reservations = reservations;
+                ViewBag.Payments = payments;
+
+                return View(hotels);  // pass hotels as model or any other model you want
+            }
         }
         public ActionResult Roli_VeturManager()
         {

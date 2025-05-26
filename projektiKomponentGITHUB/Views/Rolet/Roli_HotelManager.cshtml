@@ -1,7 +1,9 @@
-﻿@{
-    ViewBag.Title = "Roli_HotelManager";
-}
+﻿@model List<projektiKomponentGITHUB.Models.Hotel>
 
+@{
+    var reservations = ViewBag.Reservations as List<projektiKomponentGITHUB.Models.Reservation>;
+    var payments = ViewBag.Payments as List<projektiKomponentGITHUB.Models.Payments2Hotel>;
+}
 <div class="container mt-5">
     <h2>Paneli i Menaxherit te Hotelit</h2>
 
@@ -86,21 +88,39 @@
             <table class="table table-bordered mt-3">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Emri i Klientit</th>
-                        <th>Dhoma #</th>
-                        <th>Check-In</th>
-                        <th>Check-Out</th>
+                        <th>Reservation ID</th>
+                        <th>Hotel ID</th>
+                        <th>Emri</th>
+                        <th>Mbiemri</th>
+                        <th>Emaili</th>
+                        <th>Add-ons</th>
+                        <th>Price at Booking</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Arber R.</td>
-                        <td>101</td>
-                        <td>2025-05-10</td>
-                        <td>2025-05-14</td>
-                    </tr>
+                    @if (reservations != null && reservations.Any())
+                    {
+                        foreach (var reservation in reservations)
+                        {
+                            var payment = payments?.FirstOrDefault(p => p.ReservationID == reservation.ReservationID);
+                            <tr>
+                                <td>@reservation.ReservationID</td>
+                                <td>@reservation.HotelID</td>
+                                <td>@(payment?.Emri ?? "N/A")</td>
+                                <td>@(payment?.Mbiemri ?? "N/A")</td>
+                                <td>@(payment?.Emaili ?? "N/A")</td>
+                                <td>@reservation.DataCheckIn</td>
+                                <td>@reservation.DataCheckOut</td>
+                                <td>@reservation.CmimiTotal</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center">Nuk ka rezervime për të shfaqur.</td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>
