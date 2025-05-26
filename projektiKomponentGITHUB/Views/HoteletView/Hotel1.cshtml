@@ -50,163 +50,125 @@
 
     <div class="container mt-4">
         <h3 class="text-center mt-5">Rezervoni Periudhën dhe Dhomën</h3>
-        <form id="reservationForm" class="mt-3">
-            <input type="hidden" id="hotelId" value="1" />
 
-            <!-- Data e rezervimit me ikonë kalendari -->
+        @using (Html.BeginForm("Create", "Reservations", FormMethod.Post, new { id = "reservationForm" }))
+        {
+            @Html.AntiForgeryToken()
+
+            /*<input type="hidden" id="hotelId" name="HotelID" value="1" />
+
+            <!-- Hidden inputs for DataCheckIn and DataCheckOut that we will fill with JS -->
+            <input type="hidden" id="DataCheckIn" name="DataCheckIn" />
+            <input type="hidden" id="DataCheckOut" name="DataCheckOut" />
+            <input type="hidden" id="CmimiTotal" name="CmimiTotal" />
+
+            <!-- Optional: RoomID (if you want to allow room type selection) -->
+            <!-- For now, let's just add a hidden roomId with 1 -->
+            <input type="hidden" id="roomId" name="RoomID" value="1" />
+
             <div class="form-group position-relative" style="max-width:320px; margin-bottom:1rem;">
                 <label for="reservationRange">Zgjidhni Periudhën:</label>
                 <input type="text" id="reservationRange" class="form-control" placeholder="Zgjidhni intervalin e datave" required style="padding-left:2.5rem;" />
                 <span class="input-icon" style="position:absolute; left:12px; top:60%; transform: translateY(-50%); font-size:18px; color:#555; pointer-events:none;">📅</span>
             </div>
 
-            <!-- Numri i adultëve me ikonë personi -->
             <div class="form-group position-relative" style="max-width:320px; margin-bottom:1rem;">
                 <label for="adultsCount">Adultë:</label>
-                <input type="number" id="adultsCount" class="form-control" min="1" max="30" value="2" required style="padding-left:2.5rem;" />
+                <input type="number" id="adultsCount" name="NumriAdult" class="form-control" min="1" max="30" value="2" required style="padding-left:2.5rem;" />
                 <span class="input-icon" style="position:absolute; left:12px; top:60%; transform: translateY(-50%); font-size:18px; color:#555; pointer-events:none;">👤</span>
             </div>
 
-            <!-- Numri i fëmijëve me ikonë personi -->
             <div class="form-group position-relative" style="max-width:320px; margin-bottom:1rem;">
                 <label for="childrenCount">Fëmijë (0-17 vjeç):</label>
-                <input type="number" id="childrenCount" class="form-control" min="0" max="10" value="0" style="padding-left:2.5rem;" />
+                <input type="number" id="childrenCount" name="NumriFemije" class="form-control" min="0" max="10" value="0" style="padding-left:2.5rem;" />
                 <span class="input-icon" style="position:absolute; left:12px; top:60%; transform: translateY(-50%); font-size:18px; color:#555; pointer-events:none;">👤</span>
             </div>
 
-            <!-- Numri i dhomave me ikonë shtepie/dhoma -->
             <div class="form-group position-relative" style="max-width:320px; margin-bottom:1rem;">
                 <label for="roomsCount">Dhomat:</label>
-                <input type="number" id="roomsCount" class="form-control" min="1" max="10" value="1" required style="padding-left:2.5rem;" />
+                <input type="number" id="roomsCount" name="NumriDhomave" class="form-control" min="1" max="10" value="1" required style="padding-left:2.5rem;" />
                 <span class="input-icon" style="position:absolute; left:12px; top:60%; transform: translateY(-50%); font-size:18px; color:#555; pointer-events:none;">🏠</span>
-            </div>
+            </div>*/
 
             <button type="submit" class="btn btn-primary mt-3">Rezervoni</button>
-        </form>
+        }
 
         <div id="message" class="mt-3"></div>
     </div>
-
+    <!--
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            // Inicializimi i Flatpickr për zgjedhjen e intervalit të datave
             flatpickr("#reservationRange", {
-                mode: "range", // Lejon zgjedhjen e intervalit të datave
-                dateFormat: "Y-m-d", // Formati i datës
-                minDate: "today", // Data minimale është data e sotme
+                mode: "range",
+                dateFormat: "Y-m-d",
+                minDate: "today",
             });
 
-            // Konstanta e çmimeve
-            const pricePerAdultPerNight = 40;
-            const pricePerChildPerNight = 10;
-            const pricePerRoomPerNight = 40;
+            const reservationRangeInput = document.getElementById("reservationRange");
+            const adultsInput = document.getElementById("adultsCount");
+            const childrenInput = document.getElementById("childrenCount");
+            const roomsInput = document.getElementById("roomsCount");
+            const totalPriceInput = document.getElementById("CmimiTotal");
             const messageDiv = document.getElementById("message");
 
-            // Funksioni për llogaritjen e çmimit total
             function calculatePrice() {
-                const adultsCount = parseInt(document.getElementById("adultsCount").value, 10) || 0;
-                const childrenCount = parseInt(document.getElementById("childrenCount").value, 10) || 0;
-                const roomsCount = parseInt(document.getElementById("roomsCount").value, 10) || 1;
-                const reservationRange = document.getElementById("reservationRange").value;
+                const reservationRange = reservationRangeInput.value;
+                const dates = reservationRange.split(" to ");
 
-                // Kalkulimi i numrit të netëve
-                let nightsCount = 1;
-                if (reservationRange) {
-                    const dates = reservationRange.split(" to ");
-                    if (dates.length === 2) {
-                        const start = new Date(dates[0]);
-                        const end = new Date(dates[1]);
-                        if (end > start) {
-                            nightsCount = Math.max((end - start) / (1000 * 60 * 60 * 24), 1);
-                        } else {
-                            messageDiv.innerHTML = "<div class='alert alert-danger'>Data e përfundimit duhet të jetë pas datës së fillimit.</div>";
-                            return;
-                        }
-                    } else {
-                        messageDiv.innerHTML = "";
-                        return;
-                    }
-                } else {
-                    messageDiv.innerHTML = "";
+                if (dates.length !== 2) {
+                    messageDiv.innerHTML = "<span style='color: red;'>Zgjidhni një periudhë të vlefshme.</span>";
                     return;
                 }
 
-                // Llogaritja e çmimit total
-                const totalPrice =
-                    nightsCount *
-                    (adultsCount * pricePerAdultPerNight +
-                        childrenCount * pricePerChildPerNight +
-                        roomsCount * pricePerRoomPerNight);
+                const startDate = new Date(dates[0]);
+                const endDate = new Date(dates[1]);
 
-                messageDiv.innerHTML = "<div class='alert alert-info'>Çmimi total: $" + totalPrice.toFixed(2) + "</div>";
+                const timeDiff = endDate - startDate;
+                const days = timeDiff / (1000 * 3600 * 24);
+                if (isNaN(days) || days <= 0) {
+                    messageDiv.innerHTML = "<span style='color: red;'>Periudha duhet të jetë së paku 1 ditë.</span>";
+                    return;
+                }
+
+                const adults = parseInt(adultsInput.value);
+                const children = parseInt(childrenInput.value);
+                const rooms = parseInt(roomsInput.value);
+
+                // Example pricing logic
+                const pricePerNightPerRoom = 50; // €50 per room per night
+                const pricePerAdult = 10; // €10 per adult per night
+                const pricePerChild = 5;  // €5 per child per night
+
+                const total = (rooms * pricePerNightPerRoom + adults * pricePerAdult + children * pricePerChild) * days;
+
+                totalPriceInput.value = total;
+                messageDiv.innerHTML = `<strong>Çmimi total: €${total.toFixed(2)}</strong>`;
             }
 
-            // Lidh eventet input dhe change për të kalkuluar çmimin
-            document.getElementById("adultsCount").addEventListener("input", calculatePrice);
-            document.getElementById("childrenCount").addEventListener("input", calculatePrice);
-            document.getElementById("roomsCount").addEventListener("input", calculatePrice);
-            document.getElementById("reservationRange").addEventListener("change", calculatePrice);
+            // Update price when any of these change
+            [reservationRangeInput, adultsInput, childrenInput, roomsInput].forEach(el => {
+                el.addEventListener("change", calculatePrice);
+            });
 
-            // Submit i formës për rezervim
+            // Also calculate price right before submitting
             document.getElementById("reservationForm").addEventListener("submit", function (event) {
-                event.preventDefault();
-
-                const hotelId = document.getElementById("hotelId").value;
-                const reservationRange = document.getElementById("reservationRange").value;
-                const adultsCount = parseInt(document.getElementById("adultsCount").value, 10);
-                const childrenCount = parseInt(document.getElementById("childrenCount").value, 10);
-                const roomsCount = parseInt(document.getElementById("roomsCount").value, 10);
-
-                if (!reservationRange || !adultsCount || !roomsCount) {
-                    messageDiv.innerHTML = '<div class="alert alert-danger">Ju lutem plotësoni të gjitha fushat e detyrueshme.</div>';
-                    return;
+                const reservationRange = reservationRangeInput.value;
+                const dates = reservationRange.split(" to ");
+                if (dates.length !== 2) {
+                    event.preventDefault();
+                    alert("Ju lutem zgjidhni një periudhë të vlefshme.");
+                    return false;
                 }
 
-                fetch('/Reservation/CheckAvailability', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ hotelId: parseInt(hotelId), reservationRange, adultsCount, childrenCount, roomsCount })
-                })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error(`Gabim gjatë kontrollit të disponueshmërisë: ${response.statusText}`);
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        if (data.available) {
-                            return fetch('/Reservation/MakeReservation', {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({ hotelId, reservationRange, adultsCount, childrenCount, roomsCount })
-                            });
-                        } else {
-                            throw new Error('Nuk ka dhoma të lira për këtë periudhë.');
-                        }
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error(`Gabim gjatë procesit të rezervimit: ${response.statusText}`);
-                        }
-                        return response.json();
-                    })
-                    .then(reservationData => {
-                        console.log("Përgjigja nga serveri:", reservationData); // Debugging për të parë përgjigjen
-                        if (reservationData.success) {
-                            messageDiv.innerHTML = '<div class="alert alert-success">Rezervimi u krye me sukses. Për detaje, kontrolloni email-in tuaj!</div>';
-                        } else {
-                            throw new Error(reservationData.message || 'Rezervimi dështoi. Provoni përsëri.');
-                        }
-                    })
+                // Set hidden check-in and check-out dates
+                document.getElementById("DataCheckIn").value = dates[0];
+                document.getElementById("DataCheckOut").value = dates[1];
 
-                    .catch(error => {
-                        console.error("Gabim:", error.message);
-                        messageDiv.innerHTML = `<div class="alert alert-danger">${error.message || 'Ndodhi një gabim. Ju lutem provoni përsëri më vonë.'}</div>`;
-                    });
+                calculatePrice(); // ensures CmimiTotal is updated
             });
         });
     </script>
-
+        -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />

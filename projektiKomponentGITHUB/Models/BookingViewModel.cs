@@ -33,6 +33,7 @@ namespace projektiKomponentGITHUB.Models
         public bool AdditionalDriver { get; set; }
         public decimal Price { get; set; } // Vehicle base price
         public decimal PriceAtBooking { get; set; } // Final calculated price
+        public decimal HotelPrice { get; set; }
 
         public DateTime BookingDate { get; set; }
 

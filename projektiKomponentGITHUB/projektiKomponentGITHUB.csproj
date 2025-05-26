@@ -144,10 +144,14 @@
     </Compile>
     <Compile Include="Models\BookingViewModel.cs" />
     <Compile Include="Models\DbContext.cs" />
+    <Compile Include="Models\Hotel.cs" />
     <Compile Include="Models\LoginView.cs" />
     <Compile Include="Models\Payment.cs" />
+    <Compile Include="Models\Payment2Hotel.cs" />
     <Compile Include="Models\Reservation.cs" />
+    <Compile Include="Models\ReservationViewModel.cs" />
     <Compile Include="Models\Review.cs" />
+    <Compile Include="Models\Room.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserCreate.cs" />
     <Compile Include="Models\UserViewModel.cs" />
@@ -248,6 +252,8 @@
     <Content Include="Views\Rolet\ChangePassword.cshtml" />
     <Content Include="Views\Reservations\Index.cshtml" />
     <Content Include="Views\Reservations\Create.cshtml" />
+    <Content Include="Views\Reservations\Success.cshtml" />
+    <Content Include="Views\PagesaTransaksionet\PagesatView2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

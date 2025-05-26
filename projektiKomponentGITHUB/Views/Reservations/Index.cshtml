@@ -1,60 +1,47 @@
-﻿@model projektiKomponentGITHUB.Models.Reservations
+﻿@model IEnumerable<projektiKomponentGITHUB.Models.ReservationViewModel>
 
 @{
-    ViewBag.Title = "Create Reservation";
+    ViewBag.Title = "Lista e Rezervimeve";
 }
 
-<h2>Create Reservation</h2>
+<h2>Lista e Rezervimeve</h2>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+<p>
+    @Html.ActionLink("Shto Rezervim", "Create", null, new { @class = "btn btn-primary" })
+</p>
 
-    <div class="form-horizontal">
-        <div class="form-group">
-            @Html.LabelFor(model => model.HotelId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.HotelId)
-                @Html.ValidationMessageFor(model => model.HotelId)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ReservationRange, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ReservationRange)
-                @Html.ValidationMessageFor(model => model.ReservationRange)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.AdultsCount, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.AdultsCount)
-                @Html.ValidationMessageFor(model => model.AdultsCount)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ChildrenCount, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ChildrenCount)
-                @Html.ValidationMessageFor(model => model.ChildrenCount)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.RoomsCount, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.RoomsCount)
-                @Html.ValidationMessageFor(model => model.RoomsCount)
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Rezervo" class="btn btn-primary" />
-            </div>
-        </div>
-    </div>
-}
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Emri</th>
+            <th>Mbiemri</th>
+            <th>Emaili</th>
+            <th>Hoteli</th>
+            <th>Dhomë</th>
+            <th>Check-In</th>
+            <th>Check-Out</th>
+            <th>Të Rritur</th>
+            <th>Fëmijë</th>
+            <th>Dhomat</th>
+            <th>Cmimi Total (€)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var reservation in Model)
+        {
+            <tr>
+                <td>@reservation.Emri</td>
+                <td>@reservation.Mbiemri</td>
+                <td>@reservation.Emaili</td>
+                <td>@reservation.HotelEmri</td>
+                <td>@reservation.RoomLlojiDhomes</td>
+                <td>@reservation.DataCheckIn.ToString("yyyy-MM-dd")</td>
+                <td>@reservation.DataCheckOut.ToString("yyyy-MM-dd")</td>
+                <td>@reservation.NumriTeRriturve</td>
+                <td>@reservation.NumriFemijeve</td>
+                <td>@reservation.NumriDhomave</td>
+                <td>@reservation.CmimiTotal.ToString("F2")</td>
+            </tr>
+        }
+    </tbody>
+</table>

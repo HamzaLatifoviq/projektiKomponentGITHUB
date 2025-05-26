@@ -106,5 +106,52 @@ namespace projektiKomponentGITHUB.Controllers
         {
             return View();
         }
+        public ActionResult PagesatView2(decimal shuma, int? reservationId)
+        {
+            if (!reservationId.HasValue)
+            {
+                return new HttpStatusCodeResult(400, "Reservation ID is required.");
+            }
+
+            ViewBag.ReservationID = reservationId;
+
+            var payment = new Payments2Hotel
+            {
+                Shuma = shuma,
+                ReservationID = reservationId
+            };
+
+            return View(payment);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PagesatView2(Payments2Hotel payment)
+        {
+            if (!payment.ReservationID.HasValue || payment.ReservationID == 0)
+            {
+                ModelState.AddModelError("", "Reservation ID is required.");
+            }
+
+            if (ModelState.IsValid)
+            {
+                payment.DataPageses = DateTime.Now;
+                payment.PaymentStatus = "Pending";
+
+                try
+                {
+                    db.Payments2Hotel.Add(payment);
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Errors = new List<string> { "Database error: " + ex.Message };
+                    return View(payment);
+                }
+
+                return RedirectToAction("SuksesPagesa");
+            }
+
+            return View(payment);
+        }
     }
 }

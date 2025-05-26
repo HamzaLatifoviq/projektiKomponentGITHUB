@@ -1,60 +1,144 @@
-﻿@model projektiKomponentGITHUB.Models.Reservations
+﻿@model projektiKomponentGITHUB.Models.Reservation
+@using projektiKomponentGITHUB.Models
 
 @{
-    ViewBag.Title = "Create Reservation";
+    ViewBag.Title = "Krijo Rezervim";
+
+    // Use dynamic because ViewBag.Rooms contains anonymous types
+    var rooms = (IEnumerable<dynamic>)ViewBag.Rooms;
 }
 
-<h2>Create Reservation</h2>
+<h2>Krijo Rezervim</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "Reservations", FormMethod.Post, new { id = "reservationForm" }))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <div class="form-group">
-            @Html.LabelFor(model => model.HotelId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.HotelId)
-                @Html.ValidationMessageFor(model => model.HotelId)
-            </div>
-        </div>
+        <h4>Rezervimi</h4>
+        <hr />
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ReservationRange, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ReservationRange)
-                @Html.ValidationMessageFor(model => model.ReservationRange)
-            </div>
-        </div>
+        @Html.LabelFor(model => model.Emri)
+        @Html.TextBoxFor(model => model.Emri, new { @class = "form-control" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.AdultsCount, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.AdultsCount)
-                @Html.ValidationMessageFor(model => model.AdultsCount)
-            </div>
-        </div>
+        @Html.LabelFor(model => model.Mbiemri)
+        @Html.TextBoxFor(model => model.Mbiemri, new { @class = "form-control" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ChildrenCount, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ChildrenCount)
-                @Html.ValidationMessageFor(model => model.ChildrenCount)
-            </div>
-        </div>
+        @Html.LabelFor(model => model.Emaili)
+        @Html.TextBoxFor(model => model.Emaili, new { @class = "form-control" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.RoomsCount, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.RoomsCount)
-                @Html.ValidationMessageFor(model => model.RoomsCount)
-            </div>
-        </div>
+        @Html.LabelFor(model => model.HotelID)
+        @Html.DropDownList("HotelID", (SelectList)ViewBag.HotelID, "--Zgjidh Hotelin--", new { @class = "form-control", id = "HotelID" })
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Rezervo" class="btn btn-primary" />
-            </div>
-        </div>
+        @Html.LabelFor(model => model.RoomID)
+        @Html.DropDownList("RoomID", (SelectList)ViewBag.RoomID, "--Zgjidh Dhomen--", new { @class = "form-control", id = "RoomID" })
+
+        @Html.LabelFor(model => model.DataCheckIn)
+        @Html.TextBoxFor(model => model.DataCheckIn, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", id = "DataCheckIn" })
+
+        @Html.LabelFor(model => model.DataCheckOut)
+        @Html.TextBoxFor(model => model.DataCheckOut, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", id = "DataCheckOut" })
+
+        @Html.LabelFor(model => model.NumriTeRriturve)
+        @Html.TextBoxFor(model => model.NumriTeRriturve, new { @class = "form-control", id = "adultsCount", type = "number", min = "1", max = "30", value = Model.NumriTeRriturve })
+
+        @Html.LabelFor(model => model.NumriFemijeve)
+        @Html.TextBoxFor(model => model.NumriFemijeve, new { @class = "form-control", id = "childrenCount", type = "number", min = "0", max = "10", value = Model.NumriFemijeve })
+
+        @Html.LabelFor(model => model.NumriDhomave)
+        @Html.TextBoxFor(model => model.NumriDhomave, new { @class = "form-control", id = "roomsCount", type = "number", min = "1", max = "10", value = Model.NumriDhomave })
+
+        @* Hidden input to store total price *@
+        <input type="hidden" id="CmimiTotal" name="CmimiTotal" value="0" />
+
+        <br />
+
+        <div id="priceMessage" class="mb-3 fw-bold"></div>
+
+        <input type="submit" value="Rezervo" class="btn btn-primary" />
     </div>
+}
+
+@section Scripts {
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const checkInInput = document.getElementById("DataCheckIn");
+        const checkOutInput = document.getElementById("DataCheckOut");
+        const adultsInput = document.getElementById("adultsCount");
+        const childrenInput = document.getElementById("childrenCount");
+        const roomsInput = document.getElementById("roomsCount");
+        const totalPriceInput = document.getElementById("CmimiTotal");
+        const priceMessage = document.getElementById("priceMessage");
+        const roomSelect = document.getElementById("RoomID");
+
+        // Parse rooms JSON from server-side ViewBag into JS array
+        var rooms = JSON.parse('@Html.Raw(ViewBag.RoomsJson)');
+
+        // Build a JS object mapping RoomID to CmimiPerNate
+        var roomPrices = {};
+        rooms.forEach(function(room) {
+            roomPrices[room.RoomID] = parseFloat(room.CmimiPerNate);
+        });
+
+        function calculatePrice() {
+            const checkIn = new Date(checkInInput.value);
+            const checkOut = new Date(checkOutInput.value);
+            const roomsCount = parseInt(roomsInput.value) || 0;
+
+            if (isNaN(checkIn) || isNaN(checkOut)) {
+                priceMessage.textContent = "Ju lutem zgjidhni datat e check-in dhe check-out.";
+                totalPriceInput.value = 0;
+                return;
+            }
+
+            const days = (checkOut - checkIn) / (1000 * 3600 * 24);
+
+            if (days <= 0) {
+                priceMessage.textContent = "Data e check-out duhet të jetë pas datës së check-in.";
+                totalPriceInput.value = 0;
+                return;
+            }
+
+            if (roomsCount <= 0) {
+                priceMessage.textContent = "Ju lutem shkruani numrin e dhomave.";
+                totalPriceInput.value = 0;
+                return;
+            }
+
+            const selectedRoomId = roomSelect.value;
+            const pricePerNight = roomPrices[selectedRoomId];
+
+            if (!pricePerNight) {
+                priceMessage.textContent = "Ju lutem zgjidhni një dhomë valide.";
+                totalPriceInput.value = 0;
+                return;
+            }
+
+            // Calculate total: price per night * nights * number of rooms
+            const total = pricePerNight * days * roomsCount;
+
+            totalPriceInput.value = total.toFixed(2);
+            priceMessage.textContent = `Çmimi total: €${total.toFixed(2)}`;
+        }
+
+        // Attach event listeners
+        [checkInInput, checkOutInput, roomsInput, roomSelect].forEach(input => {
+            input.addEventListener("change", calculatePrice);
+            input.addEventListener("input", calculatePrice);
+        });
+
+        // Calculate price on page load
+        calculatePrice();
+
+        // Validate on form submit
+        document.getElementById("reservationForm").addEventListener("submit", function (e) {
+            calculatePrice();
+            if (parseFloat(totalPriceInput.value) <= 0) {
+                e.preventDefault();
+                alert("Ju lutem plotësoni të dhënat e rezervimit dhe sigurohuni që çmimi është i vlefshëm.");
+            }
+        });
+    });
+    </script>
+
 }

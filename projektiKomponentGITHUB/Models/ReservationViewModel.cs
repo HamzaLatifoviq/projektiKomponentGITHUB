@@ -1,12 +1,13 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
 
 namespace projektiKomponentGITHUB.Models
 {
-
-    public class Reservation
+    public class ReservationViewModel
     {
         [Key]
         public int ReservationID { get; set; }
@@ -16,35 +17,19 @@ namespace projektiKomponentGITHUB.Models
 
         [ForeignKey("Room")]
         public int RoomID { get; set; }
-
-        [Required]
         public string Emri { get; set; }
-
-        [Required]
         public string Mbiemri { get; set; }
-
-        [Required]
         public string Emaili { get; set; }
 
-        [Required]
-        public DateTime DataCheckIn { get; set; }
+        public string HotelEmri { get; set; }
+        public string RoomLlojiDhomes { get; set; }
 
-        [Required]
+        public DateTime DataCheckIn { get; set; }
         public DateTime DataCheckOut { get; set; }
 
-        [Required]
         public int NumriTeRriturve { get; set; }
-
         public int? NumriFemijeve { get; set; }
-
-        [Required]
         public int NumriDhomave { get; set; }
-
-        [Required]
         public decimal CmimiTotal { get; set; }
-
-        public virtual Hotel Hotel { get; set; }
-        public virtual Room Room { get; set; }
     }
-
 }

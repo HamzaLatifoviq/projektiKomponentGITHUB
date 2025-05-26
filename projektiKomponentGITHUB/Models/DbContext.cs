@@ -15,6 +15,9 @@ namespace projektiKomponentGITHUB.Models
 
         public DbSet<Veturat> Veturat { get; set; }
         public DbSet<VeturBooking> Bookings { get; set; }
-        public DbSet<Reservations> Reservations { get; set; }
+        public DbSet<Hotel> Hotels { get; set; }
+        public DbSet<Room> Rooms { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
+        public DbSet<Payments2Hotel> Payments2Hotel { get; set; }
     }
 }

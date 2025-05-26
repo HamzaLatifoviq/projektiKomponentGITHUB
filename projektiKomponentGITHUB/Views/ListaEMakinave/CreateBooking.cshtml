@@ -11,6 +11,7 @@
     @Html.AntiForgeryToken()
 
     @Html.HiddenFor(m => m.VeturaId)
+    <input type="hidden" name="HotelPrice" value="@Model.HotelPrice" />
 
     <div class="form-group">
         @Html.LabelFor(m => m.Emri, htmlAttributes: new { @class = "control-label col-md-2" })
