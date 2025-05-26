@@ -4,6 +4,63 @@
     ViewBag.Title = "RegisterView";
 }
 
+<style>
+    .register-card {
+        max-width: 450px;
+        margin: 0 auto;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 16px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+    }
+
+    .register-title {
+        font-size: 2rem;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 30px;
+        color: #0d6efd;
+        text-shadow: 0 1px 3px rgba(13, 110, 253, 0.2);
+        letter-spacing: 0.5px;
+    }
+
+    .form-label {
+        font-weight: 500;
+        color: #495057;
+    }
+
+    .form-control {
+        border-radius: 10px;
+        height: 44px;
+        font-size: 1rem;
+        transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+        .form-control:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.25);
+        }
+
+    .btn-register {
+        background-color: #0d6efd;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 10px 0;
+        font-weight: 500;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-register:hover {
+            background-color: #0b5ed7;
+        }
+
+    .alert {
+        max-width: 450px;
+        margin: 10px auto;
+    }
+</style>
+
 @if (ViewBag.Error != null)
 {
     <div class="alert alert-danger text-center">@ViewBag.Error</div>
@@ -13,40 +70,43 @@
     <div class="alert alert-success text-center">@ViewBag.Success</div>
 }
 
-<div class="container mt-5" style="max-width: 400px;">
-    <h2 class="text-center mb-4">Register</h2>
+<div class="container mt-5">
+    <div class="register-card">
+        <h2 class="register-title">Krijo Llogari</h2>
 
-    @using (Html.BeginForm("RegisterView", "RegisterLogin", FormMethod.Post))
-    {
-        <div class="mb-3">
-            @Html.LabelFor(m => m.Emri)
-            @Html.TextBoxFor(m => m.Emri, new { @class = "form-control", placeholder = "Emri", required = "required" })
-        </div>
-        <div class="mb-3">
-            @Html.LabelFor(m => m.Mbiemri)
-            @Html.TextBoxFor(m => m.Mbiemri, new { @class = "form-control", placeholder = "Mbiemri", required = "required" })
-        </div>
+        @using (Html.BeginForm("RegisterView", "RegisterLogin", FormMethod.Post))
+        {
+            <div class="mb-3">
+                @Html.LabelFor(m => m.Emri, new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.Emri, new { @class = "form-control", placeholder = "Shkruaj emrin", required = "required" })
+            </div>
 
-        <div class="mb-3">
-            @Html.LabelFor(m => m.Email)
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Enter email", type = "email", required = "required" })
-        </div>
+            <div class="mb-3">
+                @Html.LabelFor(m => m.Mbiemri, new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.Mbiemri, new { @class = "form-control", placeholder = "Shkruaj mbiemrin", required = "required" })
+            </div>
 
-        <div class="mb-3">
-            @Html.LabelFor(m => m.Username)
-            @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "Choose username", required = "required" })
-        </div>
+            <div class="mb-3">
+                @Html.LabelFor(m => m.Email, new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email-i", type = "email", required = "required" })
+            </div>
 
-        <div class="mb-3">
-            @Html.LabelFor(m => m.Password)
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Create password", required = "required" })
-        </div>
+            <div class="mb-3">
+                @Html.LabelFor(m => m.Username, new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "Zgjedh përdoruesin", required = "required" })
+            </div>
 
-        <div class="mb-3">
-            @Html.LabelFor(m => m.ConfirmPassword)
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirm password", required = "required" })
-        </div>
+            <div class="mb-3">
+                @Html.LabelFor(m => m.Password, new { @class = "form-label" })
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Krijo fjalëkalim", required = "required" })
+            </div>
 
-        <button type="submit" class="btn btn-success w-100">Register</button>
-    }
+            <div class="mb-4">
+                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "form-label" })
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Konfirmo fjalëkalimin", required = "required" })
+            </div>
+
+            <button type="submit" class="btn btn-register w-100">Regjistrohu</button>
+        }
+    </div>
 </div>

@@ -2,22 +2,21 @@
     ViewBag.Title = "Hotel1";
 }
 
-<h2>Hotel Stone Bridge</h2>
+<h2 class="text-center mb-4" style="color: #2c3e50;">Hotel Stone Bridge</h2>
 <div class="container mt-4">
-    <h2 class="text-center">Rezervoni Hotelin</h2>
     <div class="row">
         <!-- Carousel për fotografitë -->
         <div class="col-md-8">
             <div id="hotelCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="/Content/BesnikFotoHotel/stonebridge1.jpg" class="d-block w-100" alt="Pamje nga Hotel Stone Bridge">
+                        <img src="/Content/BesnikFotoHotel/stonebridge1.jpg" class="d-block w-100 rounded" alt="Pamje nga Hotel Stone Bridge" style="max-height: 400px; object-fit: cover;">
                     </div>
                     <div class="carousel-item">
-                        <img src="/Content/BesnikFotoHotel/stonebridge2.jpg" class="d-block w-100" alt="Pamje e dhomës në Hotel Stone Bridge">
+                        <img src="/Content/BesnikFotoHotel/stonebridge2.jpg" class="d-block w-100 rounded" alt="Pamje e dhomës në Hotel Stone Bridge" style="max-height: 400px; object-fit: cover;">
                     </div>
                     <div class="carousel-item">
-                        <img src="/Content/BesnikFotoHotel/stonebridge3.jpg" class="d-block w-100" alt="Pamje e restorantit në Hotel Stone Bridge">
+                        <img src="/Content/BesnikFotoHotel/stonebridge3.jpg" class="d-block w-100 rounded" alt="Pamje e restorantit në Hotel Stone Bridge" style="max-height: 400px; object-fit: cover;">
                     </div>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#hotelCarousel" data-bs-slide="prev">
@@ -32,7 +31,7 @@
         </div>
         <!-- Përshkrimi i Hotelit -->
         <div class="col-md-4">
-            <h5>Përshkrimi i Hotelit</h5>
+            <h5 style="color: #34495e;">Përshkrimi i Hotelit</h5>
             <p>
                 Stone Bridge Hotel është një hotel luksoz me 5 yje i vendosur në zemër të Shkupit,
                 pranë urës historike prej guri mbi lumin Vardar.
@@ -40,76 +39,89 @@
                 ky hotel ofron një përvojë të paharrueshme për vizitorët e tij.
             </p>
             <ul>
-                Karakteristikat Kryesore
-                <li>Vendndodhje e Përsosur: I pozicionuar në qendër të qytetit, pranë monumenteve kryesore si Ura e Gurit dhe Kalaja e Shkupit, duke e bërë të lehtë eksplorimin e atraksioneve kulturore dhe historike të qytetit.</li>
-                <li>Akomodim Komod: Dhomat janë të dizajnuara me kujdes, duke ofruar një ambient të rehatshëm dhe të pastër për pushim pas një dite të ngarkuar.</li>
-                <li>Shërbime Shtesë: Hoteli ofron një gamë të gjerë shërbimesh për të përmbushur nevojat e mysafirëve, duke përfshirë një pishinë të brendshme dhe një qendër fitnesi.</li>
+                <li><strong>Vendndodhje e Përsosur:</strong> I pozicionuar në qendër të qytetit, pranë monumenteve kryesore si Ura e Gurit dhe Kalaja e Shkupit, duke e bërë të lehtë eksplorimin e atraksioneve kulturore dhe historike të qytetit.</li>
+                <li><strong>Akomodim Komod:</strong> Dhomat janë të dizajnuara me kujdes, duke ofruar një ambient të rehatshëm dhe të pastër për pushim pas një dite të ngarkuar.</li>
+                <li><strong>Shërbime Shtesë:</strong> Hoteli ofron një gamë të gjerë shërbimesh për të përmbushur nevojat e mysafirëve, duke përfshirë një pishinë të brendshme dhe një qendër fitnesi.</li>
             </ul>
         </div>
     </div>
 
-    <div class="container mt-4">
-        <h3 class="text-center mt-5">Rezervoni Periudhën dhe Dhomën</h3>
-        <form id="reservationForm" class="mt-3">
-            <input type="hidden" id="hotelId" value="1" />
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h4 class="reservation-title" style="color: #2980b9; font-weight: 600; margin-bottom: 1rem;">Rezervoni Periudhën dhe Dhomën</h4>
+            <form id="reservationForm" class="d-flex flex-wrap align-items-center gap-3 reservation-form" novalidate>
+                <input type="hidden" id="hotelId" value="1" />
 
-            <!-- Data e rezervimit me ikonë kalendari -->
-            <div class="form-group position-relative" style="max-width:320px; margin-bottom:1rem;">
-                <label for="reservationRange">Zgjidhni Periudhën:</label>
-                <input type="text" id="reservationRange" class="form-control" placeholder="Zgjidhni intervalin e datave" required style="padding-left:2.5rem;" />
-                <span class="input-icon" style="position:absolute; left:12px; top:60%; transform: translateY(-50%); font-size:18px; color:#555; pointer-events:none;">📅</span>
-            </div>
+                <input type="text" id="reservationRange" class="form-control" placeholder="Zgjidhni intervalin e datave" required />
 
-            <!-- Numri i adultëve me ikonë personi -->
-            <div class="form-group position-relative" style="max-width:320px; margin-bottom:1rem;">
-                <label for="adultsCount">Adultë:</label>
-                <input type="number" id="adultsCount" class="form-control" min="1" max="30" value="2" required style="padding-left:2.5rem;" />
-                <span class="input-icon" style="position:absolute; left:12px; top:60%; transform: translateY(-50%); font-size:18px; color:#555; pointer-events:none;">👤</span>
-            </div>
+                <input type="number" id="adultsCount" class="form-control" placeholder="Adultë (1-30)" min="1" max="30" value="2" required />
 
-            <!-- Numri i fëmijëve me ikonë personi -->
-            <div class="form-group position-relative" style="max-width:320px; margin-bottom:1rem;">
-                <label for="childrenCount">Fëmijë (0-17 vjeç):</label>
-                <input type="number" id="childrenCount" class="form-control" min="0" max="10" value="0" style="padding-left:2.5rem;" />
-                <span class="input-icon" style="position:absolute; left:12px; top:60%; transform: translateY(-50%); font-size:18px; color:#555; pointer-events:none;">👤</span>
-            </div>
+                <input type="number" id="childrenCount" class="form-control" placeholder="Fëmijë (0-17 vjeç)" min="0" max="10" value="0" />
 
-            <!-- Numri i dhomave me ikonë shtepie/dhoma -->
-            <div class="form-group position-relative" style="max-width:320px; margin-bottom:1rem;">
-                <label for="roomsCount">Dhomat:</label>
-                <input type="number" id="roomsCount" class="form-control" min="1" max="10" value="1" required style="padding-left:2.5rem;" />
-                <span class="input-icon" style="position:absolute; left:12px; top:60%; transform: translateY(-50%); font-size:18px; color:#555; pointer-events:none;">🏠</span>
-            </div>
+                <input type="number" id="roomsCount" class="form-control" placeholder="Dhomat (1-10)" min="1" max="10" value="1" required />
 
-            <button type="submit" class="btn btn-primary mt-3">Rezervoni</button>
-        </form>
-
-        <div id="message" class="mt-3"></div>
+                <button type="submit" class="btn btn-primary px-4">Rezervoni</button>
+            </form>
+            <div id="message" class="mt-3"></div>
+        </div>
     </div>
+
+    <style>
+        .reservation-form {
+            background: #f9faff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            gap: 15px;
+        }
+
+            .reservation-form input.form-control {
+                max-width: 180px;
+                border: 1.5px solid #2980b9;
+                transition: border-color 0.3s ease;
+            }
+
+                .reservation-form input.form-control:focus {
+                    border-color: #1c5980;
+                    box-shadow: 0 0 8px rgba(41, 128, 185, 0.4);
+                    outline: none;
+                }
+
+            .reservation-form button {
+                background: #2980b9;
+                border: none;
+                font-weight: 600;
+                transition: background-color 0.3s ease;
+            }
+
+                .reservation-form button:hover {
+                    background-color: #1c5980;
+                }
+
+        .reservation-title {
+            text-align: left;
+        }
+    </style>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            // Inicializimi i Flatpickr për zgjedhjen e intervalit të datave
             flatpickr("#reservationRange", {
-                mode: "range", // Lejon zgjedhjen e intervalit të datave
-                dateFormat: "Y-m-d", // Formati i datës
-                minDate: "today", // Data minimale është data e sotme
+                mode: "range",
+                dateFormat: "Y-m-d",
+                minDate: "today",
             });
 
-            // Konstanta e çmimeve
             const pricePerAdultPerNight = 40;
             const pricePerChildPerNight = 10;
             const pricePerRoomPerNight = 40;
             const messageDiv = document.getElementById("message");
 
-            // Funksioni për llogaritjen e çmimit total
             function calculatePrice() {
                 const adultsCount = parseInt(document.getElementById("adultsCount").value, 10) || 0;
                 const childrenCount = parseInt(document.getElementById("childrenCount").value, 10) || 0;
                 const roomsCount = parseInt(document.getElementById("roomsCount").value, 10) || 1;
                 const reservationRange = document.getElementById("reservationRange").value;
 
-                // Kalkulimi i numrit të netëve
                 let nightsCount = 1;
                 if (reservationRange) {
                     const dates = reservationRange.split(" to ");
@@ -131,7 +143,6 @@
                     return;
                 }
 
-                // Llogaritja e çmimit total
                 const totalPrice =
                     nightsCount *
                     (adultsCount * pricePerAdultPerNight +
@@ -141,13 +152,11 @@
                 messageDiv.innerHTML = "<div class='alert alert-info'>Çmimi total: $" + totalPrice.toFixed(2) + "</div>";
             }
 
-            // Lidh eventet input dhe change për të kalkuluar çmimin
             document.getElementById("adultsCount").addEventListener("input", calculatePrice);
             document.getElementById("childrenCount").addEventListener("input", calculatePrice);
             document.getElementById("roomsCount").addEventListener("input", calculatePrice);
             document.getElementById("reservationRange").addEventListener("change", calculatePrice);
 
-            // Submit i formës për rezervim
             document.getElementById("reservationForm").addEventListener("submit", function (event) {
                 event.preventDefault();
 
@@ -191,16 +200,13 @@
                         return response.json();
                     })
                     .then(reservationData => {
-                        console.log("Përgjigja nga serveri:", reservationData); // Debugging për të parë përgjigjen
                         if (reservationData.success) {
                             messageDiv.innerHTML = '<div class="alert alert-success">Rezervimi u krye me sukses. Për detaje, kontrolloni email-in tuaj!</div>';
                         } else {
                             throw new Error(reservationData.message || 'Rezervimi dështoi. Provoni përsëri.');
                         }
                     })
-
                     .catch(error => {
-                        console.error("Gabim:", error.message);
                         messageDiv.innerHTML = `<div class="alert alert-danger">${error.message || 'Ndodhi një gabim. Ju lutem provoni përsëri më vonë.'}</div>`;
                     });
             });

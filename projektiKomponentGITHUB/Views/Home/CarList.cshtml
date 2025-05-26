@@ -5,77 +5,158 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container mt-4">
-    <h2 class="mb-4">Kërko dhe filtro makinat</h2>
+<style>
+    /* Butoni kryesor me gradient dhe hije */
+    .btn-primary {
+        background: linear-gradient(45deg, #0062E6, #33AEFF);
+        border: none;
+        transition: background 0.3s ease, box-shadow 0.3s ease;
+        min-width: 140px;
+        height: 45px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(51, 174, 255, 0.4);
+    }
 
-    <!-- Search Form -->
-    <form method="get" action="@Url.Action("Kerkoveturat", "CarsList")" class="row g-3 mb-5">
-        <!-- Lokacioni -->
-        <div class="col-md-3">
-            <label for="lokacioni" class="form-label">Lokacioni</label>
-            <select class="form-control" name="lokacioni" id="lokacioni">
-                <option value="">Zgjedh Lokacionin</option>
-                <option value="Prishtinë">Prishtinë</option>
-                <option value="Tiranë">Tiranë</option>
-                <option value="Shkup">Shkup</option>
-            </select>
-        </div>
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #004BB5, #1A8CFF);
+            box-shadow: 0 6px 14px rgba(26, 140, 255, 0.7);
+        }
 
-        <!-- Pick-up Date -->
-        <!--<div class="col-md-2">
-            <label for="pickupDate" class="form-label">Pick-up Date</label>
-            <input type="date" class="form-control" name="pickupDate" id="pickupDate" />
-        </div>-->
-        <!-- Pick-up Time -->
-        <!--<div class="col-md-2">
-            <label for="pickupTime" class="form-label">Pick-up Time</label>
-            <input type="time" class="form-control" name="pickupTime" id="pickupTime" />
-        </div>-->
-        <!-- Drop-off Date -->
-        <!--<div class="col-md-2">
-            <label for="dropoffDate" class="form-label">Drop-off Date</label>
-            <input type="date" class="form-control" name="dropoffDate" id="dropoffDate" />
-        </div>-->
-        <!-- Drop-off Time -->
-        <!--<div class="col-md-2">
-            <label for="dropoffTime" class="form-label">Drop-off Time</label>
-            <input type="time" class="form-control" name="dropoffTime" id="dropoffTime" />
-        </div>-->
-        <!-- Lloji i Makinës -->
-        <div class="col-md-3">
-            <label for="llojiMakines" class="form-label">Lloji i Makinës</label>
-            <select class="form-control" name="llojiMakines" id="llojiMakines">
-                <option value="">Zgjedh Llojin</option>
-                <option value="Sedan">Sedan</option>
-                <option value="SUV">SUV</option>
-                <option value="Hatchback">Hatchback</option>
-                <option value="Minivan">Minivan</option>
-                <option value="Sport">Sport</option>
-            </select>
-        </div>
+    /* Kartat e makinave me hijet dhe ngritjen në hover */
+    .card {
+        border-radius: 12px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
 
-        <!-- Kërko Button -->
-        <div class="col-md-2 d-flex align-items-end">
-            <button type="submit" class="btn btn-primary w-100">Kërko</button>
-        </div>
-    </form>
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
 
-    <!-- Rezultatet / Makina të rekomanduara -->
-    <h4 class="mt-5 mb-4">Makina të rekomanduara</h4>
-    <div class="row">
+    /* Foto e makinave me border-radius dhe objekt-fit */
+    .card-img-top {
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    /* Etiketat e filtrimit */
+    label {
+        font-weight: 600;
+        color: #333;
+    }
+
+    /* Kontenieri më i gjerë */
+    .container {
+        max-width: 1100px;
+    }
+
+    /* Teksti për çmimin */
+    .price {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #2a9d8f;
+    }
+
+    /* Titulli i filtrimit */
+    .filter-card h4 {
+        border-bottom: 2px solid #33AEFF;
+        padding-bottom: 8px;
+        margin-bottom: 20px;
+        font-weight: 700;
+        color: #007BFF;
+    }
+
+    /* Form styling për rreshtimin e inputeve dhe butonit */
+    form .row.g-4 {
+        align-items: end; /* Në fund vertikalisht */
+    }
+
+    /* Stilizimi i dropdown-ve */
+    select.form-select {
+        height: 45px;
+        font-size: 1rem;
+        border-radius: 8px;
+        transition: border-color 0.3s ease;
+        border: 1.5px solid #ced4da;
+    }
+
+        select.form-select:focus {
+            border-color: #33AEFF;
+            box-shadow: 0 0 8px rgba(51, 174, 255, 0.5);
+            outline: none;
+        }
+
+    /* Titulli i faqes më profesional dhe i stilizuar */
+    .page-title {
+        font-size: 2.8rem;
+        font-weight: 800;
+        color: #007BFF;
+        text-align: center;
+        margin-bottom: 50px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        text-shadow: 2px 2px 8px rgba(0, 123, 255, 0.3);
+    }
+</style>
+
+<div class="container mt-5">
+    <h2 class="page-title">Shijo Vozitjen</h2>
+
+    <!-- Forma e filtrimit -->
+    <div class="card p-4 mb-5 shadow-sm filter-card">
+        <h4>Filtro makinat</h4>
+        <form method="get" action="@Url.Action("Kerkoveturat", "CarsList")">
+            <div class="row g-4 align-items-end">
+                <div class="col-md-6 col-lg-4">
+                    <label for="lokacioni">Lokacioni</label>
+                    <select class="form-select" name="lokacioni" id="lokacioni" aria-label="Zgjedh Lokacionin">
+                        <option value="" selected>Zgjedh Lokacionin</option>
+                        <option value="Prishtinë">Prishtinë</option>
+                        <option value="Tiranë">Tiranë</option>
+                        <option value="Shkup">Shkup</option>
+                    </select>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <label for="llojiMakines">Lloji i Makinës</label>
+                    <select class="form-select" name="llojiMakines" id="llojiMakines" aria-label="Zgjedh Llojin">
+                        <option value="" selected>Zgjedh Llojin</option>
+                        <option value="Sedan">Sedan</option>
+                        <option value="SUV">SUV</option>
+                        <option value="Hatchback">Hatchback</option>
+                        <option value="Minivan">Minivan</option>
+                        <option value="Sport">Sport</option>
+                    </select>
+                </div>
+
+                <div class="col-md-12 col-lg-4 text-lg-end text-center">
+                    <button type="submit" class="btn btn-primary px-5 py-2 shadow-sm">Kërko</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Rezultatet -->
+    <h4 class="mb-4 fw-bold text-center text-primary">Makina të rekomanduara</h4>
+    <div class="row g-4">
         @if (Model != null && Model.Count > 0)
         {
             foreach (var vetura in Model)
             {
-                <div class="col-md-4 mb-4">
+                <div class="col-md-6 col-lg-4">
                     <div class="card h-100 shadow-sm">
                         <img src="@Url.Content(vetura.FotoPath)" class="card-img-top" alt="@vetura.Emri" />
-                        <div class="card-body">
-                            <h5 class="card-title">@vetura.Emri</h5>
-                            <p class="card-text">Lloji: @vetura.Kategoria</p>
-                            <p class="text-muted">Çmimi: €@vetura.Price/ditë</p>
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title fw-semibold">@vetura.Emri</h5>
+                            <p class="card-text mb-1">Lloji: <span class="text-secondary">@vetura.Kategoria</span></p>
+                            <p class="price mb-3">Çmimi: €@vetura.Price / ditë</p>
                             <a href="@Url.Action("Details", "ListaEMakinave", new { id = vetura.Id })"
-                               class="btn btn-outline-primary mt-2">Shiko Detajet</a>
+                               class="btn btn-outline-primary mt-auto align-self-start">Shiko Detajet</a>
                         </div>
                     </div>
                 </div>
@@ -83,8 +164,7 @@
         }
         else
         {
-            <p>Nuk ka makina të rekomanduara për momentin.</p>
+            <p class="text-center text-muted fst-italic">Nuk ka makina të rekomanduara për momentin.</p>
         }
     </div>
-
 </div>

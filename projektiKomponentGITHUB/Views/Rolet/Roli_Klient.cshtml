@@ -2,51 +2,164 @@
     ViewBag.Title = "Roli_Klient";
 }
 
-<div class="container mt-5">
-    <h2>Paneli i Klientit</h2>
+<style>
+    /* Titulli kryesor */
+    .client-title {
+        font-size: 2.25rem;
+        font-weight: 700;
+        color: #0d6efd;
+        text-align: center;
+        margin-bottom: 40px;
+        text-shadow: 0 2px 6px rgba(13, 110, 253, 0.25);
+        letter-spacing: 1.2px;
+    }
 
-    <!-- Rreshti me kartat dhe ndryshimin e fjalëkalimit -->
+    /* Kartat me hotele dhe vetura */
+    .card-custom {
+        border-radius: 16px;
+        background-color: #ffffff;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+        transition: transform 0.3s ease;
+        padding: 30px 25px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+    }
+
+        .card-custom:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-custom h4 {
+            font-weight: 700;
+            color: #0d6efd;
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+            letter-spacing: 0.03em;
+        }
+
+        .card-custom p {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+
+    /* Butonët blu elegantë, njësoj si në kodet paraprake */
+    .btn-blue {
+        background-color: #0d6efd;
+        border: none;
+        border-radius: 12px;
+        padding: 12px 26px;
+        font-weight: 600;
+        color: white;
+        font-size: 1rem;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        display: inline-block;
+        width: fit-content;
+        align-self: flex-start;
+        cursor: pointer;
+    }
+
+        .btn-blue:hover {
+            background-color: #0848c8;
+            box-shadow: 0 6px 20px rgba(8, 72, 200, 0.45);
+            color: white;
+            text-decoration: none;
+        }
+
+    /* Formularët */
+    .form-control {
+        border-radius: 12px;
+        height: 45px;
+        font-size: 1rem;
+    }
+
+    /* Titujt e seksioneve */
+    .section-title {
+        font-weight: 700;
+        color: #0d6efd;
+        font-size: 1.75rem;
+        margin-bottom: 30px;
+        letter-spacing: 0.05em;
+        text-align: center;
+        text-shadow: 0 1px 4px rgba(13, 110, 253, 0.25);
+    }
+
+    /* Titulli “Rezervimet e mia” */
+    .reservations-title {
+        color: #495057;
+        font-weight: 700;
+        font-size: 1.6rem;
+        margin-bottom: 25px;
+        text-align: left;
+        border-bottom: 2px solid #0d6efd;
+        padding-bottom: 8px;
+        letter-spacing: 0.04em;
+    }
+
+    /* Tabela */
+    .table thead th {
+        background-color: #495057 !important;
+        color: white;
+        font-weight: 600;
+        font-size: 1rem;
+        letter-spacing: 0.02em;
+    }
+
+    .table td, .table th {
+        vertical-align: middle;
+        font-size: 1rem;
+    }
+</style>
+
+<div class="container mt-5">
+    <h2 class="client-title">Paneli i Klientit</h2>
+
     <div class="row mt-4 d-flex align-items-stretch">
-        <!-- Kolona e majte -->
-        <div class="col-md-6">
-            <div class="d-flex flex-column h-100 gap-3">
-                <!-- Kerko Hotele -->
-                <div class="card p-3 shadow-sm flex-fill">
-                    <h4>Kërko Hotele</h4>
+        <!-- Kolona e majtë -->
+        <div class="col-md-6 mb-4 mb-md-0">
+            <div class="d-flex flex-column h-100 gap-4">
+                <!-- Kërko Hotele -->
+                <div class="card card-custom">
+                    <h4>Shto Lista e Hoteleve</h4>
                     <p>Kërko dhe rezervo shpejt hotelet në dispozicion.</p>
-                    <a href="@Url.Action("HotelList", "Home")" class="btn btn-primary">Shko te Lista e Hoteleve</a>
+                    <a href="@Url.Action("HotelList", "Home")" class="btn btn-blue">Shto Lista e Hoteleve</a>
                 </div>
 
-                <!-- Kerko Vetura -->
-                <div class="card p-3 shadow-sm flex-fill">
-                    <h4>Kërko Vetura</h4>
-                    <p>Kërko veturat për qira.</p>
-                    <a href="@Url.Action("CarList", "Home")" class="btn btn-primary">Shko te Veturat</a>
+                <!-- Kërko Vetura -->
+                <div class="card card-custom">
+                    <h4>Shko te Veturat</h4>
+                    <p>Kërko veturat për qira dhe rezervo menjëherë.</p>
+                    <a href="@Url.Action("CarList", "Home")" class="btn btn-blue">Shko te Veturat</a>
                 </div>
             </div>
         </div>
 
-        <!-- Kolona e djathte: Ndrysho Fjalëkalimin -->
+        <!-- Kolona e djathtë: Ndrysho Fjalëkalimin -->
         <div class="col-md-6">
-            <div class="card p-4 shadow-sm h-100">
-                <h4>Ndrysho Fjalëkalimin</h4>
+            <div class="card p-4 card-custom h-100">
+                <h4 class="section-title">Ndrysho Fjalëkalimin</h4>
                 <form method="post" action="@Url.Action("ChangePassword", "Rolet")">
                     <div class="form-group mt-2">
-                        <label>Përdoruesi</label>
-                        <input type="text" name="Username" class="form-control" placeholder="Shkruaj përdoruesin">
+                        <label class="form-label">Përdoruesi</label>
+                        <input type="text" name="Username" class="form-control" placeholder="Shkruaj përdoruesin" required>
                     </div>
 
                     <div class="form-group mt-3">
-                        <label>Fjalëkalimi Aktual</label>
-                        <input type="password" name="CurrentPassword" class="form-control" placeholder="Shkruaj fjalëkalimin aktual">
+                        <label class="form-label">Fjalëkalimi Aktual</label>
+                        <input type="password" name="CurrentPassword" class="form-control" placeholder="Shkruaj fjalëkalimin aktual" required>
                     </div>
 
                     <div class="form-group mt-3">
-                        <label>Fjalëkalimi i Ri</label>
-                        <input type="password" name="NewPassword" class="form-control" placeholder="Shkruaj fjalëkalimin e ri">
+                        <label class="form-label">Fjalëkalimi i Ri</label>
+                        <input type="password" name="NewPassword" class="form-control" placeholder="Shkruaj fjalëkalimin e ri" required>
                     </div>
 
-                    <button type="submit" class="btn btn-success mt-4">Ndrysho Fjalëkalimin</button>
+                    <button type="submit" class="btn btn-blue mt-4">Ndrysho Fjalëkalimin</button>
                 </form>
 
                 @if (ViewBag.PasswordChangeError != null)
@@ -61,14 +174,12 @@
         </div>
     </div>
 
-    <!-- Ndares -->
     <hr class="my-5" />
 
-    <!-- Seksioni: Rezervimet e mia -->
-    <h4>Rezervimet e mia</h4>
+    <h4 class="reservations-title">Rezervimet e mia</h4>
 
     <table class="table table-bordered table-striped mt-3">
-        <thead class="table-primary text-center">
+        <thead class="text-center">
             <tr>
                 <th>Emri</th>
                 <th>Mbiemri</th>

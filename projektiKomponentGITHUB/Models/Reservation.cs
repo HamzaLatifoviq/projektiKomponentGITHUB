@@ -29,7 +29,7 @@ namespace projektiKomponentGITHUB.Models
         public int RoomsCount { get; set; }
 
         [Required]
-        [Column(TypeName = "decimal(18,2)")] // përshtat formatin decimal sipas db
+        /*[Column(TypeName = "decimal(18,2)")] // përshtat formatin decimal sipas db*/
         public decimal Price { get; set; }
 
 
