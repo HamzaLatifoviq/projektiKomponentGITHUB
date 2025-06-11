@@ -80,10 +80,17 @@
 </div>
 
 <script>
-    document.getElementById("rezervoBtn")?.addEventListener("click", function () {
-        showReservationMessages();
-    });
+    // Shto mesazh në chat
+    function addMessage(sender, message) {
+        const chatMessages = document.getElementById("chat-messages");
+        const newMessage = document.createElement("div");
+        newMessage.className = sender === "ChatBot" ? "chat-message bot" : "chat-message user";
+        newMessage.innerHTML = `<strong>${sender}:</strong> ${message}`;
+        chatMessages.appendChild(newMessage);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
 
+    // Funksioni për të shfaqur mesazhet e rezervimit
     function showReservationMessages() {
         const chatBox = document.getElementById("chat-box");
         const chatToggle = document.getElementById("chat-toggle");
@@ -102,12 +109,11 @@
         }, 1500);
     }
 
-    function addMessage(sender, message) {
-        const chatMessages = document.getElementById("chat-messages");
-        const newMessage = document.createElement("div");
-        newMessage.className = sender === "ChatBot" ? "chat-message bot" : "chat-message user";
-        newMessage.innerHTML = `<strong>${sender}:</strong> ${message}`;
-        chatMessages.appendChild(newMessage);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
+    // Lidhu me butonin ekzistues me id="rezervoBtn"
+    document.addEventListener("DOMContentLoaded", function () {
+        const rezervimi = document.getElementById("rezervoBtn");
+        if (rezervimi) {
+            rezervimi.addEventListener("click", showReservationMessages);
+        }
+    });
 </script>

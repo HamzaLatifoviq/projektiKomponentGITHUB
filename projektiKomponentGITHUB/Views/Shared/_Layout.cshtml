@@ -96,7 +96,7 @@
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #fd7e14;">
         <div class="container">
-            @Html.ActionLink("CarRental", "HomePage", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            @Html.ActionLink("CarBooking", "HomePage", "Home", new { area = "" }, new { @class = "navbar-brand" })
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -124,16 +124,15 @@
     <!-- CHAT ICON + BOX -->
     <div id="chat-toggle" onclick="toggleChat()">💬</div>
 
-    <div id="chat-box">
+    <div id="chat-box" style="display: none;">
         <div id="chat-header">
             Live Chat
             <span id="minimize-chat" onclick="toggleChat()">−</span>
         </div>
-        <div id="chat-messages"></div>
+        <div id="chat-messages" style="height: 200px; overflow-y: auto; padding: 10px;"></div>
         <div id="chat-input-area">
             <input type="text" id="user-input" placeholder="Shkruaj mesazhin këtu..." />
             <button onclick="sendMessage()">Dërgo</button>
-            <button onclick="showReservationMessages()">Rezervo</button>
         </div>
     </div>
 
@@ -176,10 +175,9 @@
             addMessage("Ju", text);
             input.value = "";
 
+            // Përgjigje automatike nëse shkruan "pershendetje"
             const lowerText = text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-            const keyword = "pershendetje, hello, si je";
-
-            if (lowerText.includes(keyword)) {
+            if (lowerText.includes("pershendetje")) {
                 setTimeout(() => {
                     addMessage("ChatBot", "Përshëndetje! Si mund të ju ndihmoj?");
                 }, 500);
@@ -191,24 +189,6 @@
                 sendMessage();
             }
         });
-
-        function showReservationMessages() {
-            const chatBox = document.getElementById("chat-box");
-            const chatToggle = document.getElementById("chat-toggle");
-
-            if (chatBox.style.display === "none") {
-                chatBox.style.display = "flex";
-                chatToggle.style.display = "none";
-            }
-
-            setTimeout(() => {
-                addMessage("ChatBot", "Ju sapo keni rezervuar.");
-            }, 500);
-
-            setTimeout(() => {
-                addMessage("ChatBot", "24 orë para pickup time do të merrni një kujtesë rreth rezervimit.");
-            }, 1500);
-        }
     </script>
 </body>
 </html>
