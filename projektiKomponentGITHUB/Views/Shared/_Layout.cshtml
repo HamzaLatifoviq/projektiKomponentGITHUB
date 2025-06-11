@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - BookingApp</title>
+    <title>@ViewBag.Title - CarRental</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <style>
@@ -11,7 +11,7 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background-color: #007bff;
+            background-color: #fd7e14; /* orange */
             color: white;
             width: 50px;
             height: 50px;
@@ -41,7 +41,7 @@
         }
 
         #chat-header {
-            background-color: #007bff;
+            background-color: #fd7e14; /* orange */
             color: white;
             padding: 10px;
             font-weight: bold;
@@ -79,7 +79,7 @@
 
             #chat-input-area button {
                 padding: 8px 10px;
-                background: #007bff;
+                background: #fd7e14; /* orange */
                 color: white;
                 border: none;
                 border-radius: 5px;
@@ -88,21 +88,20 @@
             }
 
                 #chat-input-area button:hover {
-                    background: #0056b3;
+                    background: #e96b10;
                 }
     </style>
 </head>
 <body>
     <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #fd7e14;">
         <div class="container">
-            @Html.ActionLink("BookingApp", "HomePage", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            @Html.ActionLink("CarRental", "HomePage", "Home", new { area = "" }, new { @class = "navbar-brand" })
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">@Html.ActionLink("Hotel List", "HotelList", "Home", null, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Car List", "CarList", "Home", null, new { @class = "nav-link" })</li>
 
                     @if (Session["Username"] == null)
@@ -142,7 +141,7 @@
         @RenderBody()
         <hr />
         <footer class="text-center mt-4">
-            <p>&copy; @DateTime.Now.Year - BookingApp</p>
+            <p>&copy; @DateTime.Now.Year - CarRental</p>
         </footer>
     </div>
 
@@ -187,7 +186,6 @@
             }
         }
 
-        // ENTER shtyp automatikisht dërgimin
         document.getElementById("user-input").addEventListener("keypress", function (e) {
             if (e.key === "Enter") {
                 sendMessage();

@@ -6,9 +6,9 @@
 }
 
 <style>
-    /* Butoni kryesor me gradient dhe hije */
+    /* Butoni kryesor me gradient portokalli */
     .btn-primary {
-        background: linear-gradient(45deg, #0062E6, #33AEFF);
+        background: linear-gradient(45deg, #ff6f00, #ff8f00);
         border: none;
         transition: background 0.3s ease, box-shadow 0.3s ease;
         min-width: 140px;
@@ -16,12 +16,12 @@
         font-size: 1.1rem;
         font-weight: 600;
         border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(51, 174, 255, 0.4);
+        box-shadow: 0 4px 8px rgba(255, 143, 0, 0.4);
     }
 
         .btn-primary:hover {
-            background: linear-gradient(45deg, #004BB5, #1A8CFF);
-            box-shadow: 0 6px 14px rgba(26, 140, 255, 0.7);
+            background: linear-gradient(45deg, #e65100, #ff6f00);
+            box-shadow: 0 6px 14px rgba(255, 143, 0, 0.6);
         }
 
     /* Kartat e makinave me hijet dhe ngritjen në hover */
@@ -35,7 +35,6 @@
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
         }
 
-    /* Foto e makinave me border-radius dhe objekt-fit */
     .card-img-top {
         border-top-left-radius: 12px;
         border-top-right-radius: 12px;
@@ -43,39 +42,33 @@
         object-fit: cover;
     }
 
-    /* Etiketat e filtrimit */
     label {
         font-weight: 600;
         color: #333;
     }
 
-    /* Kontenieri më i gjerë */
     .container {
         max-width: 1100px;
     }
 
-    /* Teksti për çmimin */
     .price {
         font-size: 1.1rem;
         font-weight: 700;
-        color: #2a9d8f;
+        color: #e65100;
     }
 
-    /* Titulli i filtrimit */
     .filter-card h4 {
-        border-bottom: 2px solid #33AEFF;
+        border-bottom: 2px solid #ff8f00;
         padding-bottom: 8px;
         margin-bottom: 20px;
         font-weight: 700;
-        color: #007BFF;
+        color: #ff6f00;
     }
 
-    /* Form styling për rreshtimin e inputeve dhe butonit */
     form .row.g-4 {
-        align-items: end; /* Në fund vertikalisht */
+        align-items: end;
     }
 
-    /* Stilizimi i dropdown-ve */
     select.form-select {
         height: 45px;
         font-size: 1rem;
@@ -85,23 +78,37 @@
     }
 
         select.form-select:focus {
-            border-color: #33AEFF;
-            box-shadow: 0 0 8px rgba(51, 174, 255, 0.5);
+            border-color: #ff8f00;
+            box-shadow: 0 0 8px rgba(255, 143, 0, 0.5);
             outline: none;
         }
 
-    /* Titulli i faqes më profesional dhe i stilizuar */
     .page-title {
         font-size: 2.8rem;
         font-weight: 800;
-        color: #007BFF;
+        color: #ff6f00;
         text-align: center;
         margin-bottom: 50px;
         text-transform: uppercase;
         letter-spacing: 2px;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        text-shadow: 2px 2px 8px rgba(0, 123, 255, 0.3);
+        text-shadow: 2px 2px 8px rgba(255, 143, 0, 0.3);
     }
+
+    .text-primary {
+        color: #ff6f00 !important;
+    }
+
+    .btn-outline-primary {
+        border-color: #ff6f00;
+        color: #ff6f00;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+        .btn-outline-primary:hover {
+            background-color: #ff6f00;
+            color: white;
+        }
 </style>
 
 <div class="container mt-5">

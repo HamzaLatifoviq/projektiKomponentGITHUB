@@ -131,7 +131,6 @@
     <Compile Include="Controllers\CarsListController.cs" />
     <Compile Include="Controllers\EditVehiclePriceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\HoteletViewController.cs" />
     <Compile Include="Controllers\ListaEMakinaveController.cs" />
     <Compile Include="Controllers\ModuliRezervimeveController.cs" />
     <Compile Include="Controllers\PagesaTransaksionetController.cs" />
@@ -144,14 +143,12 @@
     </Compile>
     <Compile Include="Models\BookingViewModel.cs" />
     <Compile Include="Models\DbContext.cs" />
-    <Compile Include="Models\Hotel.cs" />
     <Compile Include="Models\LoginView.cs" />
     <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\Payment2Hotel.cs" />
     <Compile Include="Models\Reservation.cs" />
     <Compile Include="Models\ReservationViewModel.cs" />
     <Compile Include="Models\Review.cs" />
-    <Compile Include="Models\Room.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserCreate.cs" />
     <Compile Include="Models\UserViewModel.cs" />
@@ -212,17 +209,14 @@
     <Content Include="Views\Home\ContactPage.cshtml" />
     <Content Include="Views\RegisterLogin\RegisterView.cshtml" />
     <Content Include="Views\RegisterLogin\LoginView.cshtml" />
-    <Content Include="Views\Home\HotelList.cshtml" />
     <Content Include="Views\Home\CarList.cshtml" />
     <Content Include="Views\PagesaTransaksionet\PagesatTransaksionetView.cshtml" />
     <Content Include="Views\PagesaTransaksionet\PagesatView.cshtml" />
     <Content Include="Views\Rolet\Roli_Klient.cshtml" />
     <Content Include="Views\Rolet\Roli_Admin.cshtml" />
-    <Content Include="Views\Rolet\Roli_HotelManager.cshtml" />
     <Content Include="Views\Veturat\Roli_VeturManager.cshtml" />
     <Content Include="Views\Rolet\Roli_Test.cshtml" />
     <Content Include="Views\CarsList\Kerkoveturat.cshtml" />
-    <Content Include="Views\ModuliRezervimeve\rezervimHoteli.cshtml" />
     <Content Include="Views\ListaEMakinave\View1.cshtml" />
     <Content Include="Views\ListaEMakinave\View2.cshtml" />
     <Content Include="Views\ListaEMakinave\View3.cshtml" />
@@ -232,12 +226,6 @@
     <Content Include="Views\ListaEMakinave\View7.cshtml" />
     <Content Include="Views\ListaEMakinave\View8.cshtml" />
     <Content Include="Views\ListaEMakinave\View9.cshtml" />
-    <Content Include="Views\HoteletView\Hotel1.cshtml" />
-    <Content Include="Views\HoteletView\Hotel2.cshtml" />
-    <Content Include="Views\HoteletView\Hotel3.cshtml" />
-    <Content Include="Views\HoteletView\Hotel4.cshtml" />
-    <Content Include="Views\HoteletView\Hotel5.cshtml" />
-    <Content Include="Views\HoteletView\Hotel6.cshtml" />
     <Content Include="Views\PagesaTransaksionet\SuksesPagesa.cshtml" />
     <Content Include="Views\Rolet\EditUser.cshtml" />
     <Content Include="Views\Rolet\CreateUser.cshtml" />

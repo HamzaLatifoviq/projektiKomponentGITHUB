@@ -20,7 +20,7 @@
     .login-title {
         font-size: 2rem;
         font-weight: 700;
-        color: #007bff;
+        color: #ff7f00; /* Portokalli kryesore */
         text-align: center;
         margin-bottom: 25px;
     }
@@ -38,24 +38,24 @@
     }
 
         .form-control:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+            border-color: #ff7f00;
+            box-shadow: 0 0 10px rgba(255, 127, 0, 0.3);
             outline: none;
         }
 
     .btn-login {
-        background: linear-gradient(45deg, #007bff, #00c6ff);
+        background: linear-gradient(45deg, #ff7f00, #ffae00); /* Gradient portokalli */
         border: none;
         color: white;
         font-weight: 600;
         padding: 10px 30px;
         border-radius: 8px;
-        box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+        box-shadow: 0 4px 10px rgba(255, 140, 0, 0.3);
         transition: background 0.3s ease, transform 0.2s ease;
     }
 
         .btn-login:hover {
-            background: linear-gradient(45deg, #0056b3, #00aaff);
+            background: linear-gradient(45deg, #e67300, #ff9900);
             transform: translateY(-2px);
         }
 
@@ -67,13 +67,15 @@
     }
 
         .register-link a {
-            color: #007bff;
+            color: #ff7f00;
             font-weight: 500;
             text-decoration: none;
+            transition: color 0.2s;
         }
 
             .register-link a:hover {
                 text-decoration: underline;
+                color: #e67300;
             }
 </style>
 

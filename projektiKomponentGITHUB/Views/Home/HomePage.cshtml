@@ -6,67 +6,26 @@
 <style>
     .card-img-top {
         width: 100%;
-        height: 250px; /* Mund ta ndryshosh sipas nevojës */
+        height: 250px;
         object-fit: cover;
     }
 </style>
-<div class="container mt-5">
-    <div class="jumbotron text-center text-white p-5 rounded position-relative overflow-hidden" style="background: url('@Url.Content("~/Content/ArtinFoto/banner.jpg")') no-repeat center center; background-size: cover;">
-        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.5); z-index: 1;"></div>
 
+<div class="container mt-5">
+    <div class="jumbotron text-center text-white p-5 rounded position-relative overflow-hidden"
+         style="background-color: #fd7e14;">
+        <!-- Ngjyra portokalli -->
         <div style="position: relative; z-index: 2;">
-            <h1 class="display-4">Welcome to Our Hotel Booking Platform</h1>
-            <p class="lead">Find and book your perfect stay with ease and comfort.</p>
+            <h1 class="display-4">Welcome to CarBooking</h1>
+            <p class="lead">Find and book your perfect ride with ease and comfort.</p>
             <hr class="my-4" />
-            <p>Explore top-rated hotels and enjoy your travel!</p>
-            <a class="btn btn-primary btn-lg" href="@Url.Action("HotelList", "Home")" role="button">Browse All Hotels</a>
+            <p>Explore top-rated cars and enjoy your journey!</p>
+            <a class="btn btn-light btn-lg" href="@Url.Action("CarList", "Home")" role="button">Browse All Cars</a>
         </div>
     </div>
-
-    <!-- View Our Hotels Section -->
-    <section class="mt-5">
-        <h2 class="mb-4 text-center">View Our Hotels</h2>
-
-        <div class="row">
-            <!-- Example Hotel Card -->
-            <div class="col-md-4 mb-4">
-                <div class="card h-100 shadow">
-                    <img src="~/Content/ArtinFoto/grand.jpg" class="card-img-top" alt="GrandHotel">
-                    <div class="card-body">
-                        <h5 class="card-title">Grand Palace Hotel</h5>
-                        <p class="card-text">Located in the heart of the city. Luxury rooms starting from $120/night.</p>
-                        <a href="#" class="btn btn-outline-primary">View Details</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Duplicate/Copy this block for more hotels -->
-            <div class="col-md-4 mb-4">
-                <div class="card h-100 shadow">
-                    <img src="~/Content/ArtinFoto/beachresort.jpg" class="card-img-top" alt="BeachResort">
-                    <div class="card-body">
-                        <h5 class="card-title">Ocean Breeze Resort</h5>
-                        <p class="card-text">A relaxing getaway near the beach. Rooms from $150/night.</p>
-                        <a href="#" class="btn btn-outline-primary">View Details</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 mb-4">
-                <div class="card h-100 shadow">
-                    <img src="~/Content/ArtinFoto/mountain.jpg" class="card-img-top" alt="MountainResort">
-                    <div class="card-body">
-                        <h5 class="card-title">Mountain Retreat</h5>
-                        <p class="card-text">Peaceful and scenic location. Starting from $100/night.</p>
-                        <a href="#" class="btn btn-outline-primary">View Details</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 </div>
 
-<!-- Sistemi i Rating dhe komenter -->
+<!-- Sistemi i Rating dhe komenteve -->
 <div class="container my-5">
     <h3 class="text-center mb-4">Rate Our Platform & Service</h3>
 
@@ -102,7 +61,7 @@
             </form>
         </div>
 
-        <!-- Right: User Comments (nga DB) -->
+        <!-- Right: User Comments -->
         <div class="col-md-6 mb-4">
             <div class="bg-light p-4 rounded shadow-sm h-100" style="max-height: 400px; overflow-y: auto;">
                 <h5 class="mb-3">Recent Reviews</h5>
@@ -136,7 +95,6 @@
     </div>
 </div>
 
-<!-- Font Awesome për yjet -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
 <style>
@@ -161,9 +119,16 @@
     }
 
     .btn-primary {
+        background-color: #fd7e14 !important; /* portokalli */
+        border-color: #fd7e14 !important;
         border-radius: 30px;
         font-size: 1.1rem;
     }
+
+        .btn-primary:hover {
+            background-color: #e96b0c !important; /* më e errët për hover */
+            border-color: #e96b0c !important;
+        }
 
     .form-group label {
         font-weight: 600;
