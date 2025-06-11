@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197 d17.13
+VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "projektiKomponentGITHUB", "projektiKomponentGITHUB\projektiKomponentGITHUB.csproj", "{E9A28FBF-2B5D-46DE-A9B3-103C12D28AF2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "projektiUEB", "projektiKomponentGITHUB\projektiUEB.csproj", "{E9A28FBF-2B5D-46DE-A9B3-103C12D28AF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -12,18 +12,17 @@
                  style="max-height: 450px; width: 100%; object-fit: cover;">
         </div>
         <div class="col-md-6">
-            <h3 class="text-primary">Audi A4 ose Sedan i ngjashëm</h3>
+            <h3 class="text-warning">Audi A4 ose Sedan i ngjashëm</h3>
             <p class="text-muted mb-1"><i class="bi bi-geo-alt-fill me-1"></i>Tiranë · 1.2 km nga qendra</p>
             <p class="text-muted mb-1"><i class="bi bi-gear-fill me-1"></i>Automatike · <i class="bi bi-fuel-pump me-1"></i>Benzinë</p>
             <p class="mt-2">Sedan elegant dhe ekonomik me rehati.</p>
         </div>
     </div>
 
-    <!-- Pajisjet shtesë për Audi A4 -->
     <!-- Pajisjet shtesë dhe Pick-up/Drop-off njëra pranë tjetrës -->
     <div class="row bg-white shadow rounded p-4">
         <div class="col-md-6">
-            <h5 class="mb-4 text-primary"><i class="bi bi-plus-circle-dotted me-2"></i>Pajisje shtesë</h5>
+            <h5 class="mb-4 text-warning"><i class="bi bi-plus-circle-dotted me-2"></i>Pajisje shtesë</h5>
 
             <form>
                 <div class="form-check mb-3">
@@ -40,7 +39,6 @@
                     </label>
                 </div>
 
-
                 <div class="form-check mb-3">
                     <input class="form-check-input" type="checkbox" id="extraInsurance">
                     <label class="form-check-label" for="extraInsurance">
@@ -55,7 +53,7 @@
                     </label>
                 </div>
 
-                <button type="button" class="btn btn-primary w-50">Rezervo</button>
+                <button type="button" class="btn btn-warning w-50">Rezervo</button>
             </form>
         </div>
 
@@ -78,11 +76,11 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>
+
 <script>
-    document.getElementById("rezervoBtn").addEventListener("click", function () {
+    document.getElementById("rezervoBtn")?.addEventListener("click", function () {
         showReservationMessages();
     });
 

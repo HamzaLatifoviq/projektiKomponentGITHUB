@@ -145,7 +145,6 @@
     <Compile Include="Models\DbContext.cs" />
     <Compile Include="Models\LoginView.cs" />
     <Compile Include="Models\Payment.cs" />
-    <Compile Include="Models\Payment2Hotel.cs" />
     <Compile Include="Models\Reservation.cs" />
     <Compile Include="Models\ReservationViewModel.cs" />
     <Compile Include="Models\Review.cs" />
@@ -247,9 +246,8 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\1foto\" />
     <Folder Include="Content\ArtinFoto\" />
-    <Folder Include="Content\BesnikFotoHotel\" />
+    <Folder Include="Content\Fotos\" />
     <Folder Include="Content\Images\Veturat\" />
-    <Folder Include="Content\ValmirFoto\" />
     <Folder Include="Views\Account\" />
   </ItemGroup>
   <ItemGroup>
